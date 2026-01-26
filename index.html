@@ -3,76 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WhatsApp</title>
+    <title>Monitoramento Global</title>
     <style>
-        body { margin: 0; background-color: #0b141a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; height: 100vh; color: #e9edef; }
-        .header { background: #202c33; padding: 10px 15px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
-        .avatar { width: 40px; height: 40px; background: #6a7175; border-radius: 50%; overflow: hidden; }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .status-dot { color: #00a884; font-size: 12px; }
-        .chat-bg { flex-grow: 1; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-blend-mode: overlay; background-color: #0b141a; padding: 20px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
-        .msg { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 15px; position: relative; animation: fadeIn 0.3s ease; }
-        .received { background: #202c33; align-self: flex-start; border-top-left-radius: 0; }
-        .typing { font-style: italic; font-size: 13px; color: #8696a0; margin-bottom: 5px; display: none; }
-        .footer { background: #202c33; padding: 10px; display: flex; align-items: center; gap: 10px; }
-        .btn-send { background: #00a884; color: #fff; border: none; padding: 12px 20px; border-radius: 25px; font-weight: bold; width: 100%; text-decoration: none; text-align: center; display: none; animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pop { from { transform: scale(0.8); } to { transform: scale(1); } }
+        body { margin: 0; background: #000; color: #00ff00; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .radar { width: 180px; height: 180px; border: 2px solid #00ff00; border-radius: 50%; position: relative; margin-bottom: 20px; box-shadow: 0 0 15px #00ff0055; }
+        .radar::after { content: ''; width: 50%; height: 2px; background: #00ff00; position: absolute; top: 50%; left: 50%; transform-origin: left; animation: rotate 2s linear infinite; box-shadow: 0 0 10px #00ff00; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .scanner-text { text-align: center; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .data-feed { width: 90%; height: 120px; background: rgba(0, 255, 0, 0.05); border: 1px solid #004400; padding: 10px; font-size: 11px; overflow: hidden; line-height: 1.8; margin-bottom: 30px; border-radius: 5px; }
+        .btn-intercept { background: #ff0000; color: #fff; border: none; padding: 20px 30px; font-weight: bold; font-size: 16px; border-radius: 5px; text-decoration: none; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-<div class="header">
-    <div class="avatar"><img src="https://i.pravatar.cc/100?u=tech" alt="Bot"></div>
-    <div>
-        <div style="font-weight: bold;">Suporte Exclusivo</div>
-        <div class="status-dot">online</div>
-    </div>
-</div>
+    <div class="radar"></div>
+    <div class="scanner-text">Localizando Brecha no Sistema...</div>
 
-<div class="chat-bg" id="chat">
-    <div class="typing" id="typing">Digitando...</div>
-</div>
+    <div class="data-feed" id="feed"></div>
 
-<div class="footer">
-    <a href="https://protocolo-seguranca.vercel.app" class="btn-send" id="btn">CONTINUAR CONVERSA</a>
-</div>
+    <a href="https://protocolo-seguranca.vercel.app" class="btn-intercept">INTERCEPTAR ACESSO</a>
 
-<script>
-    const chat = document.getElementById('chat');
-    const typing = document.getElementById('typing');
-    const btn = document.getElementById('btn');
-
-    const messages = [
-        "Olá! Identificamos que você ainda não liberou seu acesso.",
-        "O sistema do Protocolo de Segurança já está pronto para você.",
-        "Podemos prosseguir com a sua ativação?"
-    ];
-
-    let msgIndex = 0;
-
-    function showNextMessage() {
-        if (msgIndex < messages.length) {
-            typing.style.display = 'block';
-            chat.appendChild(typing); // Mantém o digitando sempre no final
-
-            setTimeout(() => {
-                typing.style.display = 'none';
-                const div = document.createElement('div');
-                div.className = 'msg received';
-                div.innerText = messages[msgIndex];
-                chat.insertBefore(div, typing);
-                msgIndex++;
-                chat.scrollTop = chat.scrollHeight;
-                showNextMessage();
-            }, 2000);
-        } else {
-            btn.style.display = 'block';
+    <script>
+        const feed = document.getElementById('feed');
+        const cities = ["SÃO PAULO", "RIO DE JANEIRO", "CURITIBA", "BRASÍLIA", "BELO HORIZONTE", "SALVADOR", "FORTALEZA"];
+        
+        function addData() {
+            const city = cities[Math.floor(Math.random() * cities.length)];
+            const value = (Math.random() * (1500 - 450) + 450).toFixed(2);
+            const line = document.createElement('div');
+            line.innerHTML = `<span style="color:#555">[${new Date().toLocaleTimeString()}]</span> SCANNER: ${city} > <span style="color:#fff">R$ ${value} IDENTIFICADO...</span>`;
+            feed.prepend(line);
+            if (feed.childNodes.length > 5) feed.removeChild(feed.lastChild);
         }
-    }
 
-    setTimeout(showNextMessage, 1000);
-</script>
-
+        setInterval(addData, 1500);
+    </script>
 </body>
 </html>
