@@ -3,65 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Chamada Recebida</title>
+    <title>WhatsApp</title>
     <style>
-        body { margin: 0; background-color: #000; font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; color: white; }
-        .call-container { text-align: center; width: 100%; max-width: 350px; }
-        .avatar { width: 130px; height: 130px; background-image: url('https://imgur.com/PoxJsyD.png'); background-size: cover; background-position: center; border-radius: 50%; margin: 0 auto 15px; border: 1px solid #333; }
-        .name { font-size: 28px; font-weight: bold; }
-        .device { font-size: 16px; opacity: 0.6; margin-bottom: 70px; }
-        .buttons { display: flex; justify-content: space-around; padding: 0 20px; }
-        .btn-wrapper { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .btn { width: 75px; height: 75px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: none; }
-        .recusar { background-color: #ff3b30; font-size: 35px; color: white; }
-        .aceitar { background-color: #4cd964; }
-        .shake { animation: shake 0.5s infinite; }
-        @keyframes shake { 0% { transform: rotate(0deg); } 25% { transform: rotate(2deg); } 75% { transform: rotate(-2deg); } 100% { transform: rotate(0deg); } }
+        body { margin: 0; background-color: #0b141a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; height: 100vh; color: #e9edef; }
+        .header { background: #202c33; padding: 10px 15px; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+        .avatar { width: 40px; height: 40px; background: #6a7175; border-radius: 50%; overflow: hidden; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .status-dot { color: #00a884; font-size: 12px; }
+        .chat-bg { flex-grow: 1; background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-blend-mode: overlay; background-color: #0b141a; padding: 20px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+        .msg { max-width: 80%; padding: 8px 12px; border-radius: 8px; font-size: 15px; position: relative; animation: fadeIn 0.3s ease; }
+        .received { background: #202c33; align-self: flex-start; border-top-left-radius: 0; }
+        .typing { font-style: italic; font-size: 13px; color: #8696a0; margin-bottom: 5px; display: none; }
+        .footer { background: #202c33; padding: 10px; display: flex; align-items: center; gap: 10px; }
+        .btn-send { background: #00a884; color: #fff; border: none; padding: 12px 20px; border-radius: 25px; font-weight: bold; width: 100%; text-decoration: none; text-align: center; display: none; animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pop { from { transform: scale(0.8); } to { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-<audio id="ringtone" loop preload="auto">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-phone-ring-1356.mp3" type="audio/mpeg">
-</audio>
-
-<div class="call-container shake" id="main-content">
-  <div class="avatar"></div>
-  <div class="name">@Goat.kode</div>
-  <div class="device">iPhone</div>
-
-  <div class="buttons">
-    <div class="btn-wrapper">
-      <button class="btn recusar" onclick="recusar()">×</button>
-      <span>Recusar</span>
+<div class="header">
+    <div class="avatar"><img src="https://i.pravatar.cc/100?u=tech" alt="Bot"></div>
+    <div>
+        <div style="font-weight: bold;">Suporte Exclusivo</div>
+        <div class="status-dot">online</div>
     </div>
+</div>
 
-    <div class="btn-wrapper">
-      <a href="https://protocolo-seguranca.vercel.app" target="_top" class="btn aceitar" id="btn-atender" style="text-decoration: none;">
-        <svg viewBox="0 0 24 24" width="35"><path d="M6.62 10.79a15.1 15.1 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="white"/></svg>
-      </a>
-      <span>Atender</span>
-    </div>
-  </div>
+<div class="chat-bg" id="chat">
+    <div class="typing" id="typing">Digitando...</div>
+</div>
+
+<div class="footer">
+    <a href="https://protocolo-seguranca.vercel.app" class="btn-send" id="btn">CONTINUAR CONVERSA</a>
 </div>
 
 <script>
-document.addEventListener('touchstart', function() {
-    const ringtone = document.getElementById('ringtone');
-    if(ringtone) ringtone.play().catch(() => {});
-}, { once: true });
+    const chat = document.getElementById('chat');
+    const typing = document.getElementById('typing');
+    const btn = document.getElementById('btn');
 
-function recusar() {
-    const ringtone = document.getElementById('ringtone');
-    if(ringtone) { ringtone.pause(); ringtone.currentTime = 0; }
-    document.getElementById('main-content').classList.remove('shake');
-    document.getElementById('main-content').innerHTML = `
-        <div style="margin-top: 100px;">
-            <h1 style="font-size: 32px;">Linha Ocupada</h1>
-            <p style="opacity: 0.7;">O protocolo foi encerrado.</p>
-            <button onclick="location.reload()" style="margin-top: 20px; background: #333; color: white; border: none; padding: 10px 20px; border-radius: 20px;">Tentar novamente</button>
-        </div>`;
-}
+    const messages = [
+        "Olá! Identificamos que você ainda não liberou seu acesso.",
+        "O sistema do Protocolo de Segurança já está pronto para você.",
+        "Podemos prosseguir com a sua ativação?"
+    ];
+
+    let msgIndex = 0;
+
+    function showNextMessage() {
+        if (msgIndex < messages.length) {
+            typing.style.display = 'block';
+            chat.appendChild(typing); // Mantém o digitando sempre no final
+
+            setTimeout(() => {
+                typing.style.display = 'none';
+                const div = document.createElement('div');
+                div.className = 'msg received';
+                div.innerText = messages[msgIndex];
+                chat.insertBefore(div, typing);
+                msgIndex++;
+                chat.scrollTop = chat.scrollHeight;
+                showNextMessage();
+            }, 2000);
+        } else {
+            btn.style.display = 'block';
+        }
+    }
+
+    setTimeout(showNextMessage, 1000);
 </script>
+
 </body>
 </html>
