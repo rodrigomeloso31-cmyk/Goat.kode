@@ -1,18 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Arsenal Dark</title>
 <style>
-body{margin:0;background:#000;color:#0f0;font-family:sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;overflow:hidden}
-.v{width:90%;max-width:320px;height:550px;border:1px solid #333;border-radius:10px;overflow:hidden}
-.b{display:block;width:80%;background:#0f0;color:#000;text-align:center;padding:20px;margin-top:20px;font-weight:900;text-decoration:none;border-radius:8px}
+    body{margin:0;background:#000;color:#fff;font-family:sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;justify-content:center}
+    .container{width:90%;max-width:350px;text-align:center}
+    .video-box{border:1px solid #222;border-radius:15px;overflow:hidden;background:#0a0a0a;box-shadow:0 0 20px rgba(0,0,0,1);position:relative}
+    .v-wrap{position:relative;padding-bottom:177.7%;height:0}
+    .v-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+    .btn{display:block;width:100%;background:#0f0;color:#000;text-decoration:none;text-align:center;padding:22px;margin-top:25px;border-radius:10px;font-size:18px;font-weight:900;text-transform:uppercase;box-shadow:0 0 15px rgba(0,255,0,0.3)}
+    .header{letter-spacing:4px;font-weight:900;color:#0f0;margin-bottom:20px;font-size:20px}
 </style>
 </head>
 <body>
-<div class="v">
-<iframe src="https://www.youtube.com/embed/lQUGmr2_I1Y?autoplay=1" width="100%" height="100%" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen></iframe>
-</div>
-<a href="https://protocolo-seguranca.vercel.app" class="b">ACESSAR AGORA</a>
+    <div class="header">ARSENAL DARK</div>
+    <div class="container">
+        <div class="video-box">
+            <div class="v-wrap">
+                <iframe src="https://www.youtube.com/embed/lQUGmr2_I1Y?autoplay=1&mute=0" allow="autoplay;encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+        <a href="https://protocolo-seguranca.vercel.app" class="btn">ACESSAR AGORA</a>
+    </div>
 </body>
 </html>
