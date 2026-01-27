@@ -12,19 +12,24 @@ body {
   background: #000;
   color: #e5e5e5;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  cursor: crosshair;
   overflow-x: hidden;
 }
 
-/* BOTÃO FLUTUANTE (CANTO SUPERIOR DIREITO) */
+/* BOTÃO FLUTUANTE - LARANJA NEON FOSFORESCENTE */
 #floating-trigger {
     position: fixed; top: 20px; right: 20px; z-index: 9999;
-    background: rgba(0, 255, 255, 0.2);
-    border: 3px solid #00ffff; border-radius: 50px;
-    padding: 15px 25px; color: #00ffff; font-weight: 900;
+    background: rgba(255, 102, 0, 0.1);
+    border: 3px solid #ff6600; border-radius: 50px;
+    padding: 15px 25px; color: #ff6600; font-weight: 900;
     text-transform: uppercase; font-size: 13px; cursor: pointer;
-    box-shadow: 0 0 20px #00ffff;
-    animation: pulseBlue 1.2s infinite;
+    box-shadow: 0 0 15px #ff6600, inset 0 0 10px #ff6600;
+    text-shadow: 0 0 10px #ff6600;
+    animation: pulseOrange 1.2s infinite;
+}
+
+@keyframes pulseOrange {
+    0%, 100% { box-shadow: 0 0 15px #ff6600; transform: scale(1); }
+    50% { box-shadow: 0 0 30px #ff6600; transform: scale(1.05); }
 }
 
 /* BARRA DE SEGURANÇA */
@@ -32,7 +37,6 @@ body {
     background: rgba(255, 0, 0, 0.15); color: #ff0000; font-size: 11px;
     padding: 8px; text-align: center; border-bottom: 2px solid #ff0000;
     text-transform: uppercase; letter-spacing: 2px; font-weight: bold;
-    text-shadow: 0 0 8px #ff0000;
 }
 
 /* HEADER */
@@ -49,14 +53,6 @@ body {
 }
 
 .container { max-width: 600px; margin: auto; padding: 20px; }
-
-/* VAGAS HUD */
-.vagas-hud {
-    background: rgba(0, 255, 255, 0.05); border: 2px solid #00ffff;
-    border-radius: 12px; padding: 12px; margin-bottom: 25px;
-    text-align: center; font-size: 13px; color: #00ffff;
-    text-transform: uppercase; font-weight: bold;
-}
 
 /* VIDEO BOX */
 .video-box {
@@ -114,7 +110,7 @@ body {
 </head>
 <body>
 
-<div id="floating-trigger" onclick="activateSound()">👉📲 toque na tela</div>
+<div id="floating-trigger" onclick="unmuteTactical()">👉📲 toque na tela</div>
 
 <div class="security-bar">⦿ ENCRYPTED CONNECTION • STATUS: SECURE</div>
 
@@ -132,7 +128,9 @@ body {
 
 <div class="container">
   
-  <div class="vagas-hud">VAGAS DISPONÍVEIS NO SERVIDOR: <span id="vagas-count">14</span></div>
+  <div class="vagas-hud" style="background:rgba(0,255,255,0.05); border:2px solid #00ffff; border-radius:12px; padding:12px; margin-bottom:25px; text-align:center; font-size:13px; color:#00ffff; text-transform:uppercase; font-weight:bold;">
+      VAGAS DISPONÍVEIS: <span id="vagas-count">14</span>
+  </div>
 
   <div class="video-box">
     <iframe id="videoPlayer" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
@@ -162,9 +160,8 @@ body {
 </div>
 
 <script>
-// API DE ÁUDIO PARA OS SONS TÁTICOS
+// API DE ÁUDIO
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
 function playTacticalSound(freq, duration, type, volume) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -175,25 +172,25 @@ function playTacticalSound(freq, duration, type, volume) {
     osc.start(); osc.stop(audioCtx.currentTime + duration);
 }
 
-// ATIVAR SOM DO VÍDEO (REFRESH TÁTICO)
-function activateSound() {
+// UNMUTE SEM REINICIAR (VIA postMessage)
+function unmuteTactical() {
     const player = document.getElementById('videoPlayer');
-    // Recarrega o iframe com mute=0 para burlar o bloqueio de autoplay com som
-    player.src = "https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=0&controls=0&rel=0";
+    // Envia comando para desmutar e garantir o play
+    player.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+    player.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    
     document.getElementById('floating-trigger').style.display = 'none';
     playTacticalSound(800, 0.1, 'sine', 0.1); 
 }
 
-// ACESSO NEGADO COM SOM E TREMOR
 function accessDenied() {
-    playTacticalSound(120, 0.5, 'sawtooth', 0.2); // Som de erro grave
+    playTacticalSound(120, 0.5, 'sawtooth', 0.2); 
     const box = document.getElementById('pdfBox');
     box.classList.add('shake');
     document.getElementById('deniedMsg').style.display = 'block';
     setTimeout(() => box.classList.remove('shake'), 400);
 }
 
-// FINALIZAR COM FRASE DE IMPACTO
 function triggerAccess() {
     playTacticalSound(1000, 0.2, 'sine', 0.1);
     document.getElementById('overlay').style.display = 'flex';
