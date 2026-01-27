@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protocolo GOAT | Sistema Ativo</title>
+<title>Protocolo GOAT | Interface Elite</title>
 
 <style>
 /* RESET & BASE */
@@ -11,123 +11,119 @@
 body {
   background: #000;
   color: #e5e5e5;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   cursor: crosshair;
   overflow-x: hidden;
 }
 
-/* BOOT SYSTEM */
-#boot-screen {
-  position: fixed; inset: 0; background: #000;
-  display: flex; align-items: center; justify-content: center;
-  z-index: 9999; color: #00ffff; letter-spacing: 2px;
-  animation: bootFade 1.6s ease forwards;
-}
-@keyframes bootFade {
-  0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; }
+/* BOTÃO FLUTUANTE (TOQUE NA TELA) */
+#floating-trigger {
+    position: fixed; top: 20px; right: 20px; z-index: 9999;
+    background: rgba(0, 255, 255, 0.2);
+    border: 2px solid #00ffff; border-radius: 50px;
+    padding: 12px 20px; color: #00ffff; font-weight: 900;
+    text-transform: uppercase; font-size: 12px; cursor: pointer;
+    box-shadow: 0 0 20px #00ffff;
+    animation: pulseBlue 1.5s infinite;
 }
 
-/* OVERLAY DE CARREGAMENTO */
-#overlay {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.98); z-index:10000; flex-direction:column; align-items:center; justify-content:center;
+/* BARRA DE SEGURANÇA */
+.security-bar {
+    background: rgba(255, 0, 0, 0.15); color: #ff0000; font-size: 11px;
+    padding: 8px; text-align: center; border-bottom: 2px solid #ff0000;
+    text-transform: uppercase; letter-spacing: 2px; font-weight: bold;
+    text-shadow: 0 0 8px #ff0000;
 }
-.bar-bg { width: 250px; height: 4px; background: #111; margin-top: 20px; border-radius: 10px; overflow: hidden; }
-.bar-fill { width: 0%; height: 100%; background: #ffcc00; box-shadow: 0 0 15px #ffcc00; }
 
 /* HEADER */
 .header-elite { text-align: center; padding: 30px 20px 10px; }
 .profile-thumb {
-    width: 70px; height: 70px;
-    border-radius: 50%;
-    border: 3px solid #ff0000;
-    box-shadow: 0 0 20px #ff0000;
-    margin-bottom: 15px;
-    animation: thumbPulse 2s infinite;
+    width: 75px; height: 75px; border-radius: 50%;
+    border: 3px solid #ff0000; box-shadow: 0 0 25px #ff0000;
+    margin-bottom: 15px; animation: thumbPulse 2s infinite;
 }
-@keyframes thumbPulse {
-    0%, 100% { box-shadow: 0 0 5px #ff0000; }
-    50% { box-shadow: 0 0 20px #ff0000; }
-}
+@keyframes thumbPulse { 0%, 100% { box-shadow: 0 0 10px #ff0000; } 50% { box-shadow: 0 0 30px #ff0000; } }
+
 .main-glow-title {
-    font-size: 26px; font-weight: 900;
-    color: #fff; text-transform: uppercase; letter-spacing: 3px;
-    text-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+    font-size: 28px; font-weight: 900; color: #fff;
+    text-transform: uppercase; letter-spacing: 4px;
+    text-shadow: 0 0 15px #ff0000, 0 0 35px #ff0000;
 }
 
 .container { max-width: 600px; margin: auto; padding: 20px; }
 
+/* VAGAS HUD */
+.vagas-hud {
+    background: rgba(0, 255, 255, 0.05); border: 2px solid #00ffff;
+    border-radius: 12px; padding: 12px; margin-bottom: 25px;
+    text-align: center; font-size: 13px; color: #00ffff;
+    text-transform: uppercase; font-weight: bold;
+}
+
 /* VIDEO BOX */
 .video-box {
-  border: 4px solid #00ffff;
-  border-radius: 25px;
-  box-shadow: 0 0 30px rgba(0,255,255,.5);
-  margin-bottom: 35px;
-  position: relative;
-  width: 100%; aspect-ratio: 16/9;
+  border: 4px solid #00ffff; border-radius: 25px;
+  box-shadow: 0 0 35px rgba(0,255,255,.5); margin-bottom: 25px;
+  position: relative; width: 100%; aspect-ratio: 16/9;
   overflow: hidden; background: #000;
 }
 .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-/* NEON MODULES */
+/* NEON MODULES (INTENSO) */
 .neon-module {
-  display: flex; align-items: center;
-  width: 100%; padding: 18px; margin-bottom: 12px;
-  background: rgba(0,0,0,0.4);
-  border-radius: 20px;
-  border: 4px solid #ff0000;
-  color: #ff0000;
-  text-transform: uppercase; font-weight: 900;
-  text-shadow: 0 0 10px #ff0000;
-  animation: pulseRed 2s infinite ease-in-out;
+  display: flex; align-items: center; width: 100%; padding: 20px; margin-bottom: 15px;
+  background: rgba(0,0,0,0.5); border-radius: 22px; border: 4px solid #ff0000;
+  color: #ff0000; text-transform: uppercase; font-weight: 900;
+  text-shadow: 0 0 12px #ff0000; animation: pulseRed 2s infinite ease-in-out;
 }
-.blue-mod { border-color: #00ffff; color: #00ffff; text-shadow: 0 0 10px #00ffff; animation: pulseBlue 2s infinite ease-in-out; }
+.blue-mod { border-color: #00ffff; color: #00ffff; text-shadow: 0 0 12px #00ffff; animation: pulseBlue 2s infinite ease-in-out; }
 
-/* PDF FAKE - ARQUIVO RESTRITO */
+@keyframes pulseRed { 0%, 100% { box-shadow: 0 0 12px #ff0000; } 50% { box-shadow: 0 0 28px #ff0000; } }
+@keyframes pulseBlue { 0%, 100% { box-shadow: 0 0 12px #00ffff; } 50% { box-shadow: 0 0 28px #00ffff; } }
+
+/* PDF RESTRITO */
 .pdf-fake-box {
-    border: 4px dashed #ff0000;
-    border-radius: 20px;
-    padding: 25px;
-    text-align: center;
-    margin: 25px 0;
-    cursor: not-allowed;
-    background: rgba(255,0,0,0.05);
-    transition: 0.3s;
+    border: 4px dashed #ff0000; border-radius: 20px; padding: 25px;
+    text-align: center; margin: 25px 0; cursor: not-allowed;
+    background: rgba(255,0,0,0.08); transition: 0.3s;
 }
 .pdf-fake-box.shake { animation: shake 0.4s ease-in-out; }
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
-}
-.restricted-text { color: #ff0000; font-weight: bold; font-size: 12px; margin-top: 10px; display: none; }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
 
 /* PROMO CARD */
 .promo-card {
-    border: 4px solid #ffcc00;
-    border-radius: 25px;
-    padding: 30px 20px;
-    text-align: center;
-    background: linear-gradient(145deg, #0a0a0a, #000);
-    box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
-    margin: 40px 0;
+    border: 4px solid #ffcc00; border-radius: 25px; padding: 35px 20px;
+    text-align: center; background: linear-gradient(145deg, #0a0a0a, #000);
+    box-shadow: 0 0 35px rgba(255, 204, 0, 0.4); margin: 45px 0;
 }
-.price-main { font-size: 58px; font-weight: 900; color: #ffcc00; text-shadow: 0 0 15px #ffcc00; font-family: sans-serif; }
+.price-main { font-size: 62px; font-weight: 900; color: #ffcc00; text-shadow: 0 0 20px #ffcc00; }
+
 .btn-final {
     background: linear-gradient(to bottom, #ffcc00, #ff9900);
-    color: #000; border: none; padding: 22px 30px;
-    border-radius: 15px; font-weight: 900; font-size: 18px;
-    text-transform: uppercase; cursor: pointer; width: 100%;
+    color: #000; border: none; padding: 24px 30px; border-radius: 18px;
+    font-weight: 900; font-size: 20px; text-transform: uppercase;
+    cursor: pointer; width: 100%; box-shadow: 0 8px 25px rgba(255, 204, 0, 0.5);
 }
 
+/* OVERLAY */
+#overlay {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.98); z-index:10000; flex-direction:column; align-items:center; justify-content:center;
+}
+.bar-bg { width: 260px; height: 5px; background: #111; margin-top: 25px; border-radius: 10px; overflow: hidden; }
+.bar-fill { width: 0%; height: 100%; background: #ffcc00; box-shadow: 0 0 15px #ffcc00; }
 </style>
 </head>
 <body>
 
-<div id="boot-screen">INITIALIZING PROTOCOL...</div>
+<div id="floating-trigger" onclick="unmuteVideo()">👉📲 toque na tela</div>
+
+<div class="security-bar">⦿ ENCRYPTED CONNECTION • USER_ID: <span id="user-id"></span> • STATUS: SECURE</div>
 
 <div id="overlay">
-    <div style="color: #ffcc00; letter-spacing: 4px; font-size: 12px; font-weight: bold;">CARREGANDO DADOS...</div>
+    <div style="color: #ffcc00; letter-spacing: 2px; font-size: 14px; font-weight: bold; text-align: center; padding: 20px;">
+        VOCÊ ESTÁ A UM PASSO DE TORNAR-SE GOAT 🔥🐐
+    </div>
     <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
 </div>
 
@@ -137,58 +133,60 @@ body {
 </div>
 
 <div class="container">
+  
+  <div class="vagas-hud">VAGAS DISPONÍVEIS: <span id="vagas-count">14</span> RESTANTES</div>
+
   <div class="video-box">
-    <iframe src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <iframe id="videoPlayer" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
   <div class="neon-module">STATUS: ATIVO</div>
-  
+
   <div class="neon-module blue-mod">MODULE_01 — ACELERADOR VISUAL</div>
+  
+  <div class="neon-module blue-mod">MODULE_02 — ENGENHARIA VISUAL ADVANCED</div>
+  <p style="font-size: 12px; color: #888; margin: -10px 0 15px 15px;">Acesso à estrutura de retenção subconsciente.</p>
+
+  <div class="neon-module blue-mod">MODULE_03 — DOMÍNIO ESTRATÉGICO DE I.A</div>
+  <p style="font-size: 12px; color: #888; margin: -10px 0 15px 15px;">Scripts de automação e controle de algoritmos.</p>
 
   <div class="pdf-fake-box" id="pdfBox" onclick="accessDenied()">
-      <svg width="50" height="50" viewBox="0 0 24 24" fill="#ff0000">
-          <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-      </svg>
-      <p style="color: #ff0000; margin-top: 10px; font-size: 14px; font-weight: bold;">DOCUMENTO_ESTRUTURAL.PDF</p>
-      <p id="deniedMsg" class="restricted-text">ACESSO NEGADO: Adquira o Protocolo GOAT para liberar este arquivo.</p>
+      <svg width="45" height="45" viewBox="0 0 24 24" fill="#ff0000"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>
+      <p style="color: #ff0000; margin-top: 10px; font-size: 14px; font-weight: 900;">ESTRUTURA_PROTEGIDA.PDF</p>
+      <p id="deniedMsg" style="color: #ff0000; font-size: 11px; margin-top: 12px; display: none; font-weight: bold;">🔒 REQUER ACESSAR PROTOCOLO</p>
   </div>
 
   <div class="promo-card">
-      <h2>Pack Goat</h2>
+      <h2 style="color:#ffcc00; margin-bottom:20px; letter-spacing:3px;">PACK GOAT</h2>
       <div class="price-box">
           <span style="text-decoration: line-through; color: #444; display: block; font-size: 14px;">De R$ 117,00 por</span>
-          <span style="font-size: 20px; font-weight: bold;">6x de</span>
+          <span style="font-size: 22px; font-weight: bold; color: #fff;">6x de</span>
           <span class="price-main">R$ 8,99</span>
-          <div style="color: #888; margin-top: 5px;">ou 47,90 à vista</div>
+          <div style="color: #888; margin-top: 8px;">ou 47,90 à vista</div>
       </div>
-      <button class="btn-final" onclick="triggerAccess()">SIM, QUERO O PROTOCOLO!</button>
+      <button class="btn-final" onclick="triggerAccess()">ACESSAR PROTOCOLO</button>
   </div>
 </div>
 
 <script>
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+document.getElementById('user-id').innerText = Math.random().toString(36).substr(2, 9).toUpperCase();
 
-function playSound(freq, duration, type) {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.start(); osc.stop(audioCtx.currentTime + duration);
+// Função para ativar som do vídeo
+function unmuteVideo() {
+    const player = document.getElementById('videoPlayer');
+    // Reinicia o vídeo com som ao clicar
+    player.src = "https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=0&controls=0&rel=0";
+    document.getElementById('floating-trigger').style.display = 'none';
 }
 
 function accessDenied() {
-    playSound(150, 0.3, 'sawtooth'); // Som de erro grave
     const box = document.getElementById('pdfBox');
-    const msg = document.getElementById('deniedMsg');
     box.classList.add('shake');
-    msg.style.display = 'block';
+    document.getElementById('deniedMsg').style.display = 'block';
     setTimeout(() => box.classList.remove('shake'), 400);
 }
 
 function triggerAccess() {
-    playSound(1000, 0.1, 'sine'); // Bip de sucesso
     document.getElementById('overlay').style.display = 'flex';
     let w = 0;
     const interval = setInterval(() => {
@@ -198,7 +196,7 @@ function triggerAccess() {
         } else {
             w += 2; document.getElementById('bar').style.width = w + '%';
         }
-    }, 35);
+    }, 30);
 }
 </script>
 
