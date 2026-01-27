@@ -16,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* BOOT SYSTEM (RESTAURADO) */
+/* BOOT SYSTEM */
 #boot-screen {
   position: fixed; inset: 0; background: #000;
   display: flex; align-items: center; justify-content: center;
@@ -27,7 +27,7 @@ body {
   0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; }
 }
 
-/* OVERLAY DE CARREGAMENTO (RESTAURADO) */
+/* OVERLAY DE CARREGAMENTO */
 #overlay {
     display:none; position:fixed; top:0; left:0; width:100%; height:100%;
     background:rgba(0,0,0,0.98); z-index:10000; flex-direction:column; align-items:center; justify-content:center;
@@ -49,7 +49,6 @@ body {
     0%, 100% { box-shadow: 0 0 5px #ff0000; }
     50% { box-shadow: 0 0 20px #ff0000; }
 }
-
 .main-glow-title {
     font-size: 26px; font-weight: 900;
     color: #fff; text-transform: uppercase; letter-spacing: 3px;
@@ -58,7 +57,7 @@ body {
 
 .container { max-width: 600px; margin: auto; padding: 20px; }
 
-/* VIDEO BOX NEON */
+/* VIDEO BOX */
 .video-box {
   border: 4px solid #00ffff;
   border-radius: 25px;
@@ -70,7 +69,7 @@ body {
 }
 .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-/* NEON MODULES COM BORDAS GROSSAS E ARREDONDADAS */
+/* NEON MODULES */
 .neon-module {
   display: flex; align-items: center;
   width: 100%; padding: 18px; margin-bottom: 12px;
@@ -84,11 +83,24 @@ body {
 }
 .blue-mod { border-color: #00ffff; color: #00ffff; text-shadow: 0 0 10px #00ffff; animation: pulseBlue 2s infinite ease-in-out; }
 
-@keyframes pulseRed { 0%, 100% { box-shadow: 0 0 10px #ff0000; } 50% { box-shadow: 0 0 25px #ff0000; } }
-@keyframes pulseBlue { 0%, 100% { box-shadow: 0 0 10px #00ffff; } 50% { box-shadow: 0 0 25px #00ffff; } }
-
-.icon-hud { width: 22px; height: 22px; margin-right: 15px; fill: currentColor; filter: drop-shadow(0 0 5px currentColor); }
-.desc-text { padding: 0 15px 20px; font-size: 14px; opacity: 0.8; line-height: 1.5; font-family: sans-serif; }
+/* PDF FAKE - ARQUIVO RESTRITO */
+.pdf-fake-box {
+    border: 4px dashed #ff0000;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    margin: 25px 0;
+    cursor: not-allowed;
+    background: rgba(255,0,0,0.05);
+    transition: 0.3s;
+}
+.pdf-fake-box.shake { animation: shake 0.4s ease-in-out; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+.restricted-text { color: #ff0000; font-weight: bold; font-size: 12px; margin-top: 10px; display: none; }
 
 /* PROMO CARD */
 .promo-card {
@@ -100,26 +112,13 @@ body {
     box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
     margin: 40px 0;
 }
-.promo-card h2 { color: #ffcc00; font-size: 28px; text-transform: uppercase; margin-bottom: 20px; text-shadow: 0 0 10px #ffcc00; }
-.promo-list { list-style: none; margin-bottom: 25px; text-align: left; display: inline-block; font-family: sans-serif; }
-.promo-list li { margin: 10px 0; font-size: 16px; display: flex; align-items: center; }
-.promo-list li::before { content: '✓'; color: #ffcc00; font-weight: bold; margin-right: 15px; }
-
-.price-box { margin: 20px 0; }
-.price-small { font-size: 20px; color: #fff; vertical-align: middle; font-weight: bold; }
 .price-main { font-size: 58px; font-weight: 900; color: #ffcc00; text-shadow: 0 0 15px #ffcc00; font-family: sans-serif; }
-.price-vista { font-size: 15px; color: #888; margin-top: 5px; letter-spacing: 1px; }
-
-/* CTA BUTTON GRADIENTE */
 .btn-final {
     background: linear-gradient(to bottom, #ffcc00, #ff9900);
     color: #000; border: none; padding: 22px 30px;
     border-radius: 15px; font-weight: 900; font-size: 18px;
     text-transform: uppercase; cursor: pointer; width: 100%;
-    box-shadow: 0 5px 20px rgba(255, 204, 0, 0.5);
-    transition: transform 0.2s;
 }
-.btn-final:active { transform: scale(0.96); }
 
 </style>
 </head>
@@ -142,73 +141,62 @@ body {
     <iframe src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
 
-  <div class="neon-module">
-    <svg class="icon-hud" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-    STATUS: ATIVO
-  </div>
-  <p class="desc-text">Sistema operando em modo tático para alta retenção.</p>
+  <div class="neon-module">STATUS: ATIVO</div>
+  
+  <div class="neon-module blue-mod">MODULE_01 — ACELERADOR VISUAL</div>
 
-  <div class="neon-module blue-mod">
-    <svg class="icon-hud" viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-10 14.5h-1.5V13h-3v4.5H5V7h1.5v4.5h3V7H11v10.5z"/></svg>
-    MODULE_01 — ACELERADOR VISUAL
+  <div class="pdf-fake-box" id="pdfBox" onclick="accessDenied()">
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="#ff0000">
+          <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+      </svg>
+      <p style="color: #ff0000; margin-top: 10px; font-size: 14px; font-weight: bold;">DOCUMENTO_ESTRUTURAL.PDF</p>
+      <p id="deniedMsg" class="restricted-text">ACESSO NEGADO: Adquira o Protocolo GOAT para liberar este arquivo.</p>
   </div>
-  <p class="desc-text">Dominância estética e retenção subconsciente forçada.</p>
 
   <div class="promo-card">
       <h2>Pack Goat</h2>
-      
-      <ul class="promo-list">
-          <li>Acesso Vitalício ao Protocolo</li>
-          <li>Engenharia Visual Advanced</li>
-          <li>Domínio Estratégico de I.A</li>
-      </ul>
-
       <div class="price-box">
-          <span style="text-decoration: line-through; color: #444; display: block; margin-bottom: 8px; font-size: 14px;">De R$ 117,00 por</span>
-          <span class="price-small">6x de</span>
+          <span style="text-decoration: line-through; color: #444; display: block; font-size: 14px;">De R$ 117,00 por</span>
+          <span style="font-size: 20px; font-weight: bold;">6x de</span>
           <span class="price-main">R$ 8,99</span>
-          <div class="price-vista">ou 47,90 à vista</div>
+          <div style="color: #888; margin-top: 5px;">ou 47,90 à vista</div>
       </div>
-
-      <button class="btn-final" onclick="triggerAccess()">
-          SIM, QUERO O PROTOCOLO!
-      </button>
-      
-      <p style="font-size: 11px; margin-top: 20px; color: #666; letter-spacing: 1px;">⦿ ACESSO IMEDIATO • OFERTA NÃO REPETÍVEL</p>
+      <button class="btn-final" onclick="triggerAccess()">SIM, QUERO O PROTOCOLO!</button>
   </div>
 </div>
 
 <script>
-// FUNÇÃO DE SOM (BIP TÁTICO)
-function playBip() {
-    try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);
-        gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        oscillator.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        oscillator.start();
-        oscillator.stop(audioCtx.currentTime + 0.1);
-    } catch(e) { console.warn("Audio bypass"); }
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(freq, duration, type) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(); osc.stop(audioCtx.currentTime + duration);
 }
 
-// GATILHO DE ACESSO COM CARREGAMENTO
+function accessDenied() {
+    playSound(150, 0.3, 'sawtooth'); // Som de erro grave
+    const box = document.getElementById('pdfBox');
+    const msg = document.getElementById('deniedMsg');
+    box.classList.add('shake');
+    msg.style.display = 'block';
+    setTimeout(() => box.classList.remove('shake'), 400);
+}
+
 function triggerAccess() {
-    playBip(); // Som ao clicar
+    playSound(1000, 0.1, 'sine'); // Bip de sucesso
     document.getElementById('overlay').style.display = 'flex';
-    let width = 0;
-    const bar = document.getElementById('bar');
+    let w = 0;
     const interval = setInterval(() => {
-        if (width >= 100) {
+        if (w >= 100) {
             clearInterval(interval);
-            // REDIRECIONAMENTO COM O LINK E OFF CORRETO
             window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
         } else {
-            width += 2;
-            bar.style.width = width + '%';
+            w += 2; document.getElementById('bar').style.width = w + '%';
         }
     }, 35);
 }
