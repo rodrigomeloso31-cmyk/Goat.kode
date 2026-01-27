@@ -1,67 +1,154 @@
-<div class="cta-container">
-    <button id="checkout-btn" class="cyber-button" onclick="handlePurchase()">
-        <span class="glitch-text">GARANTIR ACESSO AGORA</span>
-        <span class="price-tag">6x de R$ 8,99</span>
-    </button>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROTOCOLO GOAT - ACESSO RESTRITO</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff41;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            overflow-x: hidden;
+        }
 
-<style>
-/* Efeito de Brilho Pulsante */
-.cyber-button {
-    background: transparent;
-    border: 2px solid #00ff41; /* Verde Matrix */
-    color: #00ff41;
-    padding: 20px 40px;
-    font-size: 1.2rem;
-    font-family: 'Courier New', Courier, monospace;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    /* O "Glow" constante */
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 255, 65, 0.2);
-    animation: pulse-glow 2s infinite;
-}
+        /* Efeito Matrix de Fundo */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
 
-@keyframes pulse-glow {
-    0% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.4); }
-    50% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.8), inset 0 0 10px rgba(0, 255, 65, 0.4); }
-    100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.4); }
-}
+        /* Barra de Segurança */
+        .security-bar {
+            background: rgba(0, 255, 65, 0.1);
+            border-bottom: 1px solid #00ff41;
+            padding: 10px;
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+        }
 
-.cyber-button:hover {
-    background: #00ff41;
-    color: #000;
-    box-shadow: 0 0 40px #00ff41;
-}
+        .main-container {
+            max-width: 800px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
 
-.price-tag {
-    display: block;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    opacity: 0.8;
-}
-</style>
+        /* NOVO: Botão com Glow Pulsante */
+        .btn-desbloquear {
+            background: #00ff41;
+            color: black;
+            border: none;
+            padding: 20px 40px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 30px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px #00ff41;
+            animation: pulse-glow 2s infinite;
+            transition: 0.3s;
+        }
 
-<script>
-// Mantendo os efeitos sonoros e comandos anteriores
-const hoverSound = new Audio('hover.mp3'); // Seu arquivo de som de hover
-const clickSound = new Audio('click.mp3'); // Seu arquivo de som de clique
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px #00ff41; }
+            50% { box-shadow: 0 0 30px #00ff41; transform: scale(1.02); }
+            100% { box-shadow: 0 0 10px #00ff41; }
+        }
 
-const btn = document.getElementById('checkout-btn');
+        .btn-desbloquear:hover {
+            background: #fff;
+            box-shadow: 0 0 50px #fff;
+        }
 
-btn.addEventListener('mouseenter', () => {
-    hoverSound.play();
-    console.log("Comando: Iniciando preview de acesso...");
-});
+        .vagas-alert { color: #ff0000; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
 
-function handlePurchase() {
-    clickSound.play();
-    console.log("Comando: Redirecionando para o Gateway Seguro.");
-    // Link do Checkout aqui
-    window.location.href = "SEU_LINK_DE_PAGAMENTO_AQUI";
-}
-</script>
+    <canvas id="matrix-canvas"></canvas>
 
+    <div class="security-bar">
+        <span>USER_ID: <span id="user-id"></span></span>
+        <span>STATUS: ENCRYPTED_CONNECTION</span>
+    </div>
+
+    <div class="main-container">
+        <h1>SISTEMA PROTOCOLO GOAT</h1>
+        <p>Acesso ao banco de dados liberado parcialmente.</p>
+        
+        <div style="margin: 30px 0;">
+            <h3>OFERTA EXCLUSIVA: PACK GOAT</h3>
+            <p style="font-size: 1.5rem;">6x de R$ 8,99</p>
+            <p>ou R$ 47,90 à vista</p>
+        </div>
+
+        <button class="btn-desbloquear" onclick="iniciarSincronizacao()">
+            DESBLOQUEAR ACESSO AGORA
+        </button>
+
+        <div class="vagas-alert">VAGAS RESTANTES: <span id="vagas">12</span></div>
+    </div>
+
+    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-19.mp3"></audio>
+    <audio id="hover-sound" src="https://www.soundjay.com/buttons/sounds/button-21.mp3"></audio>
+
+    <script>
+        // Sistema Matrix Background
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0";
+            ctx.font = fontSize + "px arial";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+
+        // ID de Usuário Aleatório
+        document.getElementById('user-id').innerText = Math.random().toString(36).substr(2, 9).toUpperCase();
+
+        // Sons e Comandos
+        const clickSnd = document.getElementById('click-sound');
+        const btn = document.querySelector('.btn-desbloquear');
+
+        function iniciarSincronizacao() {
+            clickSnd.play();
+            console.log("Comando: Sincronizando com servidor de pagamento...");
+            btn.innerText = "SINCRONIZANDO...";
+            setTimeout(() => {
+                window.location.href = "SEU_LINK_DA_HOTMART_AQUI";
+            }, 1500);
+        }
+
+        // Contador de Vagas Dinâmico
+        let vagas = 12;
+        setInterval(() => {
+            if(vagas > 3) {
+                vagas--;
+                document.getElementById('vagas').innerText = vagas;
+            }
+        }, 8000);
+    </script>
+</body>
+</html>
