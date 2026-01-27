@@ -3,152 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROTOCOLO GOAT - ACESSO RESTRITO</title>
+    <title>PROTOCOLO GOAT | ACESSO BLACK</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f1d592;
+            --black-premium: #050505;
+            --card-gradient: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+        }
+
         body {
-            background-color: black;
-            color: #00ff41;
-            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--black-premium);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             overflow-x: hidden;
         }
 
-        /* Efeito Matrix de Fundo */
+        /* Fundo de DNA Digital Sutil */
         #matrix-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             z-index: -1;
+            opacity: 0.05; 
         }
 
-        /* Barra de Segurança */
-        .security-bar {
-            background: rgba(0, 255, 65, 0.1);
-            border-bottom: 1px solid #00ff41;
-            padding: 10px;
-            font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .main-container {
-            max-width: 800px;
-            margin: 50px auto;
-            text-align: center;
+        /* Interface Superior */
+        .premium-header {
             padding: 20px;
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid #00ff41;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--gold);
         }
 
-        /* NOVO: Botão com Glow Pulsante */
-        .btn-desbloquear {
-            background: #00ff41;
-            color: black;
-            border: none;
-            padding: 20px 40px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-top: 30px;
+        .container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .gold-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 30px;
             text-transform: uppercase;
-            box-shadow: 0 0 15px #00ff41;
-            animation: pulse-glow 2s infinite;
-            transition: 0.3s;
         }
 
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px #00ff41; }
-            50% { box-shadow: 0 0 30px #00ff41; transform: scale(1.02); }
-            100% { box-shadow: 0 0 10px #00ff41; }
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
         }
 
-        .btn-desbloquear:hover {
+        .headline-sub {
+            color: #888;
+            font-weight: 300;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        /* Card Flutuante */
+        .checkout-card {
+            background: var(--card-gradient);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 24px;
+            padding: 60px 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .checkout-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .price-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .main-price {
+            display: block;
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .gold-text { color: var(--gold); }
+
+        /* Botão Flutuante de Luxo */
+        .btn-luxury {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            margin-top: 30px;
+            background: var(--gold);
+            color: #000;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float-btn 3s infinite ease-in-out;
+        }
+
+        @keyframes float-btn {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6); }
+        }
+
+        .btn-luxury:hover {
             background: #fff;
-            box-shadow: 0 0 50px #fff;
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.3);
         }
 
-        .vagas-alert { color: #ff0000; font-weight: bold; margin-top: 15px; }
+        .secure-footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
 
     <canvas id="matrix-canvas"></canvas>
 
-    <div class="security-bar">
-        <span>USER_ID: <span id="user-id"></span></span>
-        <span>STATUS: ENCRYPTED_CONNECTION</span>
+    <div class="premium-header">
+        SISTEMA CRIPTOGRAFADO • PROTOCOLO GOAT V3.0 • ACESSO PRIORITÁRIO
     </div>
 
-    <div class="main-container">
-        <h1>SISTEMA PROTOCOLO GOAT</h1>
-        <p>Acesso ao banco de dados liberado parcialmente.</p>
-        
-        <div style="margin: 30px 0;">
-            <h3>OFERTA EXCLUSIVA: PACK GOAT</h3>
-            <p style="font-size: 1.5rem;">6x de R$ 8,99</p>
-            <p>ou R$ 47,90 à vista</p>
+    <div class="container">
+        <div class="gold-badge">Acesso Restrito ao Top 1%</div>
+        <h1>PROTOCOLO GOAT</h1>
+        <p class="headline-sub">Transforme dados em poder. A ferramenta definitiva para quem não aceita o segundo lugar.</p>
+
+        <div class="checkout-card">
+            <span class="price-label">Investimento Exclusivo</span>
+            <span class="main-price">6x <span class="gold-text">R$ 8,99</span></span>
+            <p style="color: #666;">ou R$ 47,90 à vista</p>
+
+            <button class="btn-luxury" id="btn-pay" onclick="iniciarCheckout()">
+                ADQUIRIR ACESSO BLACK
+            </button>
+
+            <div class="secure-footer">
+                <img src="https://cdn-icons-png.flaticon.com/512/2501/2501784.png" width="14" style="filter: brightness(0.3);">
+                PAGAMENTO PROCESSADO EM AMBIENTE SEGURO
+            </div>
         </div>
-
-        <button class="btn-desbloquear" onclick="iniciarSincronizacao()">
-            DESBLOQUEAR ACESSO AGORA
-        </button>
-
-        <div class="vagas-alert">VAGAS RESTANTES: <span id="vagas">12</span></div>
     </div>
 
-    <audio id="click-sound" src="https://www.soundjay.com/buttons/sounds/button-19.mp3"></audio>
-    <audio id="hover-sound" src="https://www.soundjay.com/buttons/sounds/button-21.mp3"></audio>
+    <audio id="snd-hover" src="https://www.soundjay.com/buttons/sounds/button-21.mp3"></audio>
+    <audio id="snd-click" src="https://www.soundjay.com/buttons/sounds/button-19.mp3"></audio>
 
     <script>
-        // Sistema Matrix Background
+        // Matrix Dourada Sutil
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        canvas.height = window.innerHeight; canvas.width = window.innerWidth;
+        const drops = Array(Math.floor(canvas.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.1)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#0f0";
-            ctx.font = fontSize + "px arial";
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            ctx.fillStyle = "#d4af37";
+            ctx.font = "15px Arial";
+            drops.forEach((y, i) => {
+                const text = Math.floor(Math.random()*2);
+                ctx.fillText(text, i*16, y*16);
+                if(y*16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
-            }
+            });
         }
-        setInterval(drawMatrix, 35);
+        setInterval(draw, 50);
 
-        // ID de Usuário Aleatório
-        document.getElementById('user-id').innerText = Math.random().toString(36).substr(2, 9).toUpperCase();
+        // Sons
+        const btn = document.getElementById('btn-pay');
+        const hoverSnd = document.getElementById('snd-hover');
+        const clickSnd = document.getElementById('snd-click');
 
-        // Sons e Comandos
-        const clickSnd = document.getElementById('click-sound');
-        const btn = document.querySelector('.btn-desbloquear');
+        btn.addEventListener('mouseenter', () => hoverSnd.play());
 
-        function iniciarSincronizacao() {
+        function iniciarCheckout() {
             clickSnd.play();
-            console.log("Comando: Sincronizando com servidor de pagamento...");
-            btn.innerText = "SINCRONIZANDO...";
+            btn.innerHTML = "VALIDANDO ACESSO...";
+            btn.style.background = "#fff";
+            
+            // Comando de redirecionamento para sua página de pagamento
             setTimeout(() => {
-                window.location.href = "SEU_LINK_DA_HOTMART_AQUI";
-            }, 1500);
+                window.location.href = "https://pay.hotmart.com/N94236052X?checkoutMode=10";
+            }, 1000);
         }
-
-        // Contador de Vagas Dinâmico
-        let vagas = 12;
-        setInterval(() => {
-            if(vagas > 3) {
-                vagas--;
-                document.getElementById('vagas').innerText = vagas;
-            }
-        }, 8000);
     </script>
 </body>
 </html>
