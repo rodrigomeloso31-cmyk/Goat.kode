@@ -3,75 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo Goat - Oficial</title>
+    <title>Protocolo Goat</title>
     <style>
-        :root { --emergency-red: #ff0000; }
-        body { background-color: #000; color: #fff; font-family: -apple-system, system-ui, sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; overflow-x: hidden; }
-        
-        /* Botão Flutuante de Som para Garantir no iPhone */
-        #mute-btn {
-            position: fixed; top: 10px; right: 10px; z-index: 999;
-            background: rgba(255,0,0,0.2); border: 1px solid var(--emergency-red);
-            color: #fff; padding: 8px; border-radius: 50%; font-size: 12px; cursor: pointer;
-        }
-
-        .header-container { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 30px; }
-        .logo-mini { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--emergency-red); box-shadow: 0 0 15px var(--emergency-red); object-fit: cover; }
-        h1 { font-size: 1.5rem; margin: 0; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
-        .red-glow { color: var(--emergency-red); }
-        .subtitle { color: #888; font-size: 0.85rem; margin: 10px 0 35px 0; text-align: center; }
-        
-        .content-container { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; }
-        .image-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .image-grid img { width: 100%; border-radius: 8px; border: 1px solid #333; }
-        
-        .feature-box { position: relative; padding: 20px; border-radius: 12px; border: 1px solid #222; background: rgba(15, 15, 15, 0.9); border-left: 4px solid var(--emergency-red); }
-        .step-tag { background: var(--emergency-red); color: #000; padding: 2px 8px; font-weight: 900; font-size: 0.7rem; margin-bottom: 8px; display: inline-block; border-radius: 3px; }
-        
-        .btn-emergency { background: var(--emergency-red); color: #fff; padding: 22px; text-decoration: none; font-weight: 900; border-radius: 8px; font-size: 1.1rem; text-transform: uppercase; text-align: center; margin: 40px 0; width: 100%; max-width: 340px; display: block; border: 2px solid #000; animation: emergency-flash 0.8s infinite alternate; }
-        
-        @keyframes emergency-flash { 
-            0% { background-color: #8b0000; box-shadow: 0 0 10px #ff0000; transform: scale(1); } 
-            100% { background-color: #ff0000; box-shadow: 0 0 30px #ff0000; transform: scale(1.02); } 
-        }
-    </style>
-</head>
-<body onclick="playAudio()">
-
-    <button id="mute-btn" onclick="playAudio()">🔊 SOM</button>
-
-    <div class="header-container">
-        <img src="https://imgur.com/PoxJsyD.png" class="logo-mini" alt="Logo">
-        <h1>PROTOCOLO <span class="red-glow">GOAT</span></h1>
-    </div>
-    
-    <p class="subtitle">O problema nunca foi você, foi o método errado.</p>
-
-    <div class="content-container">
-        <div class="image-grid">
-            <img src="https://testy-lavender-xi6znsjvse.edgeone.app/IMG_2959.jpeg" alt="Grid 1">
-            <img src="https://s10.aconvert.com/convert/p3r68-cdx67/axlyz-wvqww.png" alt="Grid 2">
-        </div>
-        <div class="feature-box"><span class="step-tag">02</span><h2>ACELERADOR VISUAL</h2><p>Designs e prompts de alta conversão.</p></div>
-        <div class="feature-box"><span class="step-tag">03</span><h2>DOMÍNIO DA I.A</h2><p>Crie páginas de alta performance.</p></div>
-        <div class="feature-box"><span class="step-tag">04</span><h2>COPYRIGHT PRONTO</h2><p>Scripts validados para redes sociais.</p></div>
-    </div>
-
-    <a href="http://hotm.io/Protgoat" class="btn-emergency">⚠️ ACESSAR PROTOCOLO GOAT ⚠️</a>
-
-    <audio id="audioGoat" loop preload="auto">
-        <source src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/theme.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        function playAudio() {
-            var audio = document.getElementById("audioGoat");
-            audio.volume = 0.4;
-            audio.play().catch(function(error) {
-                console.log("iPhone bloqueou o autoplay. Aguardando clique.");
-            });
-            document.getElementById("mute-btn").style.display = "none";
-        }
-    </script>
-</body>
-</html>
+        :root { --red: #ff0000; }
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        #mute-btn { position: fixed; top: 15px; right: 15px; z-index: 99; background: rgba(0,0,0,0.8); border: 1px solid var(--red); color: var(--red); padding: 10px; border-radius: 50px; font-size: 10px; font-weight: bold; cursor: pointer; }
+        .header { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+        .logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--red); box-shadow: 0 0 15px var(--red); }
+        h1 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 2px; }
+        .subtitle { color: #888; font-size: 0.8rem; margin-bottom: 30px; }
+        .container { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid img, .main-img { width: 100%; border-radius: 8px; border: 1px solid #333; }
+        .box { padding: 15px; border-radius: 10px; border: 1px solid #222; background: #0a0a0a; border-left: 4px solid var(--red); }
+        .tag { background: var(--red); color: #000; padding: 2px 6px; font-weight: 900; font-size: 0.7rem; border-radius: 3px; }
+        h2 { font-size: 0.9rem; margin: 5px 0; text-transform: uppercase; }
+        p { font-size: 0.75rem;
