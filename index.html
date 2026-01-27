@@ -3,213 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protocolo GOAT | Cyber Matrix</title>
+<title>Protocolo GOAT | Secure Interface</title>
 
 <style>
-/* RESET & BASE */
+/* BASE CLEAN & CYBER */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   background: #000;
-  color: #e5e5e5;
+  color: #a0a0a0;
   font-family: 'Courier New', Courier, monospace;
   overflow-x: hidden;
 }
 
-/* CANVAS MATRIX BACKGROUND */
-#matrix-bg {
+canvas#matrix {
     position: fixed;
     top: 0; left: 0;
-    width: 100%; height: 100%;
     z-index: -1;
+    opacity: 0.25; /* Sutil para não distrair */
 }
 
-/* BOTÃO FLUTUANTE */
-#floating-trigger {
-    position: fixed; top: 20px; right: 20px; z-index: 9999;
-    background: rgba(255, 102, 0, 0.2);
-    border: 3px solid #ff6600; border-radius: 50px;
-    padding: 15px 25px; color: #ff6600; font-weight: 900;
-    text-transform: uppercase; font-size: 12px; cursor: pointer;
-    box-shadow: 0 0 20px #ff6600;
-    animation: pulseOrange 1.2s infinite;
+/* BOTÃO DE INTERAÇÃO DISCRETO */
+#unmute-btn {
+    position: fixed; top: 20px; right: 20px; z-index: 999;
+    background: transparent; border: 1px solid #00ffff;
+    color: #00ffff; padding: 10px 15px; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+    transition: 0.3s;
 }
-@keyframes pulseOrange { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+#unmute-btn:hover { background: rgba(0, 255, 255, 0.1); }
 
-/* HEADER */
-.header-elite { text-align: center; padding: 30px 20px 10px; }
-.profile-thumb {
-    width: 100px; height: 100px; border-radius: 50%;
-    border: 3px solid #ff0000; box-shadow: 0 0 25px #ff0000;
-    margin-bottom: 15px; object-fit: cover; background: #111;
+/* HEADER MINIMALISTA */
+.header { text-align: center; padding: 40px 20px; }
+.profile-pic {
+    width: 80px; height: 80px; border-radius: 50%;
+    border: 1px solid #333; margin-bottom: 20px;
+    filter: grayscale(100%); transition: 0.5s;
 }
-.main-glow-title {
-    font-size: 26px; font-weight: 900; color: #fff;
-    text-transform: uppercase; letter-spacing: 4px;
-    text-shadow: 0 0 15px #ff0000;
+.profile-pic:hover { filter: grayscale(0%); border-color: #ff0000; }
+.title {
+    font-size: 20px; letter-spacing: 6px; color: #fff;
+    text-transform: uppercase; font-weight: 400;
 }
 
-.container { max-width: 600px; margin: auto; padding: 20px; position: relative; z-index: 1; }
+.content-wrapper { max-width: 550px; margin: auto; padding: 0 20px; position: relative; }
 
-/* VIDEO BOX */
-.video-box {
-  border: 4px solid #ff6600; border-radius: 25px;
-  box-shadow: 0 0 35px rgba(255, 102, 0, 0.5); margin-bottom: 10px;
-  position: relative; width: 100%; aspect-ratio: 16/9;
-  overflow: hidden; background: #000;
+/* PLAYER DE VÍDEO CLEAN */
+.video-container {
+    border: 1px solid #333; background: #000;
+    position: relative; width: 100%; aspect-ratio: 16/9;
+    margin-bottom: 15px;
 }
-.video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.video-container iframe { position: absolute; width: 100%; height: 100%; pointer-events: none; }
 
-/* VIEWS COUNTER */
-.views-counter {
-    display: flex; align-items: center; justify-content: flex-end;
-    margin-bottom: 20px; font-size: 13px; font-weight: bold; color: #ff0000;
+.live-indicator {
+    text-align: right; font-size: 10px; color: #ff0000;
+    margin-bottom: 30px; letter-spacing: 1px;
 }
 
-/* AI MODULES */
-.ai-module {
-    width: 100%; padding: 18px; margin-bottom: 12px;
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #00ffff; border-radius: 5px;
-    color: #00ffff; text-transform: uppercase; font-weight: 900;
-    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
-    animation: glitch 4s infinite;
+/* MÓDULOS COM ESTILO DE TERMINAL */
+.module {
+    padding: 15px; margin-bottom: 10px;
+    border-left: 2px solid #00ffff;
+    background: rgba(255, 255, 255, 0.02);
+    font-size: 12px; color: #00ffff;
+    letter-spacing: 1px;
 }
-@keyframes glitch { 0%, 95%, 100% { transform: translate(0); } 96% { transform: translate(-3px, 1px); } 98% { transform: translate(3px, -1px); } }
+.module span { color: #555; margin-right: 10px; }
 
-/* QUADRO COM CORTE INTELIGENTE (FOCANDO NO ROSTO E MENSAGEM) */
-.interface-frame {
-    width: 100%; height: 320px; /* Altura controlada para o corte */
-    margin: 30px 0; border: 3px solid #00ffff;
-    border-radius: 15px; overflow: hidden; background: #000;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    display: flex; justify-content: center; align-items: flex-start;
+/* ÁREA DE PREÇO ESTRUTURADA */
+.checkout-box {
+    margin-top: 50px; padding: 40px 20px; text-align: center;
+    border-top: 1px solid #222;
 }
-.interface-frame img { 
-    width: 140%; /* Aumenta a escala para aproximar o rosto */
-    height: auto;
-    margin-top: -5%; /* Sobe a imagem para focar no topo (rosto) */
-    object-fit: cover;
-}
+.installment-label { font-size: 14px; color: #888; margin-bottom: 5px; }
+.main-price { font-size: 48px; color: #fff; font-weight: bold; margin-bottom: 5px; }
+.cash-price { font-size: 12px; color: #555; margin-bottom: 25px; }
 
-/* PROMO CARD */
-.promo-card {
-    border: 3px solid #ffcc00; border-radius: 20px; padding: 30px;
-    text-align: center; background: rgba(0, 0, 0, 0.95); 
-    margin: 40px 0; box-shadow: 0 0 30px rgba(255, 204, 0, 0.3);
+.cta-button {
+    background: #fff; color: #000; border: none;
+    padding: 20px 40px; width: 100%; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 3px;
+    cursor: pointer; transition: 0.4s;
 }
-.price-main { font-size: 55px; font-weight: 900; color: #ffcc00; margin: 10px 0; }
-.btn-final {
-    background: linear-gradient(to bottom, #ffcc00, #ff9900);
-    color: #000; border: none; padding: 22px; border-radius: 10px;
-    font-weight: 900; font-size: 20px; text-transform: uppercase;
-    cursor: pointer; width: 100%;
-}
+.cta-button:hover { background: #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); }
 
-/* OVERLAY */
-#overlay {
+/* PROGRESS OVERLAY */
+#loading-screen {
     display:none; position:fixed; top:0; left:0; width:100%; height:100%;
     background:#000; z-index:10000; flex-direction:column; align-items:center; justify-content:center;
 }
-.bar-fill { width: 0%; height: 100%; background: #00ff41; box-shadow: 0 0 15px #00ff41; }
+.load-bar { width: 150px; height: 1px; background: #222; margin-top: 20px; }
+.load-fill { height: 100%; background: #00ffff; width: 0%; }
 </style>
 </head>
 <body>
 
-<canvas id="matrix-bg"></canvas>
+<canvas id="matrix"></canvas>
+<button id="unmute-btn" onclick="activateAudio()">[ Ativar Áudio ]</button>
 
-<div id="floating-trigger" onclick="unmuteTactical()">👉 CLIQUE PARA O SOM</div>
-
-<div class="header-elite">
-    <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-thumb">
-    <h1 class="main-glow-title">PROTOCOLO GOAT</h1>
+<div class="header">
+    <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-pic">
+    <h1 class="title">PROTOCOLO GOAT</h1>
 </div>
 
-<div class="container">
-  
-  <div class="video-box">
-    <iframe id="videoPlayer" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-  </div>
+<div class="content-wrapper">
+    <div class="video-container">
+        <iframe id="mainVideo" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0&enablejsapi=1" frameborder="0"></iframe>
+    </div>
+    
+    <div class="live-indicator">
+        ● <span id="view-count">1.482</span> USERS_CONNECTED
+    </div>
 
-  <div class="views-counter">
-      <span id="view-number">1.527</span>&nbsp;CONNECTED_USERS
-  </div>
+    <div class="module"><span>[01]</span> ACELERADOR VISUAL</div>
+    <div class="module"><span>[02]</span> ENGENHARIA VISUAL ADVANCED</div>
+    <div class="module"><span>[03]</span> DOMÍNIO ESTRATÉGICO DE I.A</div>
 
-  <div class="ai-module" style="border-color: #ff0000; color: #ff0000; text-shadow: none;">SYSTEM_STATUS: ACTIVE</div>
-  
-  <div class="ai-module">>> MODULE_01: ACELERADOR_VISUAL</div>
-  <div class="ai-module">>> MODULE_02: ENGENHARIA_VISUAL_ADV</div>
-  <div class="ai-module">>> MODULE_03: DOMÍNIO_ESTRATÉGICO_IA</div>
-
-  <div class="interface-frame">
-      <img src="https://files.imagetourl.net/uploads/1769555891687-27f3f89e-e211-422c-9015-b0507fcf9056.png" alt="Zoom Rosto Protocolo">
-  </div>
-
-  <div class="promo-card">
-      <div style="color: #fff; font-size: 16px; font-weight: bold;">ACESSO IMEDIATO VITALÍCIO</div>
-      <div class="price-main">R$ 47,90</div>
-      <button class="btn-final" onclick="triggerAccess()">EXECUTAR PROTOCOLO</button>
-  </div>
-</div>
-
-<div id="overlay">
-    <div style="color:#00ff41; font-family: monospace; font-size: 16px;">DECRYPTING_PROTOCOL_GOAT...</div>
-    <div style="width:250px; height:3px; background:#111; margin-top:25px;">
-        <div class="bar-fill" id="bar"></div>
+    <div class="checkout-box">
+        <p class="installment-label">6x de</p>
+        <div class="main-price">R$ 8,99</div>
+        <p class="cash-price">ou à vista R$ 47,90</p>
+        
+        <button class="cta-button" onclick="initRedirect()">Liberar Acesso</button>
     </div>
 </div>
 
+<div id="loading-screen">
+    <div style="font-size: 10px; color: #00ffff; letter-spacing: 2px;">AUTHENTICATING...</div>
+    <div class="load-bar"><div class="load-fill" id="fill"></div></div>
+</div>
+
 <script>
-// MATRIX EFFECT
-const canvas = document.getElementById('matrix-bg');
+// MATRIX ENGINE (VERSÃO SUAVE)
+const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-const chars = "01";
-const fontSize = 16;
+const letters = "01";
+const fontSize = 14;
 const columns = canvas.width / fontSize;
-const drops = [];
-for (let x = 0; x < columns; x++) drops[x] = 1;
+const drops = Array(Math.floor(columns)).fill(1);
 
-function drawMatrix() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+function draw() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#00ff41";
+    ctx.fillStyle = "#003300"; // Verde muito escuro
     ctx.font = fontSize + "px monospace";
-    for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops.forEach((y, i) => {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, y * fontSize);
+        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
         drops[i]++;
-    }
+    });
 }
-setInterval(drawMatrix, 50);
+setInterval(draw, 60);
 
-// VIEW COUNTER
+// CONTADOR
 setInterval(() => {
-    let count = Math.floor(Math.random() * (1680 - 1490 + 1)) + 1490;
-    document.getElementById('view-number').innerText = count;
-}, 3000);
+    const n = Math.floor(Math.random() * (1600 - 1400) + 1400);
+    document.getElementById('view-count').innerText = n.toLocaleString();
+}, 4000);
 
-// UNMUTE
-function unmuteTactical() {
-    const p = document.getElementById('videoPlayer');
-    p.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-    p.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    document.getElementById('floating-trigger').style.display = 'none';
+// COMANDOS
+function activateAudio() {
+    const v = document.getElementById('mainVideo');
+    v.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+    v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    document.getElementById('unmute-btn').style.display = 'none';
 }
 
-// ACCESS REDIRECT
-function triggerAccess() {
-    document.getElementById('overlay').style.display = 'flex';
+function initRedirect() {
+    document.getElementById('loading-screen').style.display = 'flex';
     let w = 0;
-    const inv = setInterval(() => {
-        if (w >= 100) { 
-            clearInterval(inv); 
-            window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1"; 
-        } else { 
-            w += 4; document.getElementById('bar').style.width = w + '%'; 
+    const interval = setInterval(() => {
+        if (w >= 100) {
+            clearInterval(interval);
+            window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
+        } else {
+            w += 2;
+            document.getElementById('fill').style.width = w + '%';
         }
-    }, 40);
+    }, 30);
 }
 
 window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
