@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protocolo GOAT | Interface Elite</title>
+<title>Protocolo GOAT | Cyber Matrix</title>
 
 <style>
 /* RESET & BASE */
@@ -11,113 +11,113 @@
 body {
   background: #000;
   color: #e5e5e5;
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
   overflow-x: hidden;
+}
+
+/* CANVAS MATRIX BACKGROUND */
+#matrix-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1; /* Fica atrás de tudo */
 }
 
 /* BOTÃO FLUTUANTE - LARANJA NEON */
 #floating-trigger {
     position: fixed; top: 20px; right: 20px; z-index: 9999;
-    background: rgba(255, 102, 0, 0.1);
-    border: 3px solid #ff6600; border-radius: 50px;
-    padding: 15px 25px; color: #ff6600; font-weight: 900;
-    text-transform: uppercase; font-size: 13px; cursor: pointer;
-    box-shadow: 0 0 15px #ff6600, inset 0 0 10px #ff6600;
-    text-shadow: 0 0 10px #ff6600;
+    background: rgba(255, 102, 0, 0.15);
+    border: 2px solid #ff6600; border-radius: 50px;
+    padding: 12px 20px; color: #ff6600; font-weight: 900;
+    text-transform: uppercase; font-size: 11px; cursor: pointer;
+    box-shadow: 0 0 15px #ff6600; text-shadow: 0 0 5px #ff6600;
     animation: pulseOrange 1.2s infinite;
 }
 @keyframes pulseOrange { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
 /* HEADER */
-.header-elite { text-align: center; padding: 30px 20px 10px; }
+.header-elite { text-align: center; padding: 30px 20px 10px; position: relative; }
 .profile-thumb {
-    width: 85px; height: 85px; border-radius: 50%;
-    border: 3px solid #ff0000; box-shadow: 0 0 25px #ff0000;
-    margin-bottom: 15px; object-fit: cover;
+    width: 90px; height: 90px; border-radius: 50%;
+    border: 3px solid #ff0000; box-shadow: 0 0 20px #ff0000;
+    margin-bottom: 10px; object-fit: cover; background: #000;
 }
 .main-glow-title {
-    font-size: 28px; font-weight: 900; color: #fff;
-    text-transform: uppercase; letter-spacing: 4px;
-    text-shadow: 0 0 15px #ff0000, 0 0 35px #ff0000;
+    font-size: 24px; font-weight: 900; color: #fff;
+    text-transform: uppercase; letter-spacing: 5px;
+    text-shadow: 0 0 10px #ff0000;
 }
 
-.container { max-width: 600px; margin: auto; padding: 20px; }
+.container { max-width: 600px; margin: auto; padding: 20px; position: relative; z-index: 1; }
 
 /* VIDEO BOX - LARANJA NEON */
 .video-box {
-  border: 4px solid #ff6600; border-radius: 25px;
-  box-shadow: 0 0 35px rgba(255, 102, 0, 0.5); margin-bottom: 10px;
+  border: 3px solid #ff6600; border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 102, 0, 0.5); margin-bottom: 10px;
   position: relative; width: 100%; aspect-ratio: 16/9;
   overflow: hidden; background: #000;
 }
 .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
 
-/* VIEWS COUNTER TÁTICO */
+/* VIEWS COUNTER */
 .views-counter {
     display: flex; align-items: center; justify-content: flex-end;
-    margin-bottom: 25px; padding-right: 10px;
-    font-size: 14px; font-weight: bold; color: #ff0000;
-    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 20px; font-size: 12px; font-weight: bold; color: #ff0000;
+    text-shadow: 0 0 5px #000;
 }
-.eye-icon {
-    width: 18px; height: 18px; margin-right: 8px;
-    background: #ff0000;
-    mask: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/%3E%3C/svg%3E") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z'/%3E%3C/svg%3E") no-repeat center;
-    animation: blink 1.5s infinite;
-}
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-/* NEON MODULES - ROSA NEON */
-.neon-module {
-  display: flex; align-items: center; width: 100%; padding: 20px; margin-bottom: 15px;
-  background: rgba(0,0,0,0.5); border-radius: 22px; border: 4px solid #ff0000;
-  color: #ff0000; text-transform: uppercase; font-weight: 900;
+/* EFEITO CIBERNÉTICO GLITCH */
+.ai-module {
+    width: 100%; padding: 18px; margin-bottom: 12px;
+    background: rgba(0, 0, 0, 0.85); /* Fundo escuro para ler melhor sobre a Matrix */
+    border: 2px solid #00ffff; border-radius: 5px;
+    color: #00ffff; text-transform: uppercase; font-weight: 900; font-size: 14px;
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+    animation: glitch 3s infinite;
 }
-.pink-mod { 
-    border-color: #ff00ff; 
-    color: #ff00ff; 
-    text-shadow: 0 0 15px #ff00ff; 
-    animation: pulsePink 2s infinite ease-in-out; 
+@keyframes glitch {
+  0%, 90%, 100% { transform: translate(0); }
+  92% { transform: translate(-2px, 2px); }
+  95% { transform: translate(2px, -2px); }
 }
-@keyframes pulsePink { 0%, 100% { box-shadow: 0 0 12px #ff00ff; } 50% { box-shadow: 0 0 28px #ff00ff; } }
 
-/* CARROSSEL HD */
+/* CARROSSEL */
 .carousel-container {
-    width: 100%; margin: 30px 0; border: 2px solid #333;
-    border-radius: 15px; overflow: hidden; position: relative;
+    width: 100%; margin: 25px 0; border: 2px solid #00ffff;
+    border-radius: 10px; overflow: hidden; background: #000;
 }
-.carousel-slide { display: none; width: 100%; text-align: center; }
-.carousel-slide img { width: 100%; height: auto; display: block; object-fit: contain; }
+.carousel-slide { display: none; width: 100%; }
+.carousel-slide img { width: 100%; display: block; }
 
 /* PROMO CARD */
 .promo-card {
-    border: 4px solid #ffcc00; border-radius: 25px; padding: 35px 20px;
-    text-align: center; background: #0a0a0a;
-    box-shadow: 0 0 35px rgba(255, 204, 0, 0.4); margin: 45px 0;
+    border: 2px solid #ffcc00; border-radius: 15px; padding: 25px;
+    text-align: center; background: rgba(0, 0, 0, 0.9); 
+    margin-top: 30px; box-shadow: 0 0 25px rgba(255, 204, 0, 0.3);
 }
-.price-main { font-size: 62px; font-weight: 900; color: #ffcc00; text-shadow: 0 0 20px #ffcc00; }
+.price-main { font-size: 50px; font-weight: 900; color: #ffcc00; }
 .btn-final {
-    background: linear-gradient(to bottom, #ffcc00, #ff9900);
-    color: #000; border: none; padding: 24px 30px; border-radius: 18px;
-    font-weight: 900; font-size: 20px; text-transform: uppercase;
-    cursor: pointer; width: 100%; box-shadow: 0 8px 25px rgba(255, 204, 0, 0.5);
+    background: #ffcc00; color: #000; border: none; padding: 20px;
+    border-radius: 5px; font-weight: 900; font-size: 18px;
+    text-transform: uppercase; cursor: pointer; width: 100%;
 }
 
 /* OVERLAY */
 #overlay {
     display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(0,0,0,0.98); z-index:10000; flex-direction:column; align-items:center; justify-content:center;
+    background:#000; z-index:10000; flex-direction:column; align-items:center; justify-content:center;
 }
-.bar-fill { width: 0%; height: 100%; background: #ffcc00; }
+.bar-fill { width: 0%; height: 100%; background: #00ff41; box-shadow: 0 0 15px #00ff41; }
 </style>
 </head>
 <body>
 
-<div id="floating-trigger" onclick="unmuteTactical()">👉📲 toque na tela</div>
+<canvas id="matrix-bg"></canvas>
+
+<div id="floating-trigger" onclick="unmuteTactical()">👉 UNLOCK AUDIO</div>
 
 <div class="header-elite">
-    <img src="https://i.imgur.com/k6lP09L.jpeg" class="profile-thumb">
+    <img src="https://i.ibb.co/k6lP09L/image.jpg" class="profile-thumb">
     <h1 class="main-glow-title">PROTOCOLO GOAT</h1>
 </div>
 
@@ -128,14 +128,14 @@ body {
   </div>
 
   <div class="views-counter">
-      <span class="eye-icon"></span>
-      <span id="view-number">1.482</span>&nbsp;VIEWS
+      <span id="view-number">1.527</span>&nbsp;CONNECTED_USERS
   </div>
 
-  <div class="neon-module">STATUS: ATIVO</div>
-  <div class="neon-module pink-mod">MODULE_01 — ACELERADOR VISUAL</div>
-  <div class="neon-module pink-mod">MODULE_02 — ENGENHARIA VISUAL ADVANCED</div>
-  <div class="neon-module pink-mod">MODULE_03 — DOMÍNIO ESTRATÉGICO DE I.A</div>
+  <div class="ai-module" style="border-color: #ff0000; color: #ff0000; text-shadow: none;">SYSTEM_STATUS: ACTIVE</div>
+  
+  <div class="ai-module">>> MODULE_01: ACELERADOR_VISUAL</div>
+  <div class="ai-module">>> MODULE_02: ENGENHARIA_VISUAL_ADV</div>
+  <div class="ai-module">>> MODULE_03: DOMÍNIO_ESTRATÉGICO_IA</div>
 
   <div class="carousel-container">
       <div class="carousel-slide"><img src="https://i.ibb.co/xqMXzr8m/image1.jpg"></div>
@@ -143,14 +143,91 @@ body {
   </div>
 
   <div class="promo-card">
-      <span style="font-size: 22px; font-weight: bold; color: #fff;">6x de</span>
-      <span class="price-main">R$ 8,99</span>
-      <button class="btn-final" onclick="triggerAccess()">ACESSAR PROTOCOLO</button>
+      <div style="color: #fff; font-size: 14px;">ACESSO VITALÍCIO</div>
+      <div class="price-main">R$ 47,90</div>
+      <button class="btn-final" onclick="triggerAccess()">EXECUTAR COMPRA</button>
   </div>
 </div>
 
 <div id="overlay">
-    <div style="color: #ffcc00; font-weight: bold; text-align: center; padding: 20px; text-transform: uppercase;">
-        VOCÊ ESTÁ A UM PASSO DE TORNAR-SE GOAT 🔥🐐
+    <div style="color:#00ff41; font-family: monospace; font-size: 14px;">DECRYPTING_SYSTEM_...</div>
+    <div style="width:200px; height:2px; background:#111; margin-top:20px;">
+        <div class="bar-fill" id="bar"></div>
     </div>
-    <div style="width: 260px; height: 5px; background: #
+</div>
+
+<script>
+// --- EFEITO MATRIX ---
+const canvas = document.getElementById('matrix-bg');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const chars = "01";
+const fontSize = 16;
+const columns = canvas.width / fontSize;
+const drops = [];
+
+for (let x = 0; x < columns; x++) drops[x] = 1;
+
+function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#00ff41"; // Verde Matrix
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+            drops[i] = 0;
+
+        drops[i]++;
+    }
+}
+setInterval(drawMatrix, 50);
+
+// --- FUNCIONALIDADES ---
+setInterval(() => {
+    let count = Math.floor(Math.random() * (1650 - 1450 + 1)) + 1450;
+    document.getElementById('view-number').innerText = count;
+}, 3000);
+
+let slideIdx = 0;
+autoSlides();
+function autoSlides() {
+  let s = document.getElementsByClassName("carousel-slide");
+  for (let i = 0; i < s.length; i++) s[i].style.display = "none";
+  slideIdx++;
+  if (slideIdx > s.length) slideIdx = 1;
+  s[slideIdx-1].style.display = "block";
+  setTimeout(autoSlides, 3000);
+}
+
+function unmuteTactical() {
+    const p = document.getElementById('videoPlayer');
+    p.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+    p.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    document.getElementById('floating-trigger').style.display = 'none';
+}
+
+function triggerAccess() {
+    document.getElementById('overlay').style.display = 'flex';
+    let w = 0;
+    const inv = setInterval(() => {
+        if (w >= 100) { clearInterval(inv); window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1"; }
+        else { w += 5; document.getElementById('bar').style.width = w + '%'; }
+    }, 50);
+}
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
