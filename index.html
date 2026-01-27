@@ -1,193 +1,67 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Protocolo GOAT | Secure Interface</title>
+<div class="cta-container">
+    <button id="checkout-btn" class="cyber-button" onclick="handlePurchase()">
+        <span class="glitch-text">GARANTIR ACESSO AGORA</span>
+        <span class="price-tag">6x de R$ 8,99</span>
+    </button>
+</div>
 
 <style>
-/* BASE CLEAN & CYBER */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: #000;
-  color: #a0a0a0;
-  font-family: 'Courier New', Courier, monospace;
-  overflow-x: hidden;
+/* Efeito de Brilho Pulsante */
+.cyber-button {
+    background: transparent;
+    border: 2px solid #00ff41; /* Verde Matrix */
+    color: #00ff41;
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /* O "Glow" constante */
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2), inset 0 0 10px rgba(0, 255, 65, 0.2);
+    animation: pulse-glow 2s infinite;
 }
 
-canvas#matrix {
-    position: fixed;
-    top: 0; left: 0;
-    z-index: -1;
-    opacity: 0.25; /* Sutil para não distrair */
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.4); }
+    50% { box-shadow: 0 0 20px rgba(0, 255, 65, 0.8), inset 0 0 10px rgba(0, 255, 65, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.4); }
 }
 
-/* BOTÃO DE INTERAÇÃO DISCRETO */
-#unmute-btn {
-    position: fixed; top: 20px; right: 20px; z-index: 999;
-    background: transparent; border: 1px solid #00ffff;
-    color: #00ffff; padding: 10px 15px; font-size: 10px;
-    letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
-    transition: 0.3s;
-}
-#unmute-btn:hover { background: rgba(0, 255, 255, 0.1); }
-
-/* HEADER MINIMALISTA */
-.header { text-align: center; padding: 40px 20px; }
-.profile-pic {
-    width: 80px; height: 80px; border-radius: 50%;
-    border: 1px solid #333; margin-bottom: 20px;
-    filter: grayscale(100%); transition: 0.5s;
-}
-.profile-pic:hover { filter: grayscale(0%); border-color: #ff0000; }
-.title {
-    font-size: 20px; letter-spacing: 6px; color: #fff;
-    text-transform: uppercase; font-weight: 400;
+.cyber-button:hover {
+    background: #00ff41;
+    color: #000;
+    box-shadow: 0 0 40px #00ff41;
 }
 
-.content-wrapper { max-width: 550px; margin: auto; padding: 0 20px; position: relative; }
-
-/* PLAYER DE VÍDEO CLEAN */
-.video-container {
-    border: 1px solid #333; background: #000;
-    position: relative; width: 100%; aspect-ratio: 16/9;
-    margin-bottom: 15px;
+.price-tag {
+    display: block;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    opacity: 0.8;
 }
-.video-container iframe { position: absolute; width: 100%; height: 100%; pointer-events: none; }
-
-.live-indicator {
-    text-align: right; font-size: 10px; color: #ff0000;
-    margin-bottom: 30px; letter-spacing: 1px;
-}
-
-/* MÓDULOS COM ESTILO DE TERMINAL */
-.module {
-    padding: 15px; margin-bottom: 10px;
-    border-left: 2px solid #00ffff;
-    background: rgba(255, 255, 255, 0.02);
-    font-size: 12px; color: #00ffff;
-    letter-spacing: 1px;
-}
-.module span { color: #555; margin-right: 10px; }
-
-/* ÁREA DE PREÇO ESTRUTURADA */
-.checkout-box {
-    margin-top: 50px; padding: 40px 20px; text-align: center;
-    border-top: 1px solid #222;
-}
-.installment-label { font-size: 14px; color: #888; margin-bottom: 5px; }
-.main-price { font-size: 48px; color: #fff; font-weight: bold; margin-bottom: 5px; }
-.cash-price { font-size: 12px; color: #555; margin-bottom: 25px; }
-
-.cta-button {
-    background: #fff; color: #000; border: none;
-    padding: 20px 40px; width: 100%; font-weight: bold;
-    text-transform: uppercase; letter-spacing: 3px;
-    cursor: pointer; transition: 0.4s;
-}
-.cta-button:hover { background: #00ffff; box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); }
-
-/* PROGRESS OVERLAY */
-#loading-screen {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:#000; z-index:10000; flex-direction:column; align-items:center; justify-content:center;
-}
-.load-bar { width: 150px; height: 1px; background: #222; margin-top: 20px; }
-.load-fill { height: 100%; background: #00ffff; width: 0%; }
 </style>
-</head>
-<body>
-
-<canvas id="matrix"></canvas>
-<button id="unmute-btn" onclick="activateAudio()">[ Ativar Áudio ]</button>
-
-<div class="header">
-    <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-pic">
-    <h1 class="title">PROTOCOLO GOAT</h1>
-</div>
-
-<div class="content-wrapper">
-    <div class="video-container">
-        <iframe id="mainVideo" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0&enablejsapi=1" frameborder="0"></iframe>
-    </div>
-    
-    <div class="live-indicator">
-        ● <span id="view-count">1.482</span> USERS_CONNECTED
-    </div>
-
-    <div class="module"><span>[01]</span> ACELERADOR VISUAL</div>
-    <div class="module"><span>[02]</span> ENGENHARIA VISUAL ADVANCED</div>
-    <div class="module"><span>[03]</span> DOMÍNIO ESTRATÉGICO DE I.A</div>
-
-    <div class="checkout-box">
-        <p class="installment-label">6x de</p>
-        <div class="main-price">R$ 8,99</div>
-        <p class="cash-price">ou à vista R$ 47,90</p>
-        
-        <button class="cta-button" onclick="initRedirect()">Liberar Acesso</button>
-    </div>
-</div>
-
-<div id="loading-screen">
-    <div style="font-size: 10px; color: #00ffff; letter-spacing: 2px;">AUTHENTICATING...</div>
-    <div class="load-bar"><div class="load-fill" id="fill"></div></div>
-</div>
 
 <script>
-// MATRIX ENGINE (VERSÃO SUAVE)
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const letters = "01";
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
+// Mantendo os efeitos sonoros e comandos anteriores
+const hoverSound = new Audio('hover.mp3'); // Seu arquivo de som de hover
+const clickSound = new Audio('click.mp3'); // Seu arquivo de som de clique
 
-function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "#003300"; // Verde muito escuro
-    ctx.font = fontSize + "px monospace";
-    drops.forEach((y, i) => {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, y * fontSize);
-        if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-    });
+const btn = document.getElementById('checkout-btn');
+
+btn.addEventListener('mouseenter', () => {
+    hoverSound.play();
+    console.log("Comando: Iniciando preview de acesso...");
+});
+
+function handlePurchase() {
+    clickSound.play();
+    console.log("Comando: Redirecionando para o Gateway Seguro.");
+    // Link do Checkout aqui
+    window.location.href = "SEU_LINK_DE_PAGAMENTO_AQUI";
 }
-setInterval(draw, 60);
-
-// CONTADOR
-setInterval(() => {
-    const n = Math.floor(Math.random() * (1600 - 1400) + 1400);
-    document.getElementById('view-count').innerText = n.toLocaleString();
-}, 4000);
-
-// COMANDOS
-function activateAudio() {
-    const v = document.getElementById('mainVideo');
-    v.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-    v.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    document.getElementById('unmute-btn').style.display = 'none';
-}
-
-function initRedirect() {
-    document.getElementById('loading-screen').style.display = 'flex';
-    let w = 0;
-    const interval = setInterval(() => {
-        if (w >= 100) {
-            clearInterval(interval);
-            window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
-        } else {
-            w += 2;
-            document.getElementById('fill').style.width = w + '%';
-        }
-    }, 30);
-}
-
-window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
 </script>
 
-</body>
-</html>
