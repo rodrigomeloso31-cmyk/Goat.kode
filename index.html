@@ -3,149 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROTOCOLO GOAT | ACESSO BLACK</title>
+    <title>PROTOCOLO GOAT | ACESSO BLACK PREMIUM</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
-            --gold-light: #f1d592;
-            --black-premium: #050505;
-            --card-gradient: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            --gold-shine: #f1d592;
+            --black-pure: #000000;
+            --black-card: #0a0a0a;
         }
 
         body {
-            background-color: var(--black-premium);
-            color: #fff;
+            background-color: var(--black-pure);
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
             margin: 0;
             overflow-x: hidden;
         }
 
-        /* Fundo de DNA Digital Sutil */
+        /* Matrix Dourada Subliminar */
         #matrix-canvas {
             position: fixed;
             top: 0; left: 0;
             z-index: -1;
-            opacity: 0.05; 
+            opacity: 0.08; 
         }
 
-        /* Interface Superior */
-        .premium-header {
-            padding: 20px;
+        .header-system {
+            padding: 15px;
             text-align: center;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            font-size: 0.7rem;
-            letter-spacing: 3px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            font-size: 0.65rem;
+            letter-spacing: 4px;
             color: var(--gold);
+            background: rgba(0,0,0,0.9);
+            text-transform: uppercase;
         }
 
         .container {
             max-width: 800px;
-            margin: 80px auto;
+            margin: 60px auto;
             padding: 0 20px;
             text-align: center;
         }
 
         .gold-badge {
             display: inline-block;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border: 1px solid var(--gold);
             border-radius: 50px;
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: 2px;
             color: var(--gold);
             margin-bottom: 30px;
-            text-transform: uppercase;
+            background: rgba(212, 175, 55, 0.05);
         }
 
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            background: linear-gradient(to bottom, #fcf6ba 0%, #bf953f 40%, #8a6d29 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+            margin: 0 0 20px;
         }
 
-        .headline-sub {
-            color: #888;
+        .sub-text {
+            color: #999;
             font-weight: 300;
-            font-size: 1.2rem;
-            max-width: 600px;
+            font-size: 1.1rem;
+            max-width: 550px;
             margin: 0 auto 50px;
+            line-height: 1.6;
         }
 
-        /* Card Flutuante */
-        .checkout-card {
-            background: var(--card-gradient);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 24px;
-            padding: 60px 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.1);
+        /* Card Flutuante Premium */
+        .premium-card {
+            background: var(--black-card);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 30px;
+            padding: 50px 30px;
+            box-shadow: 0 40px 100px rgba(0,0,0,1), 0 0 30px rgba(212, 175, 55, 0.05);
             position: relative;
-            transition: transform 0.3s ease;
+            transition: 0.5s;
         }
 
-        .checkout-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-        }
+        .price-label { color: var(--gold); font-size: 0.8rem; letter-spacing: 2px; }
 
-        .price-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .main-price {
+        .price-main {
             display: block;
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 700;
-            margin: 10px 0;
-            color: #fff;
+            margin: 15px 0;
+            letter-spacing: -2px;
         }
 
-        .gold-text { color: var(--gold); }
-
-        /* Botão Flutuante de Luxo */
-        .btn-luxury {
+        /* Botão de Compra Flutuante */
+        .btn-buy {
             display: inline-block;
             width: 100%;
-            max-width: 400px;
-            padding: 25px;
-            margin-top: 30px;
-            background: var(--gold);
+            max-width: 450px;
+            padding: 24px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
             color: #000;
-            text-decoration: none;
             font-weight: 900;
-            font-size: 1.1rem;
-            border-radius: 12px;
+            font-size: 1.2rem;
+            border-radius: 15px;
             border: none;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            letter-spacing: 1px;
+            box-shadow: 0 15px 35px rgba(184, 134, 11, 0.3);
+            transition: all 0.3s;
             animation: float-btn 3s infinite ease-in-out;
         }
 
         @keyframes float-btn {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(184, 134, 11, 0.5); }
         }
 
-        .btn-luxury:hover {
-            background: #fff;
-            transform: scale(1.05);
-            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.3);
+        .btn-buy:hover {
+            transform: scale(1.03);
+            filter: brightness(1.2);
         }
 
-        .secure-footer {
-            margin-top: 30px;
-            font-size: 0.75rem;
-            color: #444;
+        .secure-lock {
+            margin-top: 25px;
+            font-size: 0.7rem;
+            color: #555;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            text-transform: uppercase;
         }
     </style>
 </head>
@@ -153,27 +145,27 @@
 
     <canvas id="matrix-canvas"></canvas>
 
-    <div class="premium-header">
-        SISTEMA CRIPTOGRAFADO • PROTOCOLO GOAT V3.0 • ACESSO PRIORITÁRIO
+    <div class="header-system">
+        Protocolo GOAT // Terminal de Acesso Privado // 2026
     </div>
 
     <div class="container">
-        <div class="gold-badge">Acesso Restrito ao Top 1%</div>
+        <div class="gold-badge">Acesso Exclusivo Liberado</div>
         <h1>PROTOCOLO GOAT</h1>
-        <p class="headline-sub">Transforme dados em poder. A ferramenta definitiva para quem não aceita o segundo lugar.</p>
+        <p class="sub-text">O sistema de inteligência definitiva para o próximo nível do mercado digital.</p>
 
-        <div class="checkout-card">
-            <span class="price-label">Investimento Exclusivo</span>
-            <span class="main-price">6x <span class="gold-text">R$ 8,99</span></span>
-            <p style="color: #666;">ou R$ 47,90 à vista</p>
+        <div class="premium-card">
+            <span class="price-label">OFERTA DE LANÇAMENTO</span>
+            <span class="price-main">6x de <span style="color: #fff;">R$ 8,99</span></span>
+            <p style="color: #444; font-weight: bold; margin-bottom: 30px;">OU R$ 47,90 À VISTA</p>
 
-            <button class="btn-luxury" id="btn-pay" onclick="iniciarCheckout()">
-                ADQUIRIR ACESSO BLACK
+            <button class="btn-buy" id="checkout-trigger" onclick="redirectPurchase()">
+                QUERO MEU ACESSO AGORA
             </button>
 
-            <div class="secure-footer">
-                <img src="https://cdn-icons-png.flaticon.com/512/2501/2501784.png" width="14" style="filter: brightness(0.3);">
-                PAGAMENTO PROCESSADO EM AMBIENTE SEGURO
+            <div class="secure-lock">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#444"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                CHECKOUT 100% SEGURO VIA HOTMART
             </div>
         </div>
     </div>
@@ -182,41 +174,39 @@
     <audio id="snd-click" src="https://www.soundjay.com/buttons/sounds/button-19.mp3"></audio>
 
     <script>
-        // Matrix Dourada Sutil
+        // Matrix em Tons de Ouro Sutil
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         canvas.height = window.innerHeight; canvas.width = window.innerWidth;
         const drops = Array(Math.floor(canvas.width/16)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(5, 5, 5, 0.1)";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#d4af37";
-            ctx.font = "15px Arial";
+            ctx.fillStyle = "#8a6d29"; 
+            ctx.font = "14px monospace";
             drops.forEach((y, i) => {
                 const text = Math.floor(Math.random()*2);
                 ctx.fillText(text, i*16, y*16);
-                if(y*16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                if(y*16 > canvas.height && Math.random() > 0.98) drops[i] = 0;
                 drops[i]++;
             });
         }
-        setInterval(draw, 50);
+        setInterval(draw, 60);
 
-        // Sons
-        const btn = document.getElementById('btn-pay');
+        const btn = document.getElementById('checkout-trigger');
         const hoverSnd = document.getElementById('snd-hover');
         const clickSnd = document.getElementById('snd-click');
 
         btn.addEventListener('mouseenter', () => hoverSnd.play());
 
-        function iniciarCheckout() {
+        function redirectPurchase() {
             clickSnd.play();
-            btn.innerHTML = "VALIDANDO ACESSO...";
-            btn.style.background = "#fff";
+            btn.innerText = "REDIRECIONANDO...";
             
-            // Comando de redirecionamento para sua página de pagamento
+            // URL ATUALIZADA CONFORME SOLICITADO
             setTimeout(() => {
-                window.location.href = "https://pay.hotmart.com/N94236052X?checkoutMode=10";
-            }, 1000);
+                window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
+            }, 800);
         }
     </script>
 </body>
