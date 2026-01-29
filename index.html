@@ -3,86 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo GOAT | Interface 2.0</title>
+    <title>Protocolo GOAT | Experiência Gamificada</title>
     
     <link rel="icon" type="image/jpeg" href="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         :root { 
             --neon-green: #00ff41; 
-            --neon-cyan: #00f2ff; 
-            --neon-pink: #ff00ff; 
-            --neon-yellow: #fff200; 
+            --neon-blue: #00f2ff;
             --main-bg: #020202; 
         }
-        
         body { background: radial-gradient(circle at center, #0a150a 0%, var(--main-bg) 100%); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-
-        /* Botão Ativar Som - Lado Esquerdo */
-        .btn-unmute {
-            position: fixed; bottom: 30px; left: 20px; z-index: 1000;
-            padding: 15px 25px; background: linear-gradient(45deg, #ff6a00, #ff2200);
-            color: white; border-radius: 50px; font-weight: 900;
-            box-shadow: 0 0 20px #ff6a00; border: 2px solid white;
-            cursor: pointer; animation: pulse-glow 2s infinite;
-        }
-
-        /* Menu Lateral Módulos */
-        .sidebar-left { position: fixed; left: 20px; top: 40%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 25px; z-index: 900; }
-
-        .mod-btn {
-            width: 65px; height: 65px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 28px; cursor: pointer; transition: 0.4s; position: relative;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
-        }
-
-        /* Estilos Incandescentes Individuais */
-        .cyan-glow { border: 2px solid var(--neon-cyan); color: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); animation: float-cyan 3s infinite; }
-        .pink-glow { border: 2px solid var(--neon-pink); color: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); animation: float-pink 3s infinite alternate; }
-        .yellow-glow { border: 2px solid var(--neon-yellow); color: var(--neon-yellow); box-shadow: 0 0 15px var(--neon-yellow); animation: float-yellow 4s infinite; }
-
-        @keyframes pulse-glow { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px #ff6a00; } 50% { transform: scale(1.1); box-shadow: 0 0 40px #ff6a00; } }
         
-        /* Tooltips Mágicos */
-        .tooltip {
-            position: absolute; left: 85px; background: rgba(0,255,65,0.1); border: 1px solid var(--neon-green);
-            padding: 12px; border-radius: 10px; width: 220px; font-size: 13px; color: white;
-            backdrop-filter: blur(10px); display: none; pointer-events: none; text-shadow: 0 0 5px black;
+        /* Pulsar Infinito e Incandescente */
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 10px var(--neon-green), inset 0 0 5px var(--neon-green); transform: scale(1); }
+            50% { box-shadow: 0 0 30px var(--neon-green), inset 0 0 15px var(--neon-green); transform: scale(1.05); }
+            100% { box-shadow: 0 0 10px var(--neon-green), inset 0 0 5px var(--neon-green); transform: scale(1); }
         }
 
-        .video-box { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,255,65,0.3); }
-        .video-box iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .btn-gamified {
+            animation: glowPulse 2s infinite ease-in-out;
+            border: 2px solid var(--neon-green);
+            background: rgba(0, 255, 65, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Vídeo Horizontal 16:9 */
+        .video-wrapper {
+            position: relative; width: 100%; padding-bottom: 56.25%; /* 16:9 */
+            height: 0; overflow: hidden; border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Botão Flutuante Esquerdo */
+        .float-left {
+            position: fixed; bottom: 40px; left: 30px; width: 60px; height: 60px;
+            background: var(--neon-blue); color: black; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 25px var(--neon-blue); z-index: 1000;
+            animation: bounce 3s infinite;
+        }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* Descrição Mágica */
+        .module-content { display: none; animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-8">
 
-    <header class="text-center py-8">
-        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="mx-auto h-20 mb-3 rounded-full border-2 border-green-500">
-        <h1 class="text-3xl font-black italic tracking-tighter uppercase">Protocolo <span class="text-green-500">GOAT</span></h1>
+    <header class="text-center mb-10">
+        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" alt="Logo" class="mx-auto h-20 mb-4 rounded-full border-2 border-green-500">
+        <h1 class="text-4xl font-black italic tracking-tighter">PROTOCOLO <span class="text-green-500">GOAT</span></h1>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4">
-        <div class="video-box mb-12">
-            <iframe id="goatPlayer" 
-                src="https://www.youtube.com/embed/MkY7ajtJp0U?enablejsapi=1&autoplay=1&mute=1&loop=1&playlist=MkY7ajtJp0U&controls=0&modestbranding=1" 
-                allow="autoplay"></iframe>
+    <section class="max-w-4xl mx-auto mb-16">
+        <div class="video-wrapper">
+            <iframe 
+                src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&loop=1&playlist=MkY7ajtJp0U&rel=0" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </section>
+
+    <div class="text-center mb-16">
+        <p class="text-green-400 font-mono text-sm tracking-widest mb-2 uppercase">Acesso Liberado Agora</p>
+        <h2 class="text-6xl font-black">11x R$ 5,32</h2>
+        <p class="text-gray-400">ou R$ 47,90 à vista</p>
+        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-gamified inline-block mt-8 px-16 py-4 rounded-full font-bold uppercase text-black bg-green-500">
+            Ativar Protocolo
+        </a>
+    </div>
+
+    <section class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+        
+        <div class="text-center">
+            <button onclick="toggleModule('mod1')" class="btn-gamified w-full p-6 rounded-2xl">
+                <i class="fas fa-microchip mb-2 block text-2xl"></i>
+                MÓDULO 01: O MOTOR
+            </button>
+            <div id="mod1" class="module-content mt-4 p-4 bg-white/5 rounded-xl border border-green-500/20 text-sm text-gray-300">
+                O guia e o mapa completo para configurar sua IA de vendas em menos de 15 minutos.
+            </div>
         </div>
 
-        <div class="text-center mb-20">
-            <h2 class="text-5xl font-black mb-1">11x R$ 5,32</h2>
-            <p class="text-gray-400 mb-6">ou R$ 47,90 à vista</p>
-            <a href="https://pay.kiwify.com.br/TE6TEU3" class="bg-green-500 text-black px-12 py-5 rounded-full font-black uppercase text-xl shadow-[0_0_30px_#00ff41] hover:scale-110 transition">Ativar Agora</a>
+        <div class="text-center">
+            <button onclick="toggleModule('mod2')" class="btn-gamified w-full p-6 rounded-2xl">
+                <i class="fas fa-brain mb-2 block text-2xl"></i>
+                MÓDULO 02: O CÓDIGO
+            </button>
+            <div id="mod2" class="module-content mt-4 p-4 bg-white/5 rounded-xl border border-green-500/20 text-sm text-gray-300">
+                Engenharia de prompts para criar experiências que geram dopamina e desejo imediato de compra.
+            </div>
         </div>
-    </main>
 
-    <nav class="sidebar-left">
-        <div class="mod-btn cyan-glow" onclick="showMod('t1')">
-            <i class="fas fa-microchip"></i>
-            <div id="t1" class="tooltip"><b>ESTRUTURA:</b> O passo a passo para configurar a IA no seu sistema hoje.</div>
+        <div class="text-center">
+            <button onclick="toggleModule('mod3')" class="btn-gamified w-full p-6 rounded-2xl">
+                <i class="fas fa-rocket mb-2 block text-2xl"></i>
+                MÓDULO 03: ESCALA
+            </button>
+            <div id="mod3" class="module-content mt-4 p-4 bg-white/5 rounded-xl border border-green-500/20 text-sm text-gray-300">
+                O segredo da gamificação para sair do zero e dominar o algoritmo de forma invisível.
+            </div>
         </div>
-        <div class="mod-btn pink-glow" onclick="showMod('t2')">
-            <i class="fas fa-brain"></i>
-            <div id="t2" class="tooltip"><b>CÓDIGO:</b> Prompts psicológicos que forçam a venda
+
+    </section>
+
+    <div class="float-left" onclick="alert('🚀 Mais um aluno acessando o mapa agora!')">
+        <i class="fas fa-bell text-2xl"></i>
+    </div>
+
+    <script>
+        function toggleModule(id) {
+            // Esconde todos primeiro para efeito de foco
+            document.querySelectorAll('.module-content').forEach(el => el.style.display = 'none');
+            // Mostra o clicado
+            const content = document.getElementById(id);
+            content.style.display = 'block';
+            // Som de "mágica" pode ser adicionado aqui
+        }
+    </script>
+
+</body>
+</html>
