@@ -1,180 +1,187 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Protocolo GOAT | Sovereign Interface</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root { --accent: #00ff99; --bg: #000; --text: #fff; --glass: rgba(255, 255, 255, 0.03); }
-    
-    body {
-      margin: 0; font-family: 'Inter', sans-serif;
-      background: var(--bg); color: var(--text);
-      overflow-x: hidden; scroll-behavior: smooth;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo GOAT | Sovereign Interface</title>
+    <style>
+        :root { 
+            --accent: #00ff99; 
+            --bg: #000; 
+            --text: #fff; 
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            margin: 0; font-family: 'Inter', sans-serif;
+            background: var(--bg); color: var(--text);
+            overflow-x: hidden; scroll-behavior: smooth;
+        }
 
-    /* BACKGROUND ORBITAL */
-    .orb {
-      position: fixed; width: 40vw; height: 40vw;
-      background: radial-gradient(circle, rgba(0, 255, 153, 0.08) 0%, transparent 70%);
-      border-radius: 50%; z-index: -1; pointer-events: none;
-      filter: blur(80px); transition: 0.2s;
-    }
+        /* EFEITO DE FUNDO MAGNÉTICO */
+        .orb {
+            position: fixed; width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(0, 255, 153, 0.08) 0%, transparent 70%);
+            border-radius: 50%; z-index: -1; pointer-events: none;
+            filter: blur(80px); transition: 0.2s;
+        }
 
-    /* BOTÃO FLUTUANTE DE SOM */
-    #unmute-float {
-        position: fixed; bottom: 30px; right: 20px; z-index: 9999;
-        background: var(--accent); color: #000; border: none; padding: 15px 25px;
-        border-radius: 50px; font-weight: 900; font-size: 11px; text-transform: uppercase;
-        box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4); cursor: pointer;
-        display: flex; align-items: center; gap: 10px; animation: pulse 2s infinite;
-    }
+        /* BOTÃO FLUTUANTE DE SOM */
+        #unmute-float {
+            position: fixed; bottom: 30px; right: 20px; z-index: 9999;
+            background: var(--accent); color: #000; border: none; padding: 15px 25px;
+            border-radius: 50px; font-weight: 900; font-size: 11px; text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4); cursor: pointer;
+            display: flex; align-items: center; gap: 10px; animation: pulse 2s infinite;
+        }
 
-    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-    .section { padding: 40px 20px; max-width: 800px; margin: auto; text-align: center; }
-    .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--accent); margin-top: 20px; }
-    
-    h1 { font-size: 2.2em; text-shadow: 0 0 20px var(--accent); letter-spacing: 5px; font-weight: 900; margin-top: 15px; }
-    .subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
+        .section { padding: 40px 20px; max-width: 800px; margin: auto; text-align: center; }
+        
+        /* HEADER */
+        .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--accent); margin-top: 20px; }
+        h1 { font-size: 2.2em; text-shadow: 0 0 20px var(--accent); letter-spacing: 5px; font-weight: 900; margin-top: 15px; text-transform: uppercase; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto; }
 
-    /* VIDEO WIDESCREEN 16:9 */
-    .video-wrapper { width: 100%; max-width: 750px; margin: 20px auto; }
-    .video-container { 
-        position: relative; padding-bottom: 56.25%; background: #000; 
-        border-radius: 15px; overflow: hidden; border: 1px solid rgba(0, 255, 153, 0.2); 
-    }
-    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        /* VÍDEO 16:9 */
+        .video-wrapper { width: 100%; max-width: 750px; margin: 20px auto; }
+        .video-container { 
+            position: relative; padding-bottom: 56.25%; background: #000; 
+            border-radius: 15px; overflow: hidden; border: 1px solid var(--glass-border); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-    /* VITRINE DE ATIVOS GOAT */
-    .ebook-vitrine { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px 0; }
-    .ebook-item {
-      background: var(--glass); backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px;
-      transition: 0.3s; text-align: center;
-    }
-    .ebook-item:hover { border-color: var(--accent); transform: translateY(-5px); }
-    .ebook-icon { font-size: 30px; margin-bottom: 10px; display: block; }
-    .ebook-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #fff; }
-    .ebook-desc { font-size: 10px; color: #666; margin-top: 5px; }
+        /* NOVO SETOR: PACK DE VÍDEO COMPLETO (BÔNUS) */
+        .bonus-section { margin: 50px 0; background: var(--glass); border: 1px solid var(--accent); border-radius: 25px; padding: 30px; }
+        .bonus-title { color: var(--accent); font-weight: 900; font-size: 18px; margin-bottom: 15px; letter-spacing: 2px; }
+        
+        /* GRID DE ATIVOS (PDFs) */
+        .ebook-vitrine { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px 0; }
+        .ebook-item {
+            background: var(--glass); backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px;
+            transition: 0.3s;
+        }
+        .ebook-item:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .ebook-icon { font-size: 30px; margin-bottom: 10px; display: block; }
+        .ebook-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #fff; }
 
-    /* PREÇO E BOTÃO */
-    .price-card { background: rgba(255,255,255,0.02); padding: 40px 20px; border-radius: 30px; border: 1px solid #111; }
-    .value { font-size: 4em; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
-    
-    .btn-main {
-      display: inline-block; padding: 22px; font-size: 1.2em; color: #000;
-      background: var(--accent); border-radius: 100px; text-decoration: none;
-      font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; width: 100%; max-width: 400px;
-    }
+        /* PREÇO E BOTÃO */
+        .price-card { background: rgba(255,255,255,0.02); padding: 40px 20px; border-radius: 30px; border: 1px solid #111; margin-top: 40px; }
+        .value { font-size: 4em; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
+        
+        .btn-main {
+            display: inline-block; padding: 22px; font-size: 1.2em; color: #000;
+            background: var(--accent); border-radius: 100px; text-decoration: none;
+            font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; width: 100%; max-width: 400px;
+            box-shadow: 0 0 30px rgba(0, 255, 153, 0.2);
+        }
 
-    /* OVERLAY DE SINCRONIZAÇÃO */
-    #sync-overlay {
-        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
-    }
-    .sync-bar { width: 200px; height: 2px; background: #111; margin-top: 20px; }
-    .sync-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.1s; }
+        /* TELA DE SINCRONIZAÇÃO */
+        #sync-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .sync-bar { width: 220px; height: 2px; background: #111; margin-top: 20px; }
+        .sync-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.1s; }
 
-    #sales-pop { position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000; padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.6); z-index: 1000; transform: translateX(-250%); transition: 0.8s; font-size: 11px; font-weight: bold; }
-  </style>
+        /* NOTIFICAÇÃO DE VENDA */
+        #sales-pop { position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000; padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; z-index: 1000; transform: translateX(-250%); transition: 0.8s; font-size: 11px; font-weight: bold; }
+    </style>
 </head>
 <body>
 
-  <div class="orb" id="orb"></div>
-  <button id="unmute-float" onclick="forceAudio()">🔊 ATIVAR ÁUDIO DO SISTEMA</button>
+    <div class="orb" id="orb"></div>
+    <button id="unmute-float" onclick="forceAudio()">🔊 ATIVAR ÁUDIO DO SISTEMA</button>
 
-  <div id="sales-pop">
-    <div style="background:var(--accent); width:8px; height:8px; border-radius:50%; margin-right:10px;"></div>
-    <div><span id="pop-name">felipe.mkt</span> ativou o protocolo!</div>
-  </div>
-
-  <div class="section">
-    <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-img">
-    <h1>PROTOCOLO GOAT</h1>
-    <p class="subtitle">O sistema visual que transforma conteúdo em engajamento e tráfego.</p>
-    
-    <div class="video-wrapper">
-        <div class="video-container">
-          <iframe id="player" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&enablejsapi=1&controls=0" frameborder="0"></iframe>
-        </div>
+    <div id="sales-pop">
+        <div style="background:var(--accent); width:8px; height:8px; border-radius:50%; margin-right:10px;"></div>
+        <div><span id="pop-name">gui_viana</span> ativou o protocolo!</div>
     </div>
-  </div>
 
-  <div class="section" style="padding-top: 0;">
-    <h2 style="color:var(--accent); font-size: 12px; letter-spacing: 3px; margin-bottom: 30px;">BIBLIOTECA DE ATIVOS:</h2>
-    
-    <div class="ebook-vitrine">
-        <div class="ebook-item">
-            <span class="ebook-icon">🛡️</span>
-            <div class="ebook-title">Protocolo GOAT</div>
-            <div class="ebook-desc">O sistema visual completo.</div>
-        </div>
-        <div class="ebook-item">
-            <span class="ebook-icon">🧠</span>
-            <div class="ebook-title">Anti-Procrastinação</div>
-            <div class="ebook-desc">Elimine a paralisia mental.</div>
-        </div>
-        <div class="ebook-item">
-            <span class="ebook-icon">📈</span>
-            <div class="ebook-title">Manual de Escala</div>
-            <div class="ebook-desc">A rota para os 10k.</div>
-        </div>
-        <div class="ebook-item">
-            <span class="ebook-icon">⚡</span>
-            <div class="ebook-title">Rotina Diária</div>
-            <div class="ebook-desc">Execução em 15 min.</div>
+    <div class="section">
+        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-img">
+        <h1>PROTOCOLO GOAT</h1>
+        <p class="subtitle">O sistema invisível que transforma seguidores comuns em vendas diárias usando IA e automação.</p>
+        
+        <div class="video-wrapper">
+            <div class="video-container">
+                <iframe id="youtube-player" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&enablejsapi=1&controls=0&rel=0" frameborder="0"></iframe>
+            </div>
         </div>
     </div>
 
-    <div class="price-card">
-        <div class="value">R$ 47,90</div>
-        <button class="btn-main" onclick="startRedirect()">ATIVAR PROTOCOLO AGORA</button>
+    <div class="section" style="padding-top: 0;">
+        <div class="ebook-vitrine">
+            <div class="ebook-item">
+                <span class="ebook-icon">🐐</span>
+                <div class="ebook-title">Protocolo GOAT</div>
+                <div class="ebook-desc" style="font-size: 9px; color: #555; margin-top: 5px;">Sistema de Ativação Visual</div>
+            </div>
+            <div class="ebook-item">
+                <span class="ebook-icon">🧠</span>
+                <div class="ebook-title">Fim da Procrastinação</div>
+                <div class="ebook-desc" style="font-size: 9px; color: #555; margin-top: 5px;">Método Anti-Paralisia</div>
+            </div>
+        </div>
+
+        <div class="bonus-section">
+            <div class="bonus-title">PACK DE VÍDEO COMPLETO</div>
+            <p style="font-size: 12px; color: #888;">Libere acesso imediato ao arsenal de vídeos 4K para Reels e anúncios de alta conversão.</p>
+        </div>
+
+        <div class="price-card">
+            <div style="font-size: 12px; color: #444; letter-spacing: 2px;">VALOR PROMOCIONAL</div>
+            <div class="value">R$ 47,90</div>
+            <button class="btn-main" onclick="startSync()">ATIVAR ACESSO VITALÍCIO</button>
+        </div>
     </div>
-  </div>
 
-  <div id="sync-overlay">
-      <div style="font-family: monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px;">VINCULANDO_SISTEMA_...</div>
-      <div class="sync-bar"><div class="sync-fill" id="fill"></div></div>
-  </div>
+    <div id="sync-overlay">
+        <div style="font-family: monospace; font-size: 11px; color: var(--accent); letter-spacing: 3px;" id="status-text">AUTENTICANDO_...</div>
+        <div class="sync-bar"><div class="sync-fill" id="fill"></div></div>
+    </div>
 
-  <script>
-    function forceAudio() {
-        const frame = document.getElementById('player');
-        frame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-        frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        document.getElementById('unmute-float').style.display = 'none';
-    }
+    <script>
+        // CORREÇÃO DO ÁUDIO
+        function forceAudio() {
+            const frame = document.getElementById('youtube-player');
+            frame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+            frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            document.getElementById('unmute-float').style.display = 'none';
+        }
 
-    const orb = document.getElementById('orb');
-    document.addEventListener('mousemove', (e) => {
-      orb.style.left = e.clientX - 200 + 'px';
-      orb.style.top = e.clientY - 200 + 'px';
-    });
+        // MOVIMENTO DO FUNDO
+        const orb = document.getElementById('orb');
+        document.addEventListener('mousemove', (e) => {
+            orb.style.left = e.clientX - 200 + 'px';
+            orb.style.top = e.clientY - 200 + 'px';
+        });
 
-    const names = ["gui_viana", "Ana_Clara.ia", "thiago_goat", "pedro_ia"];
-    setInterval(() => {
-        const pop = document.getElementById('sales-pop');
-        document.getElementById('pop-name').innerText = names[Math.floor(Math.random() * names.length)];
-        pop.style.transform = "translateX(0)";
-        setTimeout(() => { pop.style.transform = "translateX(-250%)"; }, 4000);
-    }, 10000);
+        // NOTIFICAÇÕES DE VENDA
+        const names = ["gui_viana", "felipe_mkt", "thiago_ai", "ana_goat"];
+        setInterval(() => {
+            const pop = document.getElementById('sales-pop');
+            document.getElementById('pop-name').innerText = names[Math.floor(Math.random() * names.length)];
+            pop.style.transform = "translateX(0)";
+            setTimeout(() => { pop.style.transform = "translateX(-250%)"; }, 4000);
+        }, 12000);
 
-    function startRedirect() {
-        const overlay = document.getElementById('sync-overlay');
-        const fill = document.getElementById('fill');
-        overlay.style.display = 'flex';
-        let width = 0;
-        const interval = setInterval(() => {
-            if (width >= 100) {
-                clearInterval(interval);
-                window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
-            } else {
-                width += 5;
+        // SINCRONIZAÇÃO E REDIRECIONAMENTO
+        function startSync() {
+            const overlay = document.getElementById('sync-overlay');
+            const fill = document.getElementById('fill');
+            const status = document.getElementById('status-text');
+            overlay.style.display = 'flex';
+            let width = 0;
+            const steps = ["SINCRONIZANDO_DNA...", "VINCULANDO_ATIVOS...", "ABRINDO_PORTAL..."];
+            
+            const interval = setInterval(() => {
+                width += 2;
                 fill.style.width = width + '%';
-            }
-        }, 50);
-    }
-  </script>
-</body>
-</html>
+                if(width > 30) status.innerText = steps[0];
+                if(width > 60) status.innerText = steps[1];
+                if(width > 85) status.innerText = steps[2];
