@@ -3,185 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo GOAT | Sovereign Interface</title>
+    <title>Protocolo GOAT | IA e Automação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { 
-            --accent: #00ff99; 
-            --bg: #000; 
-            --text: #fff; 
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-        
-        body {
-            margin: 0; font-family: 'Inter', sans-serif;
-            background: var(--bg); color: var(--text);
-            overflow-x: hidden; scroll-behavior: smooth;
-        }
-
-        /* EFEITO DE FUNDO MAGNÉTICO */
-        .orb {
-            position: fixed; width: 40vw; height: 40vw;
-            background: radial-gradient(circle, rgba(0, 255, 153, 0.08) 0%, transparent 70%);
-            border-radius: 50%; z-index: -1; pointer-events: none;
-            filter: blur(80px); transition: 0.2s;
-        }
-
-        /* BOTÃO FLUTUANTE DE SOM */
-        #unmute-float {
-            position: fixed; bottom: 30px; right: 20px; z-index: 9999;
-            background: var(--accent); color: #000; border: none; padding: 15px 25px;
-            border-radius: 50px; font-weight: 900; font-size: 11px; text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4); cursor: pointer;
-            display: flex; align-items: center; gap: 10px; animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-
-        .section { padding: 40px 20px; max-width: 800px; margin: auto; text-align: center; }
-        
-        /* HEADER */
-        .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--accent); margin-top: 20px; }
-        h1 { font-size: 2.2em; text-shadow: 0 0 20px var(--accent); letter-spacing: 5px; font-weight: 900; margin-top: 15px; text-transform: uppercase; }
-        .subtitle { color: #888; font-size: 14px; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto; }
-
-        /* VÍDEO 16:9 */
-        .video-wrapper { width: 100%; max-width: 750px; margin: 20px auto; }
-        .video-container { 
-            position: relative; padding-bottom: 56.25%; background: #000; 
-            border-radius: 15px; overflow: hidden; border: 1px solid var(--glass-border); 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-
-        /* NOVO SETOR: PACK DE VÍDEO COMPLETO (BÔNUS) */
-        .bonus-section { margin: 50px 0; background: var(--glass); border: 1px solid var(--accent); border-radius: 25px; padding: 30px; }
-        .bonus-title { color: var(--accent); font-weight: 900; font-size: 18px; margin-bottom: 15px; letter-spacing: 2px; }
-        
-        /* GRID DE ATIVOS (PDFs) */
-        .ebook-vitrine { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px 0; }
-        .ebook-item {
-            background: var(--glass); backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border); border-radius: 20px; padding: 20px;
-            transition: 0.3s;
-        }
-        .ebook-item:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .ebook-icon { font-size: 30px; margin-bottom: 10px; display: block; }
-        .ebook-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #fff; }
-
-        /* PREÇO E BOTÃO */
-        .price-card { background: rgba(255,255,255,0.02); padding: 40px 20px; border-radius: 30px; border: 1px solid #111; margin-top: 40px; }
-        .value { font-size: 4em; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
-        
-        .btn-main {
-            display: inline-block; padding: 22px; font-size: 1.2em; color: #000;
-            background: var(--accent); border-radius: 100px; text-decoration: none;
-            font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; width: 100%; max-width: 400px;
-            box-shadow: 0 0 30px rgba(0, 255, 153, 0.2);
-        }
-
-        /* TELA DE SINCRONIZAÇÃO */
-        #sync-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .sync-bar { width: 220px; height: 2px; background: #111; margin-top: 20px; }
-        .sync-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.1s; }
-
-        /* NOTIFICAÇÃO DE VENDA */
-        #sales-pop { position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000; padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; z-index: 1000; transform: translateX(-250%); transition: 0.8s; font-size: 11px; font-weight: bold; }
+        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; }
+        .neon-border { border: 1px solid #00ff41; box-shadow: 0 0 15px rgba(0, 255, 65, 0.2); }
+        .goat-gradient { background: linear-gradient(135deg, #000 0%, #0a2a0a 100%); }
+        .btn-glow:hover { box-shadow: 0 0 25px #00ff41; transform: scale(1.05); transition: all 0.3s; }
+        .floating-btn { position: fixed; bottom: 20px; right: 20px; z-index: 50; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
     </style>
 </head>
 <body>
 
-    <div class="orb" id="orb"></div>
-    <button id="unmute-float" onclick="forceAudio()">🔊 ATIVAR ÁUDIO DO SISTEMA</button>
+    <header class="py-6 text-center">
+        <img src="image.png" alt="Logo GOAT" class="mx-auto h-24 mb-4">
+        <h1 class="text-4xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600">
+            PROTOCOLO GOAT
+        </h1>
+    </header>
 
-    <div id="sales-pop">
-        <div style="background:var(--accent); width:8px; height:8px; border-radius:50%; margin-right:10px;"></div>
-        <div><span id="pop-name">gui_viana</span> ativou o protocolo!</div>
-    </div>
-
-    <div class="section">
-        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-img">
-        <h1>PROTOCOLO GOAT</h1>
-        <p class="subtitle">O sistema invisível que transforma seguidores comuns em vendas diárias usando IA e automação.</p>
-        
-        <div class="video-wrapper">
-            <div class="video-container">
-                <iframe id="youtube-player" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&enablejsapi=1&controls=0&rel=0" frameborder="0"></iframe>
-            </div>
+    <section class="max-w-4xl mx-auto px-4 mb-12">
+        <div class="neon-border rounded-xl overflow-hidden bg-black aspect-video relative">
+            <iframe id="mainVideo" class="w-full h-full" src="https://www.youtube.com/embed/ID_DO_VIDEO?autoplay=0&mute=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
-    </div>
+        <p class="text-center mt-4 text-gray-400 text-sm italic">Assista ao vídeo para desbloquear o sistema invisível.</p>
+    </section>
 
-    <div class="section" style="padding-top: 0;">
-        <div class="ebook-vitrine">
-            <div class="ebook-item">
-                <span class="ebook-icon">🐐</span>
-                <div class="ebook-title">Protocolo GOAT</div>
-                <div class="ebook-desc" style="font-size: 9px; color: #555; margin-top: 5px;">Sistema de Ativação Visual</div>
-            </div>
-            <div class="ebook-item">
-                <span class="ebook-icon">🧠</span>
-                <div class="ebook-title">Fim da Procrastinação</div>
-                <div class="ebook-desc" style="font-size: 9px; color: #555; margin-top: 5px;">Método Anti-Paralisia</div>
-            </div>
+    <section class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6 mb-16">
+        <div class="goat-gradient p-6 rounded-lg border border-gray-800 hover:border-green-500 transition-all cursor-pointer">
+            <i class="fas fa-brain text-3xl text-green-500 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">IA AVANÇADA</h3>
+            <p class="text-gray-400 text-sm">O fim do bloqueio criativo. Nossa IA cria conteúdo que vende sozinho enquanto você dorme.</p>
         </div>
-
-        <div class="bonus-section">
-            <div class="bonus-title">PACK DE VÍDEO COMPLETO</div>
-            <p style="font-size: 12px; color: #888;">Libere acesso imediato ao arsenal de vídeos 4K para Reels e anúncios de alta conversão.</p>
+        <div class="goat-gradient p-6 rounded-lg border border-gray-800 hover:border-green-500 transition-all cursor-pointer">
+            <i class="fas fa-robot text-3xl text-green-500 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">AUTOMAÇÃO TOTAL</h3>
+            <p class="text-gray-400 text-sm">Pare de ser escravo do Direct. Configure o robô e deixe que ele converta seguidores em clientes.</p>
         </div>
-
-        <div class="price-card">
-            <div style="font-size: 12px; color: #444; letter-spacing: 2px;">VALOR PROMOCIONAL</div>
-            <div class="value">R$ 47,90</div>
-            <button class="btn-main" onclick="startSync()">ATIVAR ACESSO VITALÍCIO</button>
+        <div class="goat-gradient p-6 rounded-lg border border-gray-800 hover:border-green-500 transition-all cursor-pointer">
+            <i class="fas fa-chart-line text-3xl text-green-500 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">ESCALA DIÁRIA</h3>
+            <p class="text-gray-400 text-sm">Transforme R$ 10,00 em R$ 100,00 com o método de tração forçada do Protocolo.</p>
         </div>
-    </div>
+    </section>
 
-    <div id="sync-overlay">
-        <div style="font-family: monospace; font-size: 11px; color: var(--accent); letter-spacing: 3px;" id="status-text">AUTENTICANDO_...</div>
-        <div class="sync-bar"><div class="sync-fill" id="fill"></div></div>
-    </div>
+    <section class="max-w-4xl mx-auto px-4 mb-20 text-center">
+        <h2 class="text-2xl font-bold mb-8 uppercase tracking-widest">Cansado de postar e não vender?</h2>
+        <div class="bg-red-900/10 border border-red-500/30 p-8 rounded-2xl mb-8">
+            <ul class="text-left space-y-4 inline-block">
+                <li><i class="fas fa-times-circle text-red-500 mr-2"></i> Algoritmo derrubando seu alcance?</li>
+                <li><i class="fas fa-times-circle text-red-500 mr-2"></i> Seguidores que só "olham" e não compram?</li>
+                <li><i class="fas fa-times-circle text-red-500 mr-2"></i> Medo de ser ignorado no mercado digital?</li>
+            </ul>
+        </div>
+        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-glow inline-block bg-green-600 text-black font-black py-5 px-12 rounded-full text-xl uppercase tracking-wider">
+            Ativar o Protocolo Agora
+        </a>
+    </section>
+
+    <button onclick="playAlert()" class="floating-btn bg-green-500 text-black w-16 h-16 rounded-full shadow-2xl flex items-center justify-center">
+        <i class="fas fa-comment-dollar text-2xl"></i>
+    </button>
+
+    <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
 
     <script>
-        // CORREÇÃO DO ÁUDIO
-        function forceAudio() {
-            const frame = document.getElementById('youtube-player');
-            frame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-            frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            document.getElementById('unmute-float').style.display = 'none';
+        function playAlert() {
+            const sound = document.getElementById('clickSound');
+            sound.play();
+            alert("Oportunidade Única: O Protocolo GOAT está com 50% de desconto apenas hoje!");
         }
-
-        // MOVIMENTO DO FUNDO
-        const orb = document.getElementById('orb');
-        document.addEventListener('mousemove', (e) => {
-            orb.style.left = e.clientX - 200 + 'px';
-            orb.style.top = e.clientY - 200 + 'px';
-        });
-
-        // NOTIFICAÇÕES DE VENDA
-        const names = ["gui_viana", "felipe_mkt", "thiago_ai", "ana_goat"];
-        setInterval(() => {
-            const pop = document.getElementById('sales-pop');
-            document.getElementById('pop-name').innerText = names[Math.floor(Math.random() * names.length)];
-            pop.style.transform = "translateX(0)";
-            setTimeout(() => { pop.style.transform = "translateX(-250%)"; }, 4000);
-        }, 12000);
-
-        // SINCRONIZAÇÃO E REDIRECIONAMENTO
-        function startSync() {
-            const overlay = document.getElementById('sync-overlay');
-            const fill = document.getElementById('fill');
-            const status = document.getElementById('status-text');
-            overlay.style.display = 'flex';
-            let width = 0;
-            const steps = ["SINCRONIZANDO_DNA...", "VINCULANDO_ATIVOS...", "ABRINDO_PORTAL..."];
-            
-            const interval = setInterval(() => {
-                width += 2;
-                fill.style.width = width + '%';
-                if(width > 30) status.innerText = steps[0];
-                if(width > 60) status.innerText = steps[1];
-                if(width > 85) status.innerText = steps[2];
+    </script>
+</body>
+</html>
