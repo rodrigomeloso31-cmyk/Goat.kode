@@ -2,155 +2,140 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Protocolo GOAT | Secure Interface</title>
+  <title>Protocolo GOAT | Sovereign Interface</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root { --accent: #00ff99; --bg: #030303; --glass: rgba(255, 255, 255, 0.03); --border: rgba(0, 255, 153, 0.2); }
+    :root { --accent: #00ff99; --bg: #000; --text: #fff; --glass: rgba(255, 255, 255, 0.03); }
     
     body {
-      margin: 0; font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg); color: #fff; text-align: center; overflow-x: hidden;
-      background-image: radial-gradient(circle at 50% -20%, #002b1a 0%, transparent 50%);
+      margin: 0; font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text);
+      overflow-x: hidden; scroll-behavior: smooth;
     }
 
-    .section { padding: 40px 20px; max-width: 800px; margin: auto; }
-    .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--accent); margin-top: 20px; box-shadow: 0 0 30px rgba(0, 255, 153, 0.15); }
-    h1 { font-size: 2.2em; text-shadow: 0 0 20px var(--accent); margin-top: 15px; letter-spacing: 5px; font-weight: 900; }
-
-    /* VIDEO WIDESCREEN (TELA DEITADA) */
-    .video-wrapper {
-        width: 100%;
-        max-width: 750px;
-        margin: 20px auto;
-        padding: 0 10px;
-    }
-    .video-container { 
-        position: relative; 
-        width: 100%; 
-        padding-bottom: 56.25%; /* Proporção 16:9 */
-        background: #000; 
-        border-radius: 15px; 
-        overflow: hidden; 
-        border: 1px solid var(--border); 
-        box-shadow: 0 20px 40px rgba(0,0,0,0.8); 
-    }
-    .video-container iframe { 
-        position: absolute; top: 0; left: 0; 
-        width: 100%; height: 100%; 
+    /* BACKGROUND ORBITAL */
+    .orb {
+      position: fixed; width: 40vw; height: 40vw;
+      background: radial-gradient(circle, rgba(0, 255, 153, 0.08) 0%, transparent 70%);
+      border-radius: 50%; z-index: -1; pointer-events: none;
+      filter: blur(80px); transition: 0.2s;
     }
 
     /* BOTÃO FLUTUANTE DE SOM */
     #unmute-float {
-        position: fixed;
-        bottom: 100px;
-        right: 20px;
-        z-index: 9999;
-        background: var(--accent);
-        color: #000;
-        border: none;
-        padding: 15px 20px;
-        border-radius: 50px;
-        font-weight: 900;
-        font-size: 12px;
-        text-transform: uppercase;
-        box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        animation: pulseFloat 2s infinite;
+        position: fixed; bottom: 30px; right: 20px; z-index: 9999;
+        background: var(--accent); color: #000; border: none; padding: 15px 25px;
+        border-radius: 50px; font-weight: 900; font-size: 11px; text-transform: uppercase;
+        box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4); cursor: pointer;
+        display: flex; align-items: center; gap: 10px; animation: pulse 2s infinite;
     }
 
-    @keyframes pulseFloat {
-        0% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 255, 153, 0.4); }
-        50% { transform: scale(1.1); box-shadow: 0 15px 40px rgba(0, 255, 153, 0.6); }
-        100% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 255, 153, 0.4); }
-    }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-    /* VITRINE DE ATIVOS */
-    .ebook-vitrine {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin: 40px 0;
+    .section { padding: 40px 20px; max-width: 800px; margin: auto; text-align: center; }
+    .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--accent); margin-top: 20px; }
+    
+    h1 { font-size: 2.2em; text-shadow: 0 0 20px var(--accent); letter-spacing: 5px; font-weight: 900; margin-top: 15px; }
+    .subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
+
+    /* VIDEO WIDESCREEN 16:9 */
+    .video-wrapper { width: 100%; max-width: 750px; margin: 20px auto; }
+    .video-container { 
+        position: relative; padding-bottom: 56.25%; background: #000; 
+        border-radius: 15px; overflow: hidden; border: 1px solid rgba(0, 255, 153, 0.2); 
     }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    /* VITRINE DE ATIVOS GOAT */
+    .ebook-vitrine { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px 0; }
     .ebook-item {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px;
-      transition: all 0.3s ease;
+      background: var(--glass); backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 20px;
+      transition: 0.3s; text-align: center;
     }
     .ebook-item:hover { border-color: var(--accent); transform: translateY(-5px); }
-    .ebook-icon { font-size: 35px; margin-bottom: 10px; display: block; }
-    .ebook-title { font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; }
+    .ebook-icon { font-size: 30px; margin-bottom: 10px; display: block; }
+    .ebook-title { font-size: 12px; font-weight: 800; text-transform: uppercase; color: #fff; }
     .ebook-desc { font-size: 10px; color: #666; margin-top: 5px; }
 
-    /* PREÇO E BOTAO */
-    .price-card { background: rgba(255,255,255,0.02); padding: 40px 20px; border-radius: 30px; margin-top: 30px; border: 1px solid #111; }
+    /* PREÇO E BOTÃO */
+    .price-card { background: rgba(255,255,255,0.02); padding: 40px 20px; border-radius: 30px; border: 1px solid #111; }
     .value { font-size: 4em; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
-    .btn {
+    
+    .btn-main {
       display: inline-block; padding: 22px; font-size: 1.2em; color: #000;
       background: var(--accent); border-radius: 100px; text-decoration: none;
       font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; width: 100%; max-width: 400px;
     }
+
+    /* OVERLAY DE SINCRONIZAÇÃO */
+    #sync-overlay {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .sync-bar { width: 200px; height: 2px; background: #111; margin-top: 20px; }
+    .sync-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.1s; }
 
     #sales-pop { position: fixed; bottom: 20px; left: 20px; background: #fff; color: #000; padding: 12px 18px; border-radius: 12px; display: flex; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.6); z-index: 1000; transform: translateX(-250%); transition: 0.8s; font-size: 11px; font-weight: bold; }
   </style>
 </head>
 <body>
 
-  <button id="unmute-float" onclick="forceAudio()">
-     🔊 CLIQUE PARA OUVIR
-  </button>
+  <div class="orb" id="orb"></div>
+  <button id="unmute-float" onclick="forceAudio()">🔊 ATIVAR ÁUDIO DO SISTEMA</button>
 
   <div id="sales-pop">
     <div style="background:var(--accent); width:8px; height:8px; border-radius:50%; margin-right:10px;"></div>
-    <div><span id="pop-name">felipe.mkt</span> desbloqueou o acesso!</div>
+    <div><span id="pop-name">felipe.mkt</span> ativou o protocolo!</div>
   </div>
 
   <div class="section">
     <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-img">
     <h1>PROTOCOLO GOAT</h1>
-    <p style="color:var(--accent); font-size: 10px; letter-spacing: 4px; font-weight: bold;">TELA DEITADA // ÁUDIO ATIVÁVEL</p>
+    <p class="subtitle">O sistema visual que transforma conteúdo em engajamento e tráfego.</p>
     
     <div class="video-wrapper">
         <div class="video-container">
-          <iframe id="player" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0&enablejsapi=1" frameborder="0"></iframe>
+          <iframe id="player" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&enablejsapi=1&controls=0" frameborder="0"></iframe>
         </div>
     </div>
   </div>
 
   <div class="section" style="padding-top: 0;">
+    <h2 style="color:var(--accent); font-size: 12px; letter-spacing: 3px; margin-bottom: 30px;">BIBLIOTECA DE ATIVOS:</h2>
+    
     <div class="ebook-vitrine">
         <div class="ebook-item">
             <span class="ebook-icon">🛡️</span>
-            <div class="ebook-title">Cérebro da I.A.</div>
-            <div class="ebook-desc">Configuração 24h.</div>
+            <div class="ebook-title">Protocolo GOAT</div>
+            <div class="ebook-desc">O sistema visual completo.</div>
+        </div>
+        <div class="ebook-item">
+            <span class="ebook-icon">🧠</span>
+            <div class="ebook-title">Anti-Procrastinação</div>
+            <div class="ebook-desc">Elimine a paralisia mental.</div>
         </div>
         <div class="ebook-item">
             <span class="ebook-icon">📈</span>
-            <div class="ebook-title">Escala 10X</div>
-            <div class="ebook-desc">Blueprint de lucro.</div>
+            <div class="ebook-title">Manual de Escala</div>
+            <div class="ebook-desc">A rota para os 10k.</div>
         </div>
         <div class="ebook-item">
-            <span class="ebook-icon">🔐</span>
-            <div class="ebook-title">Script Oculto</div>
-            <div class="ebook-desc">Quebra de objeção.</div>
-        </div>
-        <div class="ebook-item">
-            <span class="ebook-icon">🔥</span>
-            <div class="ebook-title">Hack de Reels</div>
-            <div class="ebook-desc">Algoritmo dominado.</div>
+            <span class="ebook-icon">⚡</span>
+            <div class="ebook-title">Rotina Diária</div>
+            <div class="ebook-desc">Execução em 15 min.</div>
         </div>
     </div>
 
     <div class="price-card">
         <div class="value">R$ 47,90</div>
-        <div style="color: var(--accent); font-size: 12px; margin-bottom: 25px; font-weight: bold;">OU 6X DE R$ 8,99</div>
-        <button class="btn" onclick="startRedirect()">Ativar o Protocolo Agora</button>
+        <button class="btn-main" onclick="startRedirect()">ATIVAR PROTOCOLO AGORA</button>
     </div>
+  </div>
+
+  <div id="sync-overlay">
+      <div style="font-family: monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px;">VINCULANDO_SISTEMA_...</div>
+      <div class="sync-bar"><div class="sync-fill" id="fill"></div></div>
   </div>
 
   <script>
@@ -161,16 +146,35 @@
         document.getElementById('unmute-float').style.display = 'none';
     }
 
-    const names = ["gui_viana", "Ana_Clara.ia", "thiago_goat", "Bru_Digital", "pedro_ia"];
-    function showSales() {
+    const orb = document.getElementById('orb');
+    document.addEventListener('mousemove', (e) => {
+      orb.style.left = e.clientX - 200 + 'px';
+      orb.style.top = e.clientY - 200 + 'px';
+    });
+
+    const names = ["gui_viana", "Ana_Clara.ia", "thiago_goat", "pedro_ia"];
+    setInterval(() => {
         const pop = document.getElementById('sales-pop');
         document.getElementById('pop-name').innerText = names[Math.floor(Math.random() * names.length)];
         pop.style.transform = "translateX(0)";
         setTimeout(() => { pop.style.transform = "translateX(-250%)"; }, 4000);
-    }
-    setInterval(showSales, 10000);
+    }, 10000);
 
-    function startRedirect() { window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1"; }
+    function startRedirect() {
+        const overlay = document.getElementById('sync-overlay');
+        const fill = document.getElementById('fill');
+        overlay.style.display = 'flex';
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
+            } else {
+                width += 5;
+                fill.style.width = width + '%';
+            }
+        }, 50);
+    }
   </script>
 </body>
 </html>
