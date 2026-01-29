@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Liberado | Protocolo GOAT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --neon-green: #00ff41; --main-bg: #020202; }
+        body { 
+            background: radial-gradient(circle at center, #0a1a0a 0%, var(--main-bg) 100%); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            min-height: screen;
+        }
+        .goat-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            transition: all 0.3s ease;
+        }
+        .goat-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+        .status-pulse {
+            animation: pulse 2s infinite;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body class="p-6 md:p-12 flex flex-col items-center">
+
+    <header class="text-center mb-12">
+        <div class="status-pulse inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+            Acesso Autorizado
+        </div>
+        <h1 class="text-4xl font-black italic uppercase tracking-tighter">
+            Área de Membros <span class="text-green-500">GOAT</span>
+        </h1>
+        <p class="text-gray-400 mt-2 italic">"O problema não é criar conteúdo, o problema é ativar."</p>
+    </header>
+
+    <main class="max-w-2xl w-full">
+        <div class="goat-card p-8 rounded-3xl text-center">
+            <i class="fas fa-file-pdf text-5xl text-green-500 mb-6"></i>
+            <h2 class="text-2xl font-bold mb-4 uppercase">Protocolo Completo PDF</h2>
+            
+            <ul class="text-left text-sm text-gray-400 mb-8 space-y-2 border-y border-white/5 py-6">
+                <li><i class="fas fa-check text-green-500 mr-2"></i> 10 Capítulos de Ativação</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i> Ganchos Virais e CTA Invisível</li>
+                <li><i class="fas fa-check text-green-500 mr-2"></i> Rotina GOAT Diária e Semanal</li>
+            </ul>
+
+            <a href="COLE_AQUI_O_LINK_DO_SEU_DRIVE" target="_blank" class="block w-full bg-green-600 text-black font-black py-5 rounded-2xl uppercase tracking-tighter hover:bg-green-400 transition transform hover:scale-[1.02]">
+                <i class="fas fa-cloud-download-alt mr-2"></i> Baixar Protocolo Agora
+            </a>
+        </div>
+
+        <div class="mt-8 text-center">
+            <p class="text-gray-600 text-[10px] uppercase tracking-widest">
+                Conteúdo de Execução Imediata &copy; 2026 Protocolo GOAT
+            </p>
+        </div>
+    </main>
+
+</body>
+</html>
