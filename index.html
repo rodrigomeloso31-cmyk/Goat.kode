@@ -12,6 +12,7 @@
     <style>
         :root { 
             --neon-red: #ff0000; 
+            --neon-green: #00ff41;
             --main-bg: #020202; 
         }
         body { background: radial-gradient(circle at center, #1a0505 0%, var(--main-bg) 100%); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
@@ -29,6 +30,21 @@
             transition: all 0.3s ease;
             cursor: pointer;
             width: 180px;
+        }
+
+        .btn-checkout-fast {
+            background-color: var(--neon-green);
+            color: black;
+            font-weight: 900;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px var(--neon-green);
+            transition: all 0.3s ease;
+        }
+        .btn-checkout-fast:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px var(--neon-green);
         }
 
         .video-wrapper {
@@ -52,17 +68,12 @@
 
     <section class="max-w-4xl mx-auto mb-16">
         <div class="video-wrapper">
-            <iframe 
-                id="vslVideo"
-                src="https://www.youtube.com/embed/MkY7ajtJp0U?enablejsapi=1&autoplay=1&mute=0&loop=1&playlist=MkY7ajtJp0U&rel=0&controls=1" 
-                allow="autoplay; encrypted-media" 
-                allowfullscreen>
-            </iframe>
+            <iframe id="vslVideo" src="https://www.youtube.com/embed/MkY7ajtJp0U?enablejsapi=1&autoplay=1&mute=0&loop=1&playlist=MkY7ajtJp0U&rel=0&controls=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </section>
 
     <div class="text-center mb-12">
-        <p class="text-red-500 font-mono text-xs tracking-widest mb-2 uppercase">Acesso Liberado Agora</p>
+        <p class="text-red-500 font-mono text-xs tracking-widest mb-2 uppercase italic">Acesso Liberado Agora</p>
         <h2 class="text-5xl font-black">11x R$ 5,32</h2>
         <p class="text-gray-400 text-sm">ou R$ 47,90 à vista</p>
         <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-gamified-small inline-block mt-6 px-8 py-3 rounded-full font-bold uppercase text-white bg-red-600 text-sm">
@@ -70,8 +81,38 @@
         </a>
     </div>
 
-    <section class="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mb-32">
+    <section class="mt-20 px-6">
+        <div class="max-w-3xl mx-auto bg-black p-8 rounded-2xl border border-red-500 shadow-[0_0_20px_rgba(255,0,0,0.1)]">
+            <h3 class="text-3xl font-bold text-center text-red-500">
+                Você já tentou…
+            </h3>
+            <ul class="mt-8 space-y-4 text-gray-300">
+                <li class="flex items-center"><span class="mr-3">😤</span> Seguir dicas soltas do YouTube</li>
+                <li class="flex items-center"><span class="mr-3">😤</span> Copiar o que “parece funcionar”</li>
+                <li class="flex items-center"><span class="mr-3">😤</span> Comprar curso que promete muito e entrega pouco</li>
+                <li class="flex items-center"><span class="mr-3">😤</span> Gastar tempo sem retorno</li>
+            </ul>
+            <p class="mt-8 text-center text-lg text-white font-semibold italic">
+                E mesmo assim… nada mudou.
+            </p>
+        </div>
+    </section>
+
+    <section class="mt-24 px-6 text-center">
+        <h2 class="text-4xl font-bold text-green-400 drop-shadow-[0_0_10px_rgba(0,255,65,0.3)]">
+            O Protocolo GOAT existe por um motivo.
+        </h2>
+        <p class="mt-6 text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
+            Ele não é mais um curso. <br>
+            É um <strong>sistema pronto</strong> que elimina tentativa, confusão e desperdício de tempo.
+        </p>
         
+        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-checkout-fast inline-block">
+            <i class="fas fa-shopping-cart mr-2"></i> Pegar meu atalho agora
+        </a>
+    </section>
+
+    <section class="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mt-20 mb-32">
         <div class="text-center">
             <button onclick="toggleModule('mod1')" class="btn-gamified-small p-4 rounded-xl">
                 <i class="fas fa-microchip mb-1 block text-lg text-red-500"></i>
@@ -101,7 +142,6 @@
                 Domine o algoritmo e escale seus resultados de forma invisível.
             </div>
         </div>
-
     </section>
 
     <script>
@@ -111,21 +151,17 @@
             content.style.display = 'block';
         }
 
-        // Script para forçar som e play
         const iframe = document.getElementById('vslVideo');
 
         window.addEventListener('load', () => {
-            // Tenta dar o play com som via API do Youtube
             iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
             iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         });
 
-        // Caso o navegador bloqueie, ativa no primeiro clique do usuário na página
         document.body.addEventListener('click', () => {
             iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
             iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         }, { once: true });
     </script>
-
 </body>
 </html>
