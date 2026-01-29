@@ -1,100 +1,125 @@
-<style>
-  .asset-hub {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 60px 20px;
-  }
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Protocolo GOAT | Secure Interface</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root { --accent: #00ff99; --bg: #030303; --glass: rgba(255, 255, 255, 0.03); --border: rgba(0, 255, 153, 0.2); }
+    
+    body {
+      margin: 0; font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg); color: #fff; text-align: center; overflow-x: hidden;
+      background-image: radial-gradient(circle at 50% -20%, #002b1a 0%, transparent 50%);
+    }
 
-  .asset-card {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 30px;
-    padding: 40px;
-    text-align: left;
-    transition: 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
+    .section { padding: 40px 20px; max-width: 800px; margin: auto; }
+    .profile-img { width: 85px; height: 85px; border-radius: 50%; border: 2px solid var(--accent); margin-top: 20px; box-shadow: 0 0 30px rgba(0, 255, 153, 0.15); }
+    h1 { font-size: 2.2em; text-shadow: 0 0 20px var(--accent); margin-top: 15px; letter-spacing: 5px; font-weight: 900; }
 
-  .asset-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: var(--accent);
-    box-shadow: 0 30px 60px rgba(0, 255, 153, 0.1);
-  }
+    /* VIDEO WIDESCREEN 16:9 */
+    .video-wrapper { width: 100%; max-width: 750px; margin: 20px auto; padding: 0 10px; }
+    .video-container { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 15px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-  .asset-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-family: monospace;
-    font-size: 10px;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 4px 12px;
-    border-radius: 50px;
-  }
+    /* BOTÃO FLUTUANTE DE SOM */
+    #unmute-float {
+        position: fixed; bottom: 30px; right: 20px; z-index: 9999;
+        background: var(--accent); color: #000; border: none; padding: 15px 25px;
+        border-radius: 50px; font-weight: 900; font-size: 12px; text-transform: uppercase;
+        box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4); cursor: pointer;
+        display: flex; align-items: center; gap: 10px; animation: pulseFloat 2s infinite;
+    }
 
-  .asset-icon {
-    font-size: 45px;
-    margin-bottom: 25px;
-    display: block;
-  }
+    /* VITRINE DE ATIVOS */
+    .ebook-vitrine { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 40px 0; }
+    .ebook-item { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 20px; padding: 20px; }
+    .ebook-title { font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; }
 
-  .asset-title {
-    font-size: 20px;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    color: #fff;
-  }
+    /* PREÇO E BOTAO */
+    .price-card { background: rgba(255,255,255,0.02); padding: 40px 20px; border-radius: 30px; margin-top: 30px; border: 1px solid #111; }
+    .value { font-size: 4em; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
+    .btn {
+      display: inline-block; padding: 22px; font-size: 1.2em; color: #000;
+      background: var(--accent); border-radius: 100px; text-decoration: none;
+      font-weight: 900; text-transform: uppercase; cursor: pointer; border: none; width: 100%; max-width: 400px;
+    }
 
-  .asset-details {
-    font-size: 13px;
-    color: #888;
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
+    /* INTERAÇÃO DE PAGAMENTO (OVERLAY) */
+    #payment-sync {
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .sync-bar { width: 200px; height: 2px; background: #111; margin-top: 20px; overflow: hidden; }
+    .sync-fill { height: 100%; background: var(--accent); width: 0%; transition: 0.1s; }
+    .sync-text { font-family: monospace; font-size: 10px; color: var(--accent); letter-spacing: 2px; }
 
-  .asset-tags {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+    @keyframes pulseFloat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  </style>
+</head>
+<body>
 
-  .tag {
-    font-size: 9px;
-    background: rgba(255,255,255,0.05);
-    padding: 4px 10px;
-    border-radius: 4px;
-    color: #ccc;
-    text-transform: uppercase;
-  }
-</style>
+  <button id="unmute-float" onclick="forceAudio()">🔊 ATIVAR ÁUDIO DO SISTEMA</button>
 
-<div class="asset-hub">
-  <div class="asset-card">
-    <div class="asset-badge">SISTEMA ATIVO</div>
-    <span class="asset-icon">🐐</span>
-    <h3 class="asset-title">Protocolo GOAT: O Sistema Visual</h3>
-    <p class="asset-details">Transforme qualquer conteúdo esquecido em máquinas de engajamento, tráfego e crescimento[cite: 4, 35, 36].</p>
-    <div class="asset-tags">
-      <span class="tag">Formato Slidebook</span>
-      <span class="tag">Ganchos Virais</span>
-      <span class="tag">CTA Invisível</span>
+  <div class="section">
+    <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" class="profile-img">
+    <h1>PROTOCOLO GOAT</h1>
+    <div class="video-wrapper">
+        <div class="video-container">
+          <iframe id="player" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&controls=0&rel=0&enablejsapi=1" frameborder="0"></iframe>
+        </div>
     </div>
   </div>
 
-  <div class="asset-card">
-    <div class="asset-badge">MENTALIDADE</div>
-    <span class="asset-icon">🧠</span>
-    <h3 class="asset-title">O Fim da Procrastinação</h3>
-    <p class="asset-details">Elimine a paralisia causada pelo excesso de pensamentos e crie um caminho claro para a execução diária[cite: 123, 128].</p>
-    <div class="asset-tags">
-      <span class="tag">Ação Imperfeita</span>
-      <span class="tag">Micro-Ações</span>
-      <span class="tag">Foco Essencial</span>
+  <div class="section" style="padding-top: 0;">
+    <div class="ebook-vitrine">
+        <div class="ebook-item"><span style="font-size:30px">🛡️</span><div class="ebook-title">Cérebro I.A</div></div>
+        <div class="ebook-item"><span style="font-size:30px">📈</span><div class="ebook-title">Escala 10X</div></div>
+    </div>
+
+    <div class="price-card">
+        <div class="value">R$ 47,90</div>
+        <button class="btn" onclick="triggerCheckout()">Ativar o Protocolo Agora</button>
     </div>
   </div>
-</div>
+
+  <div id="payment-sync">
+      <div class="sync-text" id="status-msg">INICIANDO_CONEXÃO_SEGURA...</div>
+      <div class="sync-bar"><div class="sync-fill" id="fill"></div></div>
+  </div>
+
+  <script>
+    function forceAudio() {
+        const frame = document.getElementById('player');
+        frame.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+        frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        document.getElementById('unmute-float').style.display = 'none';
+    }
+
+    function triggerCheckout() {
+        const overlay = document.getElementById('payment-sync');
+        const fill = document.getElementById('fill');
+        const msg = document.getElementById('status-msg');
+        const logs = ["CRIPTOGRAFANDO_DADOS...", "VINCULANDO_PROTOCOLO...", "REDIRECIONANDO_PARA_CHECKOUT..."];
+        
+        overlay.style.display = 'flex';
+        let width = 0;
+        let logIndex = 0;
+
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                window.location.href = "https://pay.hotmart.com/L103950840Q?off=55x6x7d1";
+            } else {
+                width += 2;
+                fill.style.width = width + '%';
+                if (width % 34 === 0) {
+                    msg.innerText = logs[logIndex];
+                    logIndex++;
+                }
+            }
+        }, 50);
+    }
+  </script>
+</body>
+</html>
