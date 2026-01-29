@@ -29,7 +29,7 @@
             background: rgba(255, 0, 0, 0.05);
             transition: all 0.3s ease;
             cursor: pointer;
-            width: 180px;
+            width: 160px;
         }
 
         .btn-checkout-fast {
@@ -76,12 +76,44 @@
         <p class="text-red-500 font-mono text-xs tracking-widest mb-2 uppercase italic">Acesso Liberado Agora</p>
         <h2 class="text-5xl font-black">11x R$ 5,32</h2>
         <p class="text-gray-400 text-sm">ou R$ 47,90 à vista</p>
-        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-gamified-small inline-block mt-6 px-8 py-3 rounded-full font-bold uppercase text-white bg-red-600 text-sm">
+        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-gamified-small inline-block mt-6 px-8 py-3 rounded-full font-bold uppercase text-white bg-red-600 text-sm text-center">
             Ativar Protocolo
         </a>
     </div>
 
-    <section class="mt-20 px-6">
+    <section class="max-w-4xl mx-auto flex flex-wrap justify-center gap-4 mt-20 mb-10 text-center">
+        <div class="text-center">
+            <button onclick="toggleModule('mod1')" class="btn-gamified-small p-3 rounded-xl">
+                <i class="fas fa-microchip mb-1 block text-lg text-red-500"></i>
+                <span class="text-[10px] font-black uppercase">Módulo 01</span>
+            </button>
+            <div id="mod1" class="module-content mt-4 p-4 bg-red-900/20 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[160px] mx-auto absolute z-50 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+                Configuração rápida da sua IA de vendas em 15 minutos.
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button onclick="toggleModule('mod2')" class="btn-gamified-small p-3 rounded-xl">
+                <i class="fas fa-brain mb-1 block text-lg text-red-500"></i>
+                <span class="text-[10px] font-black uppercase">Módulo 02</span>
+            </button>
+            <div id="mod2" class="module-content mt-4 p-4 bg-red-900/20 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[160px] mx-auto absolute z-50 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+                Prompts secretos para gerar desejo imediato de compra.
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button onclick="toggleModule('mod3')" class="btn-gamified-small p-3 rounded-xl">
+                <i class="fas fa-bolt mb-1 block text-lg text-red-500"></i>
+                <span class="text-[10px] font-black uppercase">Módulo 03</span>
+            </button>
+            <div id="mod3" class="module-content mt-4 p-4 bg-red-900/20 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[160px] mx-auto absolute z-50 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+                Domine o algoritmo e escale seus resultados de forma invisível.
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-10 px-6">
         <div class="max-w-3xl mx-auto bg-black p-8 rounded-2xl border border-red-500 shadow-[0_0_20px_rgba(255,0,0,0.1)]">
             <h3 class="text-3xl font-bold text-center text-red-500 uppercase tracking-tighter">
                 O seu maior obstáculo é...
@@ -111,48 +143,20 @@
         </a>
     </section>
 
-    <section class="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mt-20 mb-32 text-center">
-        <div class="text-center">
-            <button onclick="toggleModule('mod1')" class="btn-gamified-small p-4 rounded-xl">
-                <i class="fas fa-microchip mb-1 block text-lg text-red-500"></i>
-                <span class="text-xs font-black uppercase">Módulo 01</span>
-            </button>
-            <div id="mod1" class="module-content mt-4 p-4 bg-red-900/10 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[180px] mx-auto">
-                Configuração rápida da sua IA de vendas em 15 minutos.
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button onclick="toggleModule('mod2')" class="btn-gamified-small p-4 rounded-xl">
-                <i class="fas fa-brain mb-1 block text-lg text-red-500"></i>
-                <span class="text-xs font-black uppercase">Módulo 02</span>
-            </button>
-            <div id="mod2" class="module-content mt-4 p-4 bg-red-900/10 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[180px] mx-auto">
-                Prompts secretos para gerar desejo imediato de compra.
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button onclick="toggleModule('mod3')" class="btn-gamified-small p-4 rounded-xl">
-                <i class="fas fa-bolt mb-1 block text-lg text-red-500"></i>
-                <span class="text-xs font-black uppercase">Módulo 03</span>
-            </button>
-            <div id="mod3" class="module-content mt-4 p-4 bg-red-900/10 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[180px] mx-auto">
-                Domine o algoritmo e escale seus resultados de forma invisível.
-            </div>
-        </div>
-    </section>
+    <footer class="mt-32 pb-10 text-center text-gray-600 text-[10px] uppercase tracking-widest">
+        &copy; 2026 Protocolo GOAT - Tecnologia Avançada em IA
+    </footer>
 
     <script>
         function toggleModule(id) {
+            const current = document.getElementById(id).style.display;
             document.querySelectorAll('.module-content').forEach(el => el.style.display = 'none');
             const content = document.getElementById(id);
-            content.style.display = 'block';
+            content.style.display = (current === 'block') ? 'none' : 'block';
         }
 
         const iframe = document.getElementById('vslVideo');
 
-        // Autoplay/Unmute dinâmico
         window.addEventListener('load', () => {
             iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
             iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
