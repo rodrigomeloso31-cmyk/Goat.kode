@@ -11,169 +11,111 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { 
-            --neon-green: #00ff41; 
-            --neon-blue: #00f2ff;
-            --neon-purple: #bc13fe;
-            --neon-yellow: #fff200;
+            --neon-red: #ff0000; 
             --main-bg: #020202; 
         }
-        body { background: radial-gradient(circle at center, #0a150a 0%, var(--main-bg) 100%); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background: radial-gradient(circle at center, #1a0505 0%, var(--main-bg) 100%); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         
-        /* Efeito Pulsar 3D Incandescente */
-        @keyframes glow3D {
-            0% { transform: perspective(500px) translateZ(0px); box-shadow: 0 0 10px var(--shadow-color); }
-            50% { transform: perspective(500px) translateZ(15px); box-shadow: 0 10px 30px var(--shadow-color); }
-            100% { transform: perspective(500px) translateZ(0px); box-shadow: 0 0 10px var(--shadow-color); }
+        /* Pulsar Vermelho Neon Fosforescente */
+        @keyframes glowRed {
+            0% { box-shadow: 0 0 5px var(--neon-red), inset 0 0 2px var(--neon-red); transform: scale(1); }
+            50% { box-shadow: 0 0 25px var(--neon-red), inset 0 0 10px var(--neon-red); transform: scale(1.05); }
+            100% { box-shadow: 0 0 5px var(--neon-red), inset 0 0 2px var(--neon-red); transform: scale(1); }
         }
 
-        /* Sidebar de Módulos à Esquerda */
-        .sidebar-modules {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            z-index: 1000;
-        }
-
-        .btn-module-3d {
-            width: 65px;
-            height: 65px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        .btn-gamified-small {
+            animation: glowRed 2s infinite ease-in-out;
+            border: 2px solid var(--neon-red);
+            background: rgba(255, 0, 0, 0.05);
             transition: all 0.3s ease;
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid var(--neon-color);
-            --shadow-color: var(--neon-color);
-            animation: glow3D 3s infinite ease-in-out;
+            cursor: pointer;
+            width: 180px; /* Tamanho reduzido */
         }
 
-        .btn-module-3d i { font-size: 24px; color: var(--neon-color); filter: drop-shadow(0 0 5px var(--neon-color)); }
-
-        /* Cores Específicas */
-        .mod-blue { --neon-color: var(--neon-blue); animation-delay: 0s; }
-        .mod-purple { --neon-color: var(--neon-purple); animation-delay: 0.5s; }
-        .mod-yellow { --neon-color: var(--neon-yellow); animation-delay: 1s; }
-
-        /* Janela de Descrição (Mágica) */
-        .module-floating-desc {
-            position: fixed;
-            left: 100px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid var(--neon-green);
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 250px;
-            display: none;
-            z-index: 1001;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-            animation: fadeIn 0.4s forwards;
-        }
-
-        /* Vídeo Wrapper */
         .video-wrapper {
             position: relative; width: 100%; padding-bottom: 56.25%;
-            height: 0; overflow: hidden; border-radius: 20px;
-            box-shadow: 0 0 40px rgba(0, 255, 65, 0.1);
-            border: 1px solid rgba(0, 255, 65, 0.3);
+            height: 0; overflow: hidden; border-radius: 15px;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        /* Botão Áudio */
-        .float-audio {
-            position: fixed; bottom: 40px; right: 30px; 
-            padding: 15px 30px; background: linear-gradient(45deg, #ff6a00, #ee0979); 
-            color: white; border-radius: 50px; font-weight: 900;
-            box-shadow: 0 0 30px rgba(255, 106, 0, 0.6); z-index: 1000;
-            animation: bounce 2s infinite; cursor: pointer;
-            border: 2px solid white; text-transform: uppercase;
-        }
-
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .module-content { display: none; animation: fadeIn 0.5s forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
     <header class="text-center mb-10">
-        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" alt="Logo" class="mx-auto h-20 mb-4 rounded-full border-2 border-green-500">
-        <h1 class="text-4xl font-black italic tracking-tighter">PROTOCOLO <span class="text-green-500">GOAT</span></h1>
+        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" alt="Logo" class="mx-auto h-20 mb-4 rounded-full border-2 border-red-600">
+        <h1 class="text-4xl font-black italic tracking-tighter uppercase">PROTOCOLO <span class="text-red-600">GOAT</span></h1>
     </header>
-
-    <nav class="sidebar-modules">
-        <div class="btn-module-3d mod-blue" onclick="showModule('mod1', this)">
-            <i class="fas fa-microchip"></i>
-        </div>
-        <div class="btn-module-3d mod-purple" onclick="showModule('mod2', this)">
-            <i class="fas fa-brain"></i>
-        </div>
-        <div class="btn-module-3d mod-yellow" onclick="showModule('mod3', this)">
-            <i class="fas fa-rocket"></i>
-        </div>
-    </nav>
-
-    <div id="mod1" class="module-floating-desc">
-        <h3 class="text-neon-blue font-bold mb-2">MÓDULO 01</h3>
-        <p class="text-sm text-gray-300 italic">Configuração do Motor: Instale o sistema de IA no seu negócio em 15 minutos.</p>
-    </div>
-    <div id="mod2" class="module-floating-desc">
-        <h3 class="text-purple-400 font-bold mb-2">MÓDULO 02</h3>
-        <p class="text-sm text-gray-300 italic">O Código: Engenharia de prompts para criar desejo imediato de compra.</p>
-    </div>
-    <div id="mod3" class="module-floating-desc">
-        <h3 class="text-yellow-400 font-bold mb-2">MÓDULO 03</h3>
-        <p class="text-sm text-gray-300 italic">Escala: O segredo para dominar o algoritmo de forma invisível.</p>
-    </div>
 
     <section class="max-w-4xl mx-auto mb-16">
         <div class="video-wrapper">
-            <iframe id="vslVideo" src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=1&loop=1&playlist=MkY7ajtJp0U&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe 
+                id="vslVideo"
+                src="https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=0&loop=1&playlist=MkY7ajtJp0U&rel=0&controls=1" 
+                allow="autoplay; encrypted-media" 
+                allowfullscreen>
+            </iframe>
         </div>
     </section>
 
-    <div class="text-center mb-16">
-        <h2 class="text-6xl font-black mb-2">11x R$ 5,32</h2>
-        <p class="text-gray-400">ou R$ 47,90 à vista</p>
-        <a href="https://pay.kiwify.com.br/TE6TEU3" class="inline-block mt-8 px-16 py-5 rounded-full font-bold uppercase text-black bg-green-500 shadow-[0_0_20px_#00ff41]">
+    <div class="text-center mb-12">
+        <p class="text-red-500 font-mono text-xs tracking-widest mb-2 uppercase">Acesso Liberado Agora</p>
+        <h2 class="text-5xl font-black">11x R$ 5,32</h2>
+        <p class="text-gray-400 text-sm">ou R$ 47,90 à vista</p>
+        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-gamified-small inline-block mt-6 px-8 py-3 rounded-full font-bold uppercase text-white bg-red-600 text-sm">
             Ativar Protocolo
         </a>
     </div>
 
-    <div class="float-audio" onclick="unmuteVideo()">
-        toque aqui 🔉
-    </div>
+    <section class="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mb-32">
+        
+        <div class="text-center">
+            <button onclick="toggleModule('mod1')" class="btn-gamified-small p-4 rounded-xl">
+                <i class="fas fa-microchip mb-1 block text-lg text-red-500"></i>
+                <span class="text-xs font-black">MÓDULO 01</span>
+            </button>
+            <div id="mod1" class="module-content mt-4 p-4 bg-red-900/10 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[180px] mx-auto">
+                Configuração rápida da sua IA de vendas em 15 minutos.
+            </div>
+        </div>
 
-    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+        <div class="text-center">
+            <button onclick="toggleModule('mod2')" class="btn-gamified-small p-4 rounded-xl">
+                <i class="fas fa-brain mb-1 block text-lg text-red-500"></i>
+                <span class="text-xs font-black">MÓDULO 02</span>
+            </button>
+            <div id="mod2" class="module-content mt-4 p-4 bg-red-900/10 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[180px] mx-auto">
+                Prompts secretos para gerar desejo imediato de compra.
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button onclick="toggleModule('mod3')" class="btn-gamified-small p-4 rounded-xl">
+                <i class="fas fa-rocket mb-1 block text-lg text-red-500"></i>
+                <span class="text-xs font-black">MÓDULO 03</span>
+            </button>
+            <div id="mod3" class="module-content mt-4 p-4 bg-red-900/10 rounded-xl border border-red-500/20 text-xs text-gray-300 max-w-[180px] mx-auto">
+                Domine o algoritmo e escale seus resultados de forma invisível.
+            </div>
+        </div>
+
+    </section>
 
     <script>
-        function showModule(id, element) {
-            // Toca som tecnológico
-            document.getElementById('clickSound').play();
-            
-            // Esconde todas as descrições
-            document.querySelectorAll('.module-floating-desc').forEach(el => el.style.display = 'none');
-            
-            // Posiciona e mostra a descrição próxima ao botão clicado
-            const desc = document.getElementById(id);
-            const rect = element.getBoundingClientRect();
-            desc.style.top = (rect.top) + "px";
-            desc.style.display = 'block';
-
-            // Fecha automaticamente após 5 segundos
-            setTimeout(() => { desc.style.display = 'none'; }, 5000);
+        function toggleModule(id) {
+            document.querySelectorAll('.module-content').forEach(el => el.style.display = 'none');
+            const content = document.getElementById(id);
+            content.style.display = 'block';
         }
 
-        function unmuteVideo() {
+        window.addEventListener('load', function() {
             const iframe = document.getElementById('vslVideo');
-            iframe.src = "https://www.youtube.com/embed/MkY7ajtJp0U?autoplay=1&mute=0&loop=1&playlist=MkY7ajtJp0U&rel=0";
-            document.querySelector('.float-audio').style.display = 'none';
-        }
+            iframe.src += "&autoplay=1&mute=0";
+        });
     </script>
 
 </body>
