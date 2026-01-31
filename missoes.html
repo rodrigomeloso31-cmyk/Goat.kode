@@ -2,76 +2,44 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GOAT | Experiência de Leitura</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOAT KODE | Missões</title>
     <style>
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; }
-        .neon-border { border: 1px solid rgba(0, 255, 65, 0.3); box-shadow: 0 0 15px rgba(0, 255, 65, 0.1); }
-        .btn-next { background: #00ff41; color: #000; transition: 0.3s; box-shadow: 0 0 20px #00ff41; }
-        .btn-next:hover { transform: scale(1.1); box-shadow: 0 0 40px #00ff41; }
-        #reader-frame { width: 100%; height: 75vh; border: none; border-radius: 20px; }
+        body { background-color: #0a0a0a; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; margin: 0; }
+        h1 { color: #00ff95; }
+        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 20px; width: 100%; max-width: 350px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-done { background: #00ff95; border: none; color: black; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .completada { opacity: 0.5; border-color: #00ff95; }
     </style>
 </head>
 <body>
 
-    <div id="start-overlay" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center p-6 text-center">
-        <h2 class="text-4xl font-black italic mb-6 tracking-tighter uppercase">INICIAR <span class="text-green-500">IMERSÃO</span></h2>
-        <button onclick="startImmersiveReading()" class="p-8 border-2 border-green-500 rounded-2xl font-black uppercase tracking-widest hover:bg-green-500 hover:text-black transition-all">
-            DESBLOQUEAR CONHECIMENTO
-        </button>
+    <h1>MISSÕES GOAT</h1>
+    
+    <div class="card">
+        <span>Tarefa 1</span>
+        <button class="btn-done" onclick="marcar(this)">CONCLUIR</button>
     </div>
 
-    <main class="max-w-5xl mx-auto p-4 flex flex-col items-center justify-between min-h-screen">
-        <header class="w-full flex justify-between items-center py-4">
-            <h1 class="text-2xl font-black italic">SISTEMA <span class="text-green-500">GOAT</span></h1>
-            <span class="text-xs text-gray-500 tracking-widest font-bold">MISSÃO ATIVA</span>
-        </header>
+    <div class="card">
+        <span>Tarefa 2</span>
+        <button class="btn-done" onclick="marcar(this)">CONCLUIR</button>
+    </div>
 
-        <div class="w-full neon-border rounded-3xl overflow-hidden bg-zinc-900">
-             <iframe id="reader-frame" src=""></iframe>
-        </div>
+    <audio id="successSound">
+        <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3" type="audio/mpeg">
+    </audio>
 
-        <footer class="w-full py-8 flex justify-center gap-6">
-            <button onclick="navigatePage('back')" class="p-4 rounded-xl bg-zinc-800 font-bold uppercase text-xs tracking-widest hover:bg-zinc-700 clickable">Anterior</button>
-            <button onclick="navigatePage('next')" class="px-12 py-4 rounded-xl btn-next font-black uppercase tracking-tighter clickable">Próximo Nível</button>
-        </footer>
-    </main>
-
-    <div id="player" style="display:none"></div>
-    <audio id="sfx-level-up" src="https://www.soundjay.com/communication/sounds/digital-bell-1.mp3"></audio>
-    <audio id="sfx-click" src="https://www.soundjay.com/buttons/sounds/button-16.mp3"></audio>
-
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        let player;
-        const params = new URLSearchParams(window.location.search);
-        const pdfUrl = params.get('url') || 'https://game-quest-convert.lovable.app/';
+        function marcar(btn) {
+            const som = document.getElementById('successSound');
+            som.currentTime = 0;
+            som.play();
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0',
-                videoId: 'fREnC6F2VdM', // Trilha Épica e Dignificada
-                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'fREnC6F2VdM' },
-                events: { 'onReady': (e) => { e.target.setVolume(10); } }
-            });
-        }
-
-        function startImmersiveReading() {
-            document.getElementById('start-overlay').style.display = 'none';
-            document.getElementById('reader-frame').src = pdfUrl;
-            player.playVideo();
-        }
-
-        function navigatePage(dir) {
-            const sfx = document.getElementById(dir === 'next' ? 'sfx-level-up' : 'sfx-click');
-            sfx.currentTime = 0;
-            sfx.play();
-            
-            // Simulação de transição épica
-            const frame = document.getElementById('reader-frame');
-            frame.style.opacity = '0.5';
-            setTimeout(() => { frame.style.opacity = '1'; }, 300);
+            btn.innerHTML = "✓";
+            btn.style.background = "#333";
+            btn.style.color = "#888";
+            btn.parentElement.classList.add('completada');
         }
     </script>
 </body>
