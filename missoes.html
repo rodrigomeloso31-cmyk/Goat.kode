@@ -11,16 +11,13 @@
             50% { box-shadow: 0 0 25px rgba(0, 255, 65, 0.6); transform: scale(1.02); }
             100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.2); transform: scale(1); }
         }
-
         body { background-color: #000; overflow-x: hidden; }
-
         .mission-link {
             animation: pulse-neon 2s infinite ease-in-out;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(0, 255, 65, 0.3);
             background: #0a0a0a;
         }
-
         .mission-link:hover {
             animation: none;
             background: #00ff41 !important;
@@ -28,10 +25,17 @@
             transform: scale(1.08);
             box-shadow: 0 0 50px #00ff41;
         }
-
         .glitch-text {
             text-shadow: 2px 0 #00ff41, -2px 0 #ff00c1;
             letter-spacing: -2px;
+        }
+        /* Botão Flutuante VIP */
+        .vip-button {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #00ff41; color: black;
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; items-center; justify-center;
+            box-shadow: 0 0 20px #00ff41; z-index: 100;
         }
     </style>
 </head>
@@ -43,48 +47,56 @@
     </header>
 
     <div class="w-full max-w-md space-y-6">
-        
-        <a href="https://game-quest-convert.lovable.app/" class="mission-link block p-8 rounded-3xl group">
-            <h2 class="text-2xl font-black italic uppercase italic group-hover:text-black">Módulo 01</h2>
+        <a href="https://game-quest-convert.lovable.app/" class="mission-link clickable block p-8 rounded-3xl group">
+            <h2 class="text-2xl font-black italic uppercase group-hover:text-black">Módulo 01</h2>
             <p class="text-sm opacity-60 uppercase tracking-widest font-bold">Game Quest Convert</p>
         </a>
 
-        <a href="https://ai-sales-decoded.lovable.app/" class="mission-link block p-8 rounded-3xl group">
-            <h2 class="text-2xl font-black italic uppercase italic group-hover:text-black">Módulo 02</h2>
+        <a href="https://ai-sales-decoded.lovable.app/" class="mission-link clickable block p-8 rounded-3xl group">
+            <h2 class="text-2xl font-black italic uppercase group-hover:text-black">Módulo 02</h2>
             <p class="text-sm opacity-60 uppercase tracking-widest font-bold">AI Sales Decoded</p>
         </a>
-
     </div>
+
+    <a href="https://wa.me/seunumeroaqui" class="vip-button clickable">
+        <svg style="width:30px;height:30px" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.5 2 2 6.5 2 12.04C2 13.81 2.46 15.5 3.33 17L2.03 21.93L7.06 20.62C8.47 21.5 10.21 22 12.04 22C17.58 22 22.04 17.54 22.04 12C22.04 6.47 17.58 2 12.04 2M7.5 7.5H16.5V9.5H7.5V7.5M7.5 11H16.5V13H7.5V11M7.5 14.5H13.5V16.5H7.5V14.5Z" /></svg>
+    </a>
 
     <audio id="bgMusic" src="https://www.soundjay.com/free-music/sounds/iron-man-1.mp3" loop></audio>
     <audio id="hoverSfx" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
-    <audio id="clickSfx" src="https://www.soundjay.com/communication/sounds/power-up-1.mp3" preload="auto"></audio>
+    <audio id="clickSfx" src="https://www.soundjay.com/communication/sounds/digital-bell-1.mp3" preload="auto"></audio>
 
     <script>
         const music = document.getElementById('bgMusic');
         const hover = document.getElementById('hoverSfx');
         const click = document.getElementById('clickSfx');
 
-        // Ativa música no primeiro toque
+        // Ativação da música e sons no primeiro clique (exigência técnica)
         document.body.addEventListener('click', () => {
             music.volume = 0.05;
             music.play();
         }, { once: true });
 
-        document.querySelectorAll('.mission-link').forEach(link => {
-            link.addEventListener('mouseenter', () => {
+        // Seleciona ABSOLUTAMENTE todos os botões e links
+        document.querySelectorAll('.clickable').forEach(el => {
+            // Som ao passar o mouse/toque inicial
+            el.addEventListener('mouseenter', () => {
                 hover.currentTime = 0;
                 hover.volume = 0.2;
                 hover.play();
             });
 
-            link.addEventListener('click', function(e) {
+            // Som ao clicar (Dopamina de Ativação)
+            el.addEventListener('click', function(e) {
                 e.preventDefault();
                 const url = this.href;
-                click.volume = 0.6;
+                
+                click.currentTime = 0;
+                click.volume = 0.5;
                 click.play();
                 
-                setTimeout(() => { window.location.href = url; }, 900);
+                // Transição decente para o som ser ouvido
+                setTimeout(() => { window.location.href = url; }, 700);
             });
         });
     </script>
