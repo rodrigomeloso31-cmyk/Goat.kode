@@ -5,41 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOAT KODE | Missões</title>
     <style>
-        body { background-color: #0a0a0a; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; margin: 0; }
-        h1 { color: #00ff95; }
-        .card { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 20px; width: 100%; max-width: 350px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-done { background: #00ff95; border: none; color: black; padding: 10px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .completada { opacity: 0.5; border-color: #00ff95; }
+        body { background-color: #0a0a0a; color: white; font-family: sans-serif; padding: 40px 20px; text-align: center; }
+        h1 { color: #00ff95; text-shadow: 0 0 15px rgba(0,255,149,0.5); }
+        .card { 
+            background: #111; border: 1px solid #333; border-radius: 12px; padding: 20px; 
+            max-width: 400px; margin: 15px auto; display: flex; justify-content: space-between; align-items: center;
+            transition: 0.5s;
+        }
+        .concluida { border-color: #00ff95; box-shadow: 0 0 20px rgba(0, 255, 149, 0.2); opacity: 0.5; }
+        .btn-check { background: #00ff95; border: none; color: black; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-
-    <h1>MISSÕES GOAT</h1>
-    
+    <h1>MISSÕES DIÁRIAS</h1>
     <div class="card">
-        <span>Tarefa 1</span>
-        <button class="btn-done" onclick="marcar(this)">CONCLUIR</button>
+        <span>Protocolo Anti-Procrastinação</span>
+        <button class="btn-check" onclick="concluir(this)">CONCLUIR</button>
+    </div>
+    <div class="card">
+        <span>Estudo de I.A.</span>
+        <button class="btn-check" onclick="concluir(this)">CONCLUIR</button>
     </div>
 
-    <div class="card">
-        <span>Tarefa 2</span>
-        <button class="btn-done" onclick="marcar(this)">CONCLUIR</button>
-    </div>
-
-    <audio id="successSound">
+    <audio id="audioSuccess">
         <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function marcar(btn) {
-            const som = document.getElementById('successSound');
-            som.currentTime = 0;
-            som.play();
-
+        function concluir(btn) {
+            document.getElementById('audioSuccess').play();
+            const card = btn.parentElement;
+            card.classList.add('concluida');
             btn.innerHTML = "✓";
-            btn.style.background = "#333";
-            btn.style.color = "#888";
-            btn.parentElement.classList.add('completada');
+            btn.disabled = true;
         }
     </script>
 </body>
