@@ -8,20 +8,16 @@
         :root { --neon: #00ff95; --dark: #050505; --card: #0a0a0a; }
         body { background: var(--dark); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* Topo e Slogan */
         .top-bar { padding: 15px; text-align: center; border-bottom: 1px solid #1a1a1a; }
         .slogan-mini { font-size: 0.7rem; letter-spacing: 3px; color: var(--neon); text-transform: uppercase; font-weight: 900; }
 
-        /* Barra de Progresso */
         .progress-container { width: 100%; height: 4px; background: #111; position: sticky; top: 0; z-index: 100; }
-        .progress-bar { width: 20%; height: 100%; background: var(--neon); box-shadow: 0 0 10px var(--neon); transition: 0.5s; }
+        .progress-bar { width: 0%; height: 100%; background: var(--neon); box-shadow: 0 0 10px var(--neon); transition: 0.5s; }
 
-        /* Hero */
         header { padding: 60px 20px; text-align: center; }
-        h1 { font-size: 3rem; margin: 0; text-shadow: 0 0 20px rgba(0,255,149,0.3); }
+        h1 { font-size: 3rem; margin: 0; text-shadow: 0 0 20px rgba(0,255,149,0.3); color: white; }
         .status-badge { display: inline-block; padding: 5px 12px; border: 1px solid var(--neon); color: var(--neon); font-size: 0.6rem; border-radius: 50px; margin-bottom: 20px; }
 
-        /* Níveis Gamificados */
         .levels-grid { max-width: 500px; margin: 0 auto; padding: 20px; }
         .level-card { 
             background: var(--card); border: 1px solid #222; margin-bottom: 15px; 
@@ -36,16 +32,14 @@
         /* Cores dos Níveis */
         .lvl-1 { color: #555; } .lvl-2 { color: #008cff; } .lvl-3 { color: #ae00ff; } .lvl-4 { color: #ff0055; } .lvl-5 { color: var(--neon); }
 
-        /* Oferta */
-        .offer-section { padding: 40px 20px; background: #080808; border-top: 1px solid #1a1a1a; margin-top: 40px; }
-        .price-main { font-size: 2.5rem; font-weight: 900; }
-        .installments { font-size: 1.2rem; color: var(--neon); }
+        .offer-section { padding: 40px 20px; background: #080808; border-top: 1px solid #1a1a1a; margin-top: 40px; text-align: center; }
+        .price-main { font-size: 2.5rem; font-weight: 900; margin: 10px 0; }
+        .installments { font-size: 1.2rem; color: var(--neon); font-weight: bold; }
         
-        /* Botão e Loading */
         .cta-btn { 
             background: var(--neon); color: black; border: none; padding: 20px 40px; 
             font-weight: 900; border-radius: 8px; cursor: pointer; width: 100%; max-width: 350px;
-            font-size: 1.1rem; margin-top: 20px; animation: pulse 2s infinite;
+            font-size: 1.1rem; margin-top: 20px; animation: pulse 2s infinite; text-transform: uppercase;
         }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0, 255, 149, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(0, 255, 149, 0); } 100% { box-shadow: 0 0 0 0 rgba(0, 255, 149, 0); } }
         
@@ -60,7 +54,7 @@
 <body>
 
     <div id="loading-overlay">
-        <div class="slogan-mini">CARREGANDO DADOS DO PROTOCOLO...</div>
+        <div class="slogan-mini">SINCRONIZANDO PROTOCOLO...</div>
         <div class="loader-bar"><div class="loader-fill" id="fill"></div></div>
     </div>
 
@@ -72,28 +66,33 @@
 
     <header>
         <div class="status-badge">ACESSO RESTRITO // ID: 0031-CMYK</div>
-        <h1>PROTOCOL GOAT</h1>
+        <h1>PROTOCOLO GOAT</h1>
         <p style="color: #666; font-size: 0.9rem;">TRANSFORME ATENÇÃO EM VENDAS COM PSICOLOGIA E IA</p>
     </header>
 
     <div class="levels-grid">
-        <div class="level-card" onclick="toggleLevel(this, 40)">
+        <div class="level-card" onclick="interagirModulo(this, 20)">
             <div class="level-header"><span class="lvl-tag lvl-1">LVL 01</span> <span>FUNDAMENTOS</span></div>
             <div class="lvl-desc">Invasão de Mindset: Como hackear a procrastinação e preparar sua conta para o lucro.</div>
         </div>
 
-        <div class="level-card" onclick="toggleLevel(this, 60)">
+        <div class="level-card" onclick="interagirModulo(this, 40)">
             <div class="level-header"><span class="lvl-tag lvl-2">LVL 02</span> <span>ALGORITMO</span></div>
             <div class="lvl-desc">Engenharia Reversa: O uso de IA para criar conteúdos que retêm 80% mais atenção.</div>
         </div>
 
-        <div class="level-card" onclick="toggleLevel(this, 80)">
+        <div class="level-card" onclick="interagirModulo(this, 60)">
             <div class="level-header"><span class="lvl-tag lvl-3">LVL 03</span> <span>COPY GAMIFICADA</span></div>
             <div class="lvl-desc">Gatilhos de Dopamina: Escreva textos que forçam o clique e a decisão imediata.</div>
         </div>
 
-        <div class="level-card" onclick="toggleLevel(this, 100)">
-            <div class="level-header"><span class="lvl-tag lvl-5">LVL 05</span> <span>MONETIZAÇÃO GOAT</span></div>
+        <div class="level-card" onclick="interagirModulo(this, 80)">
+            <div class="level-header"><span class="lvl-tag lvl-4">LVL 04</span> <span>PSICOLOGIA</span></div>
+            <div class="lvl-desc">Arquétipos de Venda: Como se tornar a autoridade máxima no seu ramo e ofício.</div>
+        </div>
+
+        <div class="level-card" onclick="interagirModulo(this, 100)">
+            <div class="level-header"><span class="lvl-tag lvl-5">LVL 05</span> <span>MONETIZAÇÃO</span></div>
             <div class="lvl-desc">Escala Máxima: O setup final para vender 24h por dia usando o protocolo completo.</div>
         </div>
     </div>
@@ -105,27 +104,37 @@
         <p style="font-size: 0.7rem; color: #444; margin-top: 15px;">CONEXÃO SEGURA VIA KIWIFY • ACESSO IMEDIATO</p>
     </div>
 
-    <audio id="soundEffect"><source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg"></audio>
+    <audio id="waterDrop"><source src="https://assets.mixkit.co/active_storage/sfx/731/731-preview.mp3" type="audio/mpeg"></audio>
+    <audio id="accessSound"><source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg"></audio>
 
     <script>
-        function toggleLevel(el, progress) {
+        function interagirModulo(el, progress) {
+            // Toca som de gota d'água
+            const gota = document.getElementById('waterDrop');
+            gota.currentTime = 0;
+            gota.volume = 0.4;
+            gota.play();
+
+            // Mostra descrição
             const desc = el.querySelector('.lvl-desc');
             desc.style.display = (desc.style.display === 'block') ? 'none' : 'block';
+            
+            // Atualiza barra de progresso
             document.getElementById('p-bar').style.width = progress + '%';
         }
 
         function startAccess() {
-            const s = document.getElementById('soundEffect');
+            const s = document.getElementById('accessSound');
             const overlay = document.getElementById('loading-overlay');
             const fill = document.getElementById('fill');
             
-            s.volume = 0.2; s.play();
-            overlay.style.display = 'flex';
+            s.volume = 0.3; 
+            s.play();
             
+            overlay.style.display = 'flex';
             setTimeout(() => { fill.style.width = '100%'; }, 100);
             
             setTimeout(() => {
-                // Link oficial de vendas
                 window.location.href = "https://game-quest-convert.lovable.app/";
             }, 2500);
         }
