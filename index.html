@@ -3,75 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOAT KODE | Protocolo Oficial</title>
+    <title>GOAT KODE | Protocolo Anti-Procrastinação</title>
     <style>
-        body { background: #050505; color: white; font-family: 'Arial', sans-serif; margin: 0; text-align: center; }
-        header { padding: 50px 20px; background: linear-gradient(180deg, #00ff9522 0%, #050505 100%); }
-        h1 { color: #00ff95; font-size: 3rem; text-transform: uppercase; letter-spacing: 5px; margin: 0; }
+        body { background: #050505; color: white; font-family: 'Arial', sans-serif; margin: 0; text-align: center; padding-bottom: 50px; }
+        header { padding: 40px 20px; }
+        .logo { color: #00ff95; font-size: 2.2rem; font-weight: 900; letter-spacing: 4px; }
         
-        .container { padding: 40px 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-        
-        /* Estilo dos Módulos */
-        .modulo-card {
-            background: #111; border: 1px solid #333; border-radius: 15px;
-            padding: 30px; width: 280px; transition: 0.3s;
-            text-align: left; position: relative; overflow: hidden;
+        /* MINIATURA DO PRODUTO */
+        .product-preview {
+            width: 90%; max-width: 500px; margin: 20px auto;
+            border-radius: 15px; border: 2px solid #333;
+            box-shadow: 0 0 30px rgba(0, 255, 149, 0.1);
         }
-        .modulo-card:hover { border-color: #00ff95; transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,255,149,0.2); }
-        .modulo-num { color: #00ff95; font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; display: block; }
-        .modulo-card h3 { margin: 10px 0; font-size: 1.4rem; }
-        .modulo-card p { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
 
-        .btn-compra {
-            background: #00ff95; color: black; padding: 25px 50px; border: none;
-            font-weight: bold; text-transform: uppercase; border-radius: 50px;
-            cursor: pointer; font-size: 1.3rem; margin: 40px 0; transition: 0.3s;
+        /* ÁREA DE PREÇO E OFERTA */
+        .price-container { margin: 30px 0; }
+        .old-price { text-decoration: line-through; color: #888; font-size: 1.1rem; }
+        .new-price { color: #00ff95; font-size: 3rem; font-weight: 900; margin: 10px 0; }
+        .installments { font-size: 1.4rem; color: #fff; font-weight: bold; }
+        .installments span { color: #00ff95; }
+
+        .btn-cta {
+            background: #00ff95; color: black; padding: 22px 50px; border: none;
+            font-weight: 900; text-transform: uppercase; border-radius: 50px;
+            cursor: pointer; font-size: 1.3rem; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,255,149,0.3);
         }
-        .btn-compra:hover { transform: scale(1.1); box-shadow: 0 0 40px #00ff95; }
+        .btn-cta:hover { transform: scale(1.05); box-shadow: 0 0 40px #00ff95; }
+        
+        .secure-notice { margin-top: 20px; font-size: 0.8rem; color: #666; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>GOAT KODE</h1>
-        <p>O PROTOCOLO DEFINITIVO CONTRA A PROCRASTINAÇÃO</p>
+        <div class="logo">GOAT KODE</div>
+        <p>A ÚLTIMA FERRAMENTA CONTRA A PROCRASTINAÇÃO</p>
     </header>
 
-    <div class="container">
-        <div class="modulo-card">
-            <span class="modulo-num">MÓDULO 01</span>
-            <h3>Mindset GOAT</h3>
-            <p>Como reprogramar sua mente para ter foco absoluto e eliminar as distrações digitais.</p>
-        </div>
+    <img src="sua-miniatura.png" alt="Miniatura Protocolo GOAT" class="product-preview">
 
-        <div class="modulo-card">
-            <span class="modulo-num">MÓDULO 02</span>
-            <h3>Rotina Blindada</h3>
-            <p>A estrutura diária usada pelos maiores profissionais para produzir 5x mais em menos tempo.</p>
-        </div>
-
-        <div class="modulo-card">
-            <span class="modulo-num">MÓDULO 03</span>
-            <h3>Tecnologia e I.A.</h3>
-            <p>Use as ferramentas de inteligência artificial a seu favor para automatizar tarefas chatas.</p>
-        </div>
+    <div class="price-container">
+        <div class="old-price">De R$ 197,00</div>
+        <div class="installments">Apenas 11x de <span>R$ XX,XX</span></div>
+        <div class="new-price">R$ XX,XX à vista</div>
     </div>
 
-    <button class="btn-compra" onclick="tocarEComprar()">QUERO ACESSO COMPLETO</button>
+    <button class="btn-cta" onclick="irParaCheckout()">QUERO ACESSO IMEDIATO</button>
+    
+    <p class="secure-notice">🔒 Pagamento 100% seguro via Kiwify</p>
 
-    <audio id="somClick">
+    <audio id="audioClick">
         <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function tocarEComprar() {
-            const audio = document.getElementById('somClick');
-            audio.volume = 0.2; // Volume controlado para não assustar
+        function irParaCheckout() {
+            const audio = document.getElementById('audioClick');
+            audio.volume = 0.1; // Volume muito baixo para não assustar
             audio.play();
             setTimeout(() => {
-                // Seu link de vendas da Kiwify/Hotmart
+                // Link oficial do seu checkout
                 window.location.href = "https://game-quest-convert.lovable.app/";
-            }, 500);
+            }, 400);
         }
     </script>
 
