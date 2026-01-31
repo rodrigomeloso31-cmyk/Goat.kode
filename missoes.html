@@ -1,43 +1,92 @@
-<audio id="bgMusic" src="https://www.soundjay.com/free-music/sounds/iron-man-1.mp3" loop></audio>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOAT KODE | Central de Missões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-neon {
+            0% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.2); transform: scale(1); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 65, 0.6); transform: scale(1.02); }
+            100% { box-shadow: 0 0 5px rgba(0, 255, 65, 0.2); transform: scale(1); }
+        }
 
-<audio id="clickSfx" src="https://www.soundjay.com/buttons/sounds/button-30.mp3" preload="auto"></audio>
-<audio id="successSfx" src="https://www.soundjay.com/communication/sounds/power-up-1.mp3" preload="auto"></audio>
+        body { background-color: #000; overflow-x: hidden; }
 
-<script>
-    const bgMusic = document.getElementById('bgMusic');
-    const clickSfx = document.getElementById('clickSfx');
-    const successSfx = document.getElementById('successSfx');
+        .mission-link {
+            animation: pulse-neon 2s infinite ease-in-out;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            background: #0a0a0a;
+        }
 
-    // Tenta tocar a música assim que o usuário interage (exigência dos navegadores)
-    document.body.addEventListener('click', () => {
-        bgMusic.volume = 0.1; // Volume baixo para não atrapalhar
-        bgMusic.play();
-    }, { once: true });
+        .mission-link:hover {
+            animation: none;
+            background: #00ff41 !important;
+            color: black !important;
+            transform: scale(1.08);
+            box-shadow: 0 0 50px #00ff41;
+        }
 
-    document.querySelectorAll('.mission-link, a, button').forEach(el => {
-        // Som de Hover (Dopamina ao passar o mouse)
-        el.addEventListener('mouseenter', () => {
-            clickSfx.currentTime = 0;
-            clickSfx.volume = 0.3;
-            clickSfx.play();
+        .glitch-text {
+            text-shadow: 2px 0 #00ff41, -2px 0 #ff00c1;
+            letter-spacing: -2px;
+        }
+    </style>
+</head>
+<body class="text-white font-sans min-h-screen flex flex-col items-center justify-center p-6">
+
+    <header class="text-center mb-12">
+        <h1 class="text-5xl font-black italic uppercase glitch-text mb-2">SISTEMA <span class="text-green-500">GOAT</span></h1>
+        <p class="text-gray-500 text-xs tracking-[0.3em] uppercase italic">Ative sua mentalidade abundante</p>
+    </header>
+
+    <div class="w-full max-w-md space-y-6">
+        
+        <a href="https://game-quest-convert.lovable.app/" class="mission-link block p-8 rounded-3xl group">
+            <h2 class="text-2xl font-black italic uppercase italic group-hover:text-black">Módulo 01</h2>
+            <p class="text-sm opacity-60 uppercase tracking-widest font-bold">Game Quest Convert</p>
+        </a>
+
+        <a href="https://ai-sales-decoded.lovable.app/" class="mission-link block p-8 rounded-3xl group">
+            <h2 class="text-2xl font-black italic uppercase italic group-hover:text-black">Módulo 02</h2>
+            <p class="text-sm opacity-60 uppercase tracking-widest font-bold">AI Sales Decoded</p>
+        </a>
+
+    </div>
+
+    <audio id="bgMusic" src="https://www.soundjay.com/free-music/sounds/iron-man-1.mp3" loop></audio>
+    <audio id="hoverSfx" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+    <audio id="clickSfx" src="https://www.soundjay.com/communication/sounds/power-up-1.mp3" preload="auto"></audio>
+
+    <script>
+        const music = document.getElementById('bgMusic');
+        const hover = document.getElementById('hoverSfx');
+        const click = document.getElementById('clickSfx');
+
+        // Ativa música no primeiro toque
+        document.body.addEventListener('click', () => {
+            music.volume = 0.05;
+            music.play();
+        }, { once: true });
+
+        document.querySelectorAll('.mission-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                hover.currentTime = 0;
+                hover.volume = 0.2;
+                hover.play();
+            });
+
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.href;
+                click.volume = 0.6;
+                click.play();
+                
+                setTimeout(() => { window.location.href = url; }, 900);
+            });
         });
-
-        // Som de Transição Incrível ao clicar
-        el.addEventListener('click', function(e) {
-            e.preventDefault();
-            const destination = this.href;
-            
-            successSfx.currentTime = 0;
-            successSfx.volume = 0.5;
-            successSfx.play();
-
-            // Efeito visual de brilho antes de sair
-            this.style.boxShadow = "0 0 40px #00ff41";
-            
-            setTimeout(() => {
-                window.location.href = destination;
-            }, 800);
-        });
-    });
-</script>
-
+    </script>
+</body>
+</html>
