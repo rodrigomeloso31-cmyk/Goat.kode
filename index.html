@@ -3,34 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOAT KODE | Home</title>
+    <title>GOAT KODE | Protocolo Anti-Procrastinação</title>
     <style>
-        body { background-color: #050505; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; text-align: center; }
-        h1 { letter-spacing: 5px; text-shadow: 0 0 10px #00ff95; color: #00ff95; }
-        .btn-goat { 
-            border: 2px solid #00ff95; color: #00ff95; padding: 18px 35px; background: none; 
-            cursor: pointer; font-weight: bold; text-transform: uppercase; border-radius: 8px; 
-            transition: 0.4s; box-shadow: 0 0 15px rgba(0, 255, 149, 0.2);
+        body { background: #050505; color: white; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 50px; }
+        .video-container { width: 100%; max-width: 800px; margin: 20px auto; border: 2px solid #00ff95; box-shadow: 0 0 20px rgba(0,255,149,0.3); border-radius: 10px; overflow: hidden; }
+        video { width: 100%; display: block; }
+        .goat-title { color: #00ff95; font-size: 2.5rem; margin-top: 30px; text-transform: uppercase; letter-spacing: 4px; }
+        .btn-compra { 
+            background: #00ff95; color: black; padding: 20px 40px; border: none; 
+            font-weight: bold; text-transform: uppercase; border-radius: 50px; 
+            cursor: pointer; font-size: 1.2rem; transition: 0.3s; margin-top: 30px;
         }
-        .btn-goat:hover { background: #00ff95; color: black; box-shadow: 0 0 30px #00ff95; transform: scale(1.05); }
+        .btn-compra:hover { transform: scale(1.05); box-shadow: 0 0 30px #00ff95; }
     </style>
 </head>
 <body>
-    <h1>GOAT KODE</h1>
-    <p>Domine a tecnologia. Forge sua disciplina.</p>
-    <br>
-    <button class="btn-goat" onclick="tocarSom()">Entrar no Sistema</button>
 
-    <audio id="audioClick">
-        <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+    <h1 class="goat-title">PROTOCOLO GOAT</h1>
+    <p>A apresentação que vai mudar seu jogo.</p>
+
+    <div class="video-container">
+        <video controls poster="https://via.placeholder.com/800x450/000000/00ff95?text=GOAT+KODE">
+            <source src="seu-video.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+    </div>
+
+    <button class="btn-compra" onclick="cliqueSom()">QUERO ACESSO IMEDIATO</button>
+
+    <audio id="clickSom">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function tocarSom() {
-            const som = document.getElementById('audioClick');
-            som.currentTime = 0;
-            som.play();
-            setTimeout(() => { window.location.href = 'missoes.html'; }, 400);
+        function cliqueSom() {
+            const s = document.getElementById('clickSom');
+            s.volume = 0.2; // Volume em 20% para não assustar
+            s.play();
+            setTimeout(() => {
+                // Link para sua página de checkout ou acesso
+                window.location.href = "https://game-quest-convert.lovable.app/";
+            }, 400);
         }
     </script>
 </body>
