@@ -3,48 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOAT KODE | Protocolo Anti-Procrastinação</title>
+    <title>GOAT KODE | Protocolo Oficial</title>
     <style>
-        body { background: #050505; color: white; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 50px; }
-        .video-container { width: 100%; max-width: 800px; margin: 20px auto; border: 2px solid #00ff95; box-shadow: 0 0 20px rgba(0,255,149,0.3); border-radius: 10px; overflow: hidden; }
-        video { width: 100%; display: block; }
-        .goat-title { color: #00ff95; font-size: 2.5rem; margin-top: 30px; text-transform: uppercase; letter-spacing: 4px; }
-        .btn-compra { 
-            background: #00ff95; color: black; padding: 20px 40px; border: none; 
-            font-weight: bold; text-transform: uppercase; border-radius: 50px; 
-            cursor: pointer; font-size: 1.2rem; transition: 0.3s; margin-top: 30px;
+        body { background: #050505; color: white; font-family: 'Arial', sans-serif; margin: 0; text-align: center; }
+        header { padding: 50px 20px; background: linear-gradient(180deg, #00ff9522 0%, #050505 100%); }
+        h1 { color: #00ff95; font-size: 3rem; text-transform: uppercase; letter-spacing: 5px; margin: 0; }
+        
+        .container { padding: 40px 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        
+        /* Estilo dos Módulos */
+        .modulo-card {
+            background: #111; border: 1px solid #333; border-radius: 15px;
+            padding: 30px; width: 280px; transition: 0.3s;
+            text-align: left; position: relative; overflow: hidden;
         }
-        .btn-compra:hover { transform: scale(1.05); box-shadow: 0 0 30px #00ff95; }
+        .modulo-card:hover { border-color: #00ff95; transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,255,149,0.2); }
+        .modulo-num { color: #00ff95; font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        .modulo-card h3 { margin: 10px 0; font-size: 1.4rem; }
+        .modulo-card p { font-size: 0.9rem; color: #aaa; line-height: 1.5; }
+
+        .btn-compra {
+            background: #00ff95; color: black; padding: 25px 50px; border: none;
+            font-weight: bold; text-transform: uppercase; border-radius: 50px;
+            cursor: pointer; font-size: 1.3rem; margin: 40px 0; transition: 0.3s;
+        }
+        .btn-compra:hover { transform: scale(1.1); box-shadow: 0 0 40px #00ff95; }
     </style>
 </head>
 <body>
 
-    <h1 class="goat-title">PROTOCOLO GOAT</h1>
-    <p>A apresentação que vai mudar seu jogo.</p>
+    <header>
+        <h1>GOAT KODE</h1>
+        <p>O PROTOCOLO DEFINITIVO CONTRA A PROCRASTINAÇÃO</p>
+    </header>
 
-    <div class="video-container">
-        <video controls poster="https://via.placeholder.com/800x450/000000/00ff95?text=GOAT+KODE">
-            <source src="seu-video.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos.
-        </video>
+    <div class="container">
+        <div class="modulo-card">
+            <span class="modulo-num">MÓDULO 01</span>
+            <h3>Mindset GOAT</h3>
+            <p>Como reprogramar sua mente para ter foco absoluto e eliminar as distrações digitais.</p>
+        </div>
+
+        <div class="modulo-card">
+            <span class="modulo-num">MÓDULO 02</span>
+            <h3>Rotina Blindada</h3>
+            <p>A estrutura diária usada pelos maiores profissionais para produzir 5x mais em menos tempo.</p>
+        </div>
+
+        <div class="modulo-card">
+            <span class="modulo-num">MÓDULO 03</span>
+            <h3>Tecnologia e I.A.</h3>
+            <p>Use as ferramentas de inteligência artificial a seu favor para automatizar tarefas chatas.</p>
+        </div>
     </div>
 
-    <button class="btn-compra" onclick="cliqueSom()">QUERO ACESSO IMEDIATO</button>
+    <button class="btn-compra" onclick="tocarEComprar()">QUERO ACESSO COMPLETO</button>
 
-    <audio id="clickSom">
+    <audio id="somClick">
         <source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function cliqueSom() {
-            const s = document.getElementById('clickSom');
-            s.volume = 0.2; // Volume em 20% para não assustar
-            s.play();
+        function tocarEComprar() {
+            const audio = document.getElementById('somClick');
+            audio.volume = 0.2; // Volume controlado para não assustar
+            audio.play();
             setTimeout(() => {
-                // Link para sua página de checkout ou acesso
+                // Seu link de vendas da Kiwify/Hotmart
                 window.location.href = "https://game-quest-convert.lovable.app/";
-            }, 400);
+            }, 500);
         }
     </script>
+
 </body>
 </html>
