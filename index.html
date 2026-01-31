@@ -3,178 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo GOAT | Experiência Gamificada</title>
-    
-    <link rel="icon" type="image/jpeg" href="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>GOAT KODE | Ebooks & Performance</title>
     <style>
-        :root { 
-            --neon-red: #ff0000; 
-            --neon-green: #00ff41;
-            --neon-cyan: #00f2ff;
-            --neon-magenta: #ff00ff;
-            --neon-yellow: #fff200;
-            --main-bg: #020202; 
-        }
-        body { background: radial-gradient(circle at center, #1a0505 0%, var(--main-bg) 100%); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        
-        /* Animação Pulsar 3D Colorida */
-        @keyframes glowMulti {
-            0% { box-shadow: 0 0 5px var(--glow-color); transform: scale(1); }
-            50% { box-shadow: 0 0 25px var(--glow-color); transform: scale(1.08); }
-            100% { box-shadow: 0 0 5px var(--glow-color); transform: scale(1); }
+        /* Estilo rápido para combinar com a marca GOAT */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
-        .btn-gamified-small {
-            animation: glowMulti 2s infinite ease-in-out;
-            border: 2px solid var(--glow-color);
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            width: 150px;
+        .container {
+            text-align: center;
+            padding: 20px;
         }
 
-        /* Cores Individuais para Gamificação */
-        .btn-mod-1 { --glow-color: var(--neon-cyan); }
-        .btn-mod-2 { --glow-color: var(--neon-magenta); }
-        .btn-mod-3 { --glow-color: var(--neon-yellow); }
-
-        .btn-checkout-fast {
-            background-color: var(--neon-green);
-            color: black;
-            font-weight: 900;
-            padding: 1rem 2.5rem;
-            border-radius: 9999px;
+        .goat-button {
+            background: transparent;
+            color: #00ff95;
+            border: 2px solid #00ff95;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
             text-transform: uppercase;
-            box-shadow: 0 0 15px var(--neon-green);
+            cursor: pointer;
+            border-radius: 5px;
             transition: all 0.3s ease;
-        }
-        .btn-checkout-fast:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 149, 0.2);
+            margin: 10px;
         }
 
-        .video-wrapper {
-            position: relative; width: 100%; padding-bottom: 56.25%;
-            height: 0; overflow: hidden; border-radius: 15px;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
-            border: 1px solid rgba(255, 0, 0, 0.3);
+        .goat-button:hover {
+            background: #00ff95;
+            color: #000;
+            box-shadow: 0 0 20px #00ff95;
         }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        .module-content { display: none; animation: fadeIn 0.5s forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        h1 {
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body>
 
-    <header class="text-center mb-10">
-        <img src="https://files.imagetourl.net/uploads/1769555414520-93412662-bce8-4561-87c7-8f8b0745bb1e.jpeg" alt="Logo" class="mx-auto h-20 mb-4 rounded-full border-2 border-red-600">
-        <h1 class="text-4xl font-black italic tracking-tighter uppercase">PROTOCOLO <span class="text-red-600">GOAT</span></h1>
-    </header>
-
-    <section class="max-w-4xl mx-auto mb-16">
-        <div class="video-wrapper">
-            <iframe id="vslVideo" src="https://www.youtube.com/embed/MkY7ajtJp0U?enablejsapi=1&autoplay=1&mute=0&loop=1&playlist=MkY7ajtJp0U&rel=0&controls=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-    </section>
-
-    <div class="text-center mb-12">
-        <p class="text-red-500 font-mono text-xs tracking-widest mb-2 uppercase italic">Acesso Liberado Agora</p>
-        <h2 class="text-5xl font-black">11x R$ 5,32</h2>
-        <p class="text-gray-400 text-sm">ou R$ 47,90 à vista</p>
-        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-checkout-fast inline-block mt-6 px-12 py-4">
-            Ativar Protocolo
-        </a>
+    <div class="container">
+        <h1>GOAT KODE</h1>
+        <p>Desenvolva seu potencial máximo com tecnologia e disciplina.</p>
+        
+        <button class="goat-button">Acessar Ebook Protocolo</button>
+        <button class="goat-button">Dieta GOAT</button>
     </div>
 
-    <section class="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 mt-20 mb-10 text-center">
-        <div class="text-center">
-            <button onclick="toggleModule('mod1')" class="btn-gamified-small btn-mod-1 p-4 rounded-xl">
-                <i class="fas fa-microchip mb-1 block text-xl" style="color: var(--neon-cyan)"></i>
-                <span class="text-[10px] font-black uppercase" style="color: var(--neon-cyan)">Módulo 01</span>
-            </button>
-            <div id="mod1" class="module-content mt-4 p-4 bg-cyan-900/20 rounded-xl border border-cyan-500/20 text-xs text-gray-300 max-w-[160px] mx-auto absolute z-50 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-                Configuração rápida da sua IA de vendas em 15 minutos.
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button onclick="toggleModule('mod2')" class="btn-gamified-small btn-mod-2 p-4 rounded-xl">
-                <i class="fas fa-brain mb-1 block text-xl" style="color: var(--neon-magenta)"></i>
-                <span class="text-[10px] font-black uppercase" style="color: var(--neon-magenta)">Módulo 02</span>
-            </button>
-            <div id="mod2" class="module-content mt-4 p-4 bg-pink-900/20 rounded-xl border border-pink-500/20 text-xs text-gray-300 max-w-[160px] mx-auto absolute z-50 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-                Prompts secretos para gerar desejo imediato de compra.
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button onclick="toggleModule('mod3')" class="btn-gamified-small btn-mod-3 p-4 rounded-xl">
-                <i class="fas fa-bolt mb-1 block text-xl" style="color: var(--neon-yellow)"></i>
-                <span class="text-[10px] font-black uppercase" style="color: var(--neon-yellow)">Módulo 03</span>
-            </button>
-            <div id="mod3" class="module-content mt-4 p-4 bg-yellow-900/20 rounded-xl border border-yellow-500/20 text-xs text-gray-300 max-w-[160px] mx-auto absolute z-50 left-1/2 -translate-x-1/2 md:static md:translate-x-0">
-                Domine o algoritmo e escale seus resultados de forma invisível.
-            </div>
-        </div>
-    </section>
-
-    <section class="mt-10 px-6">
-        <div class="max-w-3xl mx-auto bg-black p-8 rounded-2xl border border-red-500 shadow-[0_0_20px_rgba(255,0,0,0.1)]">
-            <h3 class="text-3xl font-bold text-center text-red-500 uppercase tracking-tighter">
-                O seu maior obstáculo é...
-            </h3>
-            <ul class="mt-8 space-y-4 text-gray-300">
-                <li class="flex items-center"><span class="mr-3">🚩</span> Postar conteúdo todos os dias e ser ignorado pelo algoritmo</li>
-                <li class="flex items-center"><span class="mr-3">🚩</span> Ver seus concorrentes lucrando com ferramentas que você não domina</li>
-                <li class="flex items-center"><span class="mr-3">🚩</span> Sentir que o mercado saturou enquanto você ainda busca o "caminho"</li>
-                <li class="flex items-center"><span class="mr-3">🚩</span> Ficar refém de estratégias ultrapassadas que só queimam seu tempo</li>
-            </ul>
-            <p class="mt-8 text-center text-lg text-white font-semibold italic">
-                Chegou a hora de parar de remar contra a maré.
-            </p>
-        </div>
-    </section>
-
-    <section class="mt-24 px-6 text-center">
-        <h2 class="text-4xl font-bold text-green-400 drop-shadow-[0_0_10px_rgba(0,255,65,0.3)]">
-            O Protocolo GOAT é o seu novo motor.
-        </h2>
-        <p class="mt-6 text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed mb-10">
-            Esqueça as promessas vazias. Este é um <strong>sistema blindado</strong> criado para quem não aceita menos do que a excelência tecnológica.
-        </p>
-        
-        <a href="https://pay.kiwify.com.br/TE6TEU3" class="btn-checkout-fast inline-block">
-            <i class="fas fa-rocket mr-2"></i> Pegar meu atalho agora
-        </a>
-    </section>
-
-    <footer class="mt-32 pb-10 text-center text-gray-600 text-[10px] uppercase tracking-widest">
-        &copy; 2026 Protocolo GOAT - Tecnologia Avançada em IA
-    </footer>
+    <audio id="clickSound" preload="auto">
+        <source src="audio/click.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        function toggleModule(id) {
-            const current = document.getElementById(id).style.display;
-            document.querySelectorAll('.module-content').forEach(el => el.style.display = 'none');
-            const content = document.getElementById(id);
-            content.style.display = (current === 'block') ? 'none' : 'block';
-        }
+        // Script para tocar som em todos os botões automaticamente
+        const somClique = document.getElementById('clickSound');
+        const botoes = document.querySelectorAll('.goat-button');
 
-        const iframe = document.getElementById('vslVideo');
-
-        window.addEventListener('load', () => {
-            iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        botoes.forEach(botao => {
+            botao.addEventListener('click', () => {
+                // Reseta o som para o início (permite cliques rápidos)
+                somClique.currentTime = 0;
+                
+                // Toca o som e lida com permissões do navegador
+                somClique.play().catch(error => {
+                    console.log("O áudio só toca após a primeira interação do usuário.");
+                });
+            });
         });
-
-        document.body.addEventListener('click', () => {
-            iframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        }, { once: true });
     </script>
+
 </body>
 </html>
