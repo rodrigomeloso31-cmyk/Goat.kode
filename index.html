@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOAT KODE</title>
+    <title>GOAT KODE | Home</title>
     <style>
-        body { background-color: #0a0a0a; color: white; font-family: sans-serif; text-align: center; padding-top: 50px; }
+        body { background-color: #050505; color: white; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        h1 { letter-spacing: 5px; text-shadow: 0 0 10px #00ff95; }
+        
+        /* Botão com efeito de brilho neon */
         .btn-goat { 
             border: 2px solid #00ff95; 
             color: #00ff95; 
-            padding: 15px 30px; 
+            padding: 18px 35px; 
             background: none; 
             cursor: pointer; 
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 5px;
+            font-weight: bold; 
+            text-transform: uppercase; 
+            border-radius: 8px; 
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-goat:hover { 
+            background: #00ff95; 
+            color: black; 
+            box-shadow: 0 0 30px #00ff95, 0 0 60px rgba(0, 255, 149, 0.4);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
     <h1>GOAT KODE</h1>
+    <p>A disciplina é o caminho para a abundância.</p>
     <button class="btn-goat">Acessar Ebook</button>
 
     <audio id="clickSound">
-        <source src="áudio/clique.mp3" type="audio/mpeg">
+        <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         const som = document.getElementById('clickSound');
-        const botoes = document.querySelectorAll('.btn-goat');
-
-        botoes.forEach(botao => {
-            botao.addEventListener('click', () => {
-                som.currentTime = 0; // Reinicia o áudio
-                som.play().catch(e => console.log("Erro ao tocar: ", e));
-            });
+        document.querySelector('.btn-goat').addEventListener('click', () => {
+            som.currentTime = 0;
+            som.play();
         });
     </script>
 </body>
